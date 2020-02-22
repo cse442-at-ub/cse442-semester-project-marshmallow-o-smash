@@ -1,30 +1,109 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>North Campus GPS</title>
+<title>UB North Campus Map Navigation</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-#myHeader {
-  background-color: lightblue;
-  color: black;
-  padding: 40px;
-  text-align: center;
+body {
+  margin: 0;
+  background-color: #D2E2F8;
 }
-.cities {
-  background-color: black;
+iframe{
+  float:right;
+  width: 100%;
+  height:100%;
+  position: fixed;
+}
+small{
+  float:right;
+}
+.header {
+  background-color: #176BE2;
+  padding: 10px;
+  text-align: center;
+  width: 100%
+  margin-left: auto;
+  margin-right: auto;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
   color: white;
-  margin: 20px;
-  padding: 20px;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: center;
+  width: 100%;
+  margin-right:20px;
+}
+
+.topnav .search-container button {
+  float: center;
+  padding: 10px 28px;
+  margin-top: 8px;
+  margin-right: 1px;
+  background: #176BE2;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
 }
 </style>
 </head>
-
-<h1 id="myHeader">My Header</h1>
-
 <body>
+<div class="header">
+  <h1 style="color: White;">North Campus Map</h1>
+</div>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-78.80081176757814%2C42.9947133134866%2C-78.77248764038086%2C43.00828755486206&amp;layer=mapnik&amp;marker=43.001500809058555%2C-78.78664970397949" style="border: 1px solid black"></iframe>
 
+
+<ul>
+<div class="topnav">
+<div class="search-container">
+    <form action="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/frame_test">
+      <input type="text" placeholder="your location" name="search">
+	  <input type="text" placeholder="destination" name="search">
+      <button type="submit" style="color: white;">Go!</button>
+    </form>
+  </div>
+  </div>
+</ul>
 </body>
 </html>
