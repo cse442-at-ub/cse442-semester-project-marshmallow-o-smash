@@ -15,9 +15,7 @@ iframe{
   height:100%;
   position: fixed;
 }
-small{
-  float:right;
-}
+
 .header {
   background-color: #176BE2;
   padding: 10px;
@@ -27,21 +25,20 @@ small{
   margin-right: auto;
 }
 ul {
+  float:right;
   list-style-type: none;
   margin: 0;
   padding: 0;
   width: 20%;
-  background-color: #f1f1f1;
-  position: fixed;
+  background-color: transparent;
+  position: relative;
   height: 100%;
   overflow: auto;
 }
 .topnav a {
-  float: left;
   display: block;
   color: black;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
 }
@@ -57,28 +54,23 @@ ul {
 }
 
 .topnav .search-container {
-  float: right;
+  float: center;
 }
 
 .topnav input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
+  padding: 10px 28px;
+  margin-top: 10px;
   font-size: 17px;
-  border: center;
-  width: 100%;
-  margin-right:20px;
+  border: inset;
 }
 
 .topnav .search-container button {
-  float: center;
   padding: 10px 28px;
-  margin-top: 8px;
-  margin-right: 1px;
+  margin-top: 10px;
   background: #176BE2;
-  font-size: 15px;
-  border: none;
+  font-size: 17px;
+  border: outset;
   cursor: pointer;
-  width: 100%;
 }
 
 .topnav .search-container button:hover {
@@ -88,7 +80,7 @@ ul {
 </head>
 <body>
 <div class="header">
-  <h1 style="color: White;">North Campus Map</h1>
+  <h1 style="color: White;">UB North Campus Map</h1>
 </div>
 
 <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-78.80081176757814%2C42.9947133134866%2C-78.77248764038086%2C43.00828755486206&amp;layer=mapnik&amp;marker=43.001500809058555%2C-78.78664970397949" style="border: 1px solid black"></iframe>
@@ -98,7 +90,6 @@ ul {
 <div class="topnav">
 <div class="search-container">
     <form action="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/frame_test">
-      <input type="text" placeholder="your location" name="search">
 	  <input type="text" placeholder="destination" name="search">
       <button type="submit" style="color: white;">Go!</button>
     </form>
