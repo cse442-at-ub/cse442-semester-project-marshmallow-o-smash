@@ -16,9 +16,9 @@ function Tile(zoom, x, y){
 }
 }
 
-function getTile(zoom, long, lati){
-  longitudeInRadians = Math.PI * long / 180.0;
-  latitudeInRadians = Math.PI * lati / 180.0;
+function getTile(zoom, lati, long){
+  let longitudeInRadians = Math.PI * long / 180.0;
+  let latitudeInRadians = Math.PI * lati / 180.0;
 
   let howManyTilesAtThisZoomLevel = Math.pow(2.0, zoom);
 
@@ -69,13 +69,20 @@ function tile_list(center_tile){
 }
 
 function display(tiles){
-  for (var i=0;i<tiles.length;i++){
-    let img = document.createElement("IMG");
-    img.setAttribute("src", tiles[i].getURL());
-    document.body.appendChild(img);
+  let index=0;
+  for (var i=0;i<3;i++){
+    for(var j=0;j<3;j++){
+      let img = document.createElement("IMG");
+      img.setAttribute("src", tiles[index].getURL());
+      img.setAttribute("style", "max-width:33%;");
+      index++;
+      document.getElementById("row"+i).appendChild(img);
+    }
+//    document.body.appendChild(img);
+
   }
 }
-
-let center = getTile(3, 42.8863889, -78.8786111);
+let center = getTile(16, 43.0007353, -78.7888962);
+//let center = getTile(3, 42.8863889, -78.8786111);
 let list = tile_list(center);
 display(list);
