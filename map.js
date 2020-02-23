@@ -1,3 +1,9 @@
+let zoom=16;
+let max_zoom=18;
+let min_zoom=0;
+let center = getTile(16, 43.0007353, -78.7888962);
+
+
 function Tile(zoom, x, y){
   this.zoom=zoom;
   this.x=x;
@@ -78,11 +84,16 @@ function display(tiles){
       index++;
       document.getElementById("row"+i).appendChild(img);
     }
-//    document.body.appendChild(img);
-
   }
 }
-let center = getTile(16, 43.0007353, -78.7888962);
-//let center = getTile(3, 42.8863889, -78.8786111);
+
+function zoomIn(){
+  if(zoom<max_zoom) zoom+=1;
+}
+
+function zoomOut(){
+  if(zoom>min_zoom) zoom-=1;
+}
+
 let list = tile_list(center);
 display(list);
