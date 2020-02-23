@@ -74,7 +74,7 @@ function display(tiles){
     for(var j=0;j<3;j++){
       let img = document.createElement("IMG");
       img.setAttribute("src", tiles[index].getURL());
-      img.setAttribute("style", "max-width:33%;");
+      img.setAttribute("style", "width:33.33%; height: auto;");
       index++;
       document.getElementById("row"+i).appendChild(img);
     }
