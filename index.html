@@ -1,30 +1,225 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>North Campus GPS</title>
+<title>UB North Campus Map Navigation</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-#myHeader {
-  background-color: lightblue;
+body {
+  margin: 0;
+  height:100%;
+  background-color: #D2E2F8;
+}
+iframe{
+  float:left;
+  width: 100%;
+  top:100px;
+  height:100%;
+  position: fixed;
+}
+
+.header {
+  background-color: #176BE2;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+ul {
+  position: fixed;
+  right: 0;
+  top:100px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  min-width: 22%;
+  background-color: transparent;
+  overflow: auto;
+}
+.topnav a {
+  display: block;
   color: black;
-  padding: 40px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnav .search-container select {
+  padding: 10px 28px;
+  margin-top: 10px;
+  font-size: 17px;
+  border: inset;
+  opacity:0.9;
+}
+
+.topnav .search-container button {
+  padding: 10px 28px;
+  margin-top: 10px;
+  background: #176BE2;
+  font-size: 17px;
+  border: outset;
+  cursor: pointer;
+  opacity:0.9;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+.contact-container{
+  position: fixed;
+  width:100%;
+  bottom: 0; 
+  padding: 10px;
+  background-color: #176BE2;
+  color: white;
+  text-align: center;
+  border:1px solid black;
+  cursor: pointer;
+}
+.contact-container button{
+  color: white;
+  background: none;
+  border:none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.matrix {
+  /*display: flex;*/
+  flex-wrap: wrap;
+  width: auto;
+  padding: 0px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.row{
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin-top: -5px;
+  display: block;
+}
+
+.matrix .btn {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 10px;
+  border: 2px solid #176BE2;
+  cursor: pointer;
+  border-radius: 5px;
   text-align: center;
 }
-.cities {
-  background-color: black;
-  color: white;
-  margin: 20px;
-  padding: 20px;
+
+.matrix .btn:hover {
+  background-color: transparent;
+  color: #176BE2;
+}
+
+.matrix .btn2 {
+  position: absolute;
+  top: 31%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border: 2px solid #176BE2;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+.matrix .btn2:hover {
+  background-color: transparent;
+  color: #176BE2;
 }
 </style>
 </head>
-
-<h1 id="myHeader">My Header</h1>
-
 <body>
-
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-
+<div class="header">
+  <h1 style="color: White;">UB North Campus Map</h1>
+</div>
+<div class="matrix">
+	<button class="btn">+</button>
+	<button class="btn2">-</button>
+	<div class= "row" id="row0"></div>
+	<div class= "row" id="row1"></div>
+	<div class= "row" id="row2"></div>
+</div>
+<script src="map.js">  </script>
+<ul>
+<div class="topnav">
+<div class="search-container">
+    <form action="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">
+	<select id="destination">
+	<option value="0">Select Destination:</option>
+    <option value="1">Alfiero Center</option>
+    <option value="2">Alumni Arena</option>
+    <option value="3">Baird Hall</option>
+    <option value="4">Baldy Hall</option>
+    <option value="5">Bell Hall</option>
+    <option value="6">Bissell Hall</option>
+    <option value="7">Bonner Hall</option>
+    <option value="8">Bookstore</option>
+    <option value="9">Capen Hall</option>
+    <option value="10">Center for the Arts</option>
+    <option value="11">Center for Tomorrow</option>
+    <option value="12">Child Care Center</option>
+    <option value="13">Clemens Hall</option>
+    <option value="14">Commons</option>
+    <option value="15">Cooke Hall</option>
+    <option value="16">Davis Hall</option>
+    <option value="17">Fronczak Hall</option>
+    <option value="18">Hochstetter Hall</option>
+    <option value="19">Jacobs Management Center</option>
+    <option value="20">Jarvis Hall</option>
+    <option value="21">Ketter Hall</option>
+    <option value="22">Knox Lecture Hall</option>
+    <option value="23">Lockwood Library</option>
+    <option value="24">Mathematics Building</option>
+    <option value="25">Natural Sciences Complex
+</option>
+    <option value="26">Norton Hall</option>
+    <option value="27">O’Brian Hall</option>
+    <option value="28">Park Hall</option>
+    <option value="29">Slee Hall</option>
+    <option value="30">Student Union</option>
+    <option value="31">Talbert Hall</option>
+	  </select>
+      <button type="submit" style="color: white;">Go!</button>
+    </form>
+  </div>
+  </div>
+</ul>
+<div class="contact-container">
+<button onclick="window.location.href = 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact';">Contact Us</button>
+</div>
 </body>
 </html>
+
+
