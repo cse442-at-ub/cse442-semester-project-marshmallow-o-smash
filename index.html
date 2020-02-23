@@ -13,8 +13,8 @@ body {
 iframe{
   float:left;
   width: 100%;
- top:100px;
- height:100%;
+  top:100px;
+  height:100%;
   position: fixed;
 }
 
@@ -22,11 +22,11 @@ iframe{
   background-color: #176BE2;
   padding: 10px;
   text-align: center;
-    position: fixed;
-   z-index: 1;
-   top: 0;
-   left: 0;
-    right: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 ul {
   position: fixed;
@@ -99,18 +99,83 @@ ul {
   cursor: pointer;
 }
 
+.matrix {
+  /*display: flex;*/
+  flex-wrap: wrap;
+  width: auto;
+  padding: 0px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.row{
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin-top: -5px;
+  display: block;
+}
+
+.matrix .btn {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 10px;
+  border: 2px solid #176BE2;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.matrix .btn:hover {
+  background-color: transparent;
+  color: #176BE2;
+}
+
+.matrix .btn2 {
+  position: absolute;
+  top: 31%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border: 2px solid #176BE2;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+.matrix .btn2:hover {
+  background-color: transparent;
+  color: #176BE2;
+}
 </style>
 </head>
 <body>
 <div class="header">
   <h1 style="color: White;">UB North Campus Map</h1>
 </div>
-<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-78.80081176757814%2C42.9947133134866%2C-78.77248764038086%2C43.00828755486206&amp;layer=mapnik&amp;marker=43.001500809058555%2C-78.78664970397949" style="border: 1px solid black"></iframe>
-
+<div class="matrix">
+	<button class="btn">+</button>
+	<button class="btn2">-</button>
+	<div class= "row" id="row0"></div>
+	<div class= "row" id="row1"></div>
+	<div class= "row" id="row2"></div>
+</div>
+<script src="map.js">  </script>
 <ul>
 <div class="topnav">
 <div class="search-container">
-    <form action="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/frame_test">
+    <form action="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">
 	<select id="destination">
 	<option value="0">Select Destination:</option>
     <option value="1">Alfiero Center</option>
@@ -152,7 +217,7 @@ ul {
   </div>
 </ul>
 <div class="contact-container">
-<button onclick="window.location.href = 'https://w3docs.com';">Contact Information</button>
+<button onclick="window.location.href = 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact';">Contact Us</button>
 </div>
 </body>
 </html>
