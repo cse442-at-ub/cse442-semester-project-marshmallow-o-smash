@@ -4,7 +4,7 @@ We are trying to help those who are new to UB to utilize UB North Campus's tunne
 
 Getting Started:
 
-Go to https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/
+To see the website, go to https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/
 
 Built With:
 
