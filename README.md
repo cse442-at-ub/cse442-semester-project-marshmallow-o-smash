@@ -6,14 +6,14 @@ We are trying to help those who are new to UB to utilize UB North Campus's tunne
 --------------------
 To see the website, go to [UB North Campus Navigation](https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/)
 
-#**Built With:**
+**Built With:**
 ----------------
 OpenStreetMap API
 
-#**Versioning:**
+**Versioning:**
 ----------------
 For the versions available, see the tags on this repository.
 
-#**Acknowledgments:**
+**Acknowledgments:**
 ---------------------
 Contributors to OpenStreetMap.
