@@ -14,19 +14,30 @@
 		    position:fixed;
 
       }
-
+      .box{
+          position:fixed;
+          text-align:center;
+          align-items: center;
+          vertical-align: middle;
+          /* width: 300px;
+          height: 400px;
+          opacity: 0.8; */
+          transform: translate(-50%,-50%);
+          top: 50%;
+          left:50%;
+      }
       .header {
-        position:fixed;
-        text-align:center;
+        position:relative;
+        /* text-align:center; */
         background-color: #FFE4E1;
-        align-items: center;
-        vertical-align: middle;
+        /* align-items: center;
+        vertical-align: middle; */
         width: 300px;
         height: 400px;
         opacity: 0.8;
-		    transform: translate(-50%,-50%);
+		    /* transform: translate(-50%,-50%);
 		    top: 50%;
-        left:50%;
+        left:50%; */
       }
 
       .icon {
@@ -51,34 +62,38 @@
 
       .returnToHome{
         position: relative;
-        top:1vw;
-        left:1vw;
-        padding: 3% 41.7%;
+        /* top:50%;
+        left:50%; */
+        /* padding: 3% 41.7%; */
       }
       .returnToHome a{
-        font-size: 2vw;
-        min-width: 1vw;
+        font-size: 12;
         color: #FFE4E1;
         text-decoration: none;
         border: 1px solid #FFE4E1;
-        padding: 1vw 1vw;
+        padding: 10px 10px;
         font-family: sans-seri;
         font-weight:bold;
       }
 
-      @media only screen and (max-height: 575px ) {
+      /* @media only screen and (max-height: 575px ) {
         .returnToHome{
           position: relative;
           top:1vw;
           left:1vw;
           padding: 1% 20.7%;
-        }
+        } */
 }
 
     </style>
   </head>
 
   <body>
+    <div class="box">
+
+      <div class="returnToHome">
+      <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Homepage</a>
+      </div>
 
     <div class ="header">
       <h1>Contact Us</h1>
@@ -105,10 +120,8 @@
       </div>
     </div>
 
-    <div class="returnToHome">
-    <a href="file:///C:/Users/liang/Desktop/cse442-semester-project-marshmallow-o-smash/index.html">Homepage</a>
-    </div>
 
+  </div>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
   </body>
 <html>
