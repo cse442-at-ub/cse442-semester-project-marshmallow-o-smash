@@ -11,7 +11,7 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-		position:fixed;
+		    position:fixed;
 
       }
 
@@ -24,8 +24,8 @@
         width: 300px;
         height: 400px;
         opacity: 0.8;
-		transform: translate(-50%,-50%);
-		top: 50%;
+		    transform: translate(-50%,-50%);
+		    top: 50%;
         left:50%;
       }
 
@@ -48,6 +48,33 @@
         margin-top: 50px;
         padding: 0;
       }
+
+      .returnToHome{
+        position: relative;
+        top:1vw;
+        left:1vw;
+        padding: 3% 41.7%;
+      }
+      .returnToHome a{
+        font-size: 2vw;
+        min-width: 1vw;
+        color: #FFE4E1;
+        text-decoration: none;
+        border: 1px solid #FFE4E1;
+        padding: 1vw 1vw;
+        font-family: sans-seri;
+        font-weight:bold;
+      }
+
+      @media only screen and (max-height: 575px ) {
+        .returnToHome{
+          position: relative;
+          top:1vw;
+          left:1vw;
+          padding: 1% 20.7%;
+        }
+}
+
     </style>
   </head>
 
@@ -78,6 +105,9 @@
       </div>
     </div>
 
+    <div class="returnToHome">
+    <a href="file:///C:/Users/liang/Desktop/cse442-semester-project-marshmallow-o-smash/index.html">Homepage</a>
+    </div>
 
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
   </body>
