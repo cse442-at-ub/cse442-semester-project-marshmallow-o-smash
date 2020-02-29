@@ -20,7 +20,7 @@ iframe{
 
 .header {
   background-color: #176BE2;
-  padding: 10px;
+  padding: 7px;
   text-align: center;
   position: fixed;
   z-index: 1;
@@ -57,22 +57,25 @@ ul {
   color: white;
 }
 
-.topnav .search-container select {
-  padding: 10px 28px;
-  margin-top: 10px;
+.topnav .search-container input {
+  padding: 10px 20px;
+  margin-top: 3px;
   font-size: 17px;
   border: inset;
   opacity:0.9;
+  display: block;
+  margin-right: 3px;
 }
 
 .topnav .search-container button {
   padding: 10px 28px;
-  margin-top: 10px;
+  margin-top: 3px;
   background: #176BE2;
   font-size: 17px;
   border: outset;
   cursor: pointer;
   opacity:0.9;
+  width: 98%;
 }
 
 .topnav .search-container button:hover {
@@ -178,41 +181,41 @@ ul {
 <div class="topnav">
 <div class="search-container">
     <form action="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">
-	<select id="destination">
-	<option value="0">Select Destination:</option>
-    <option value="1">Alfiero Center</option>
-    <option value="2">Alumni Arena</option>
-    <option value="3">Baird Hall</option>
-    <option value="4">Baldy Hall</option>
-    <option value="5">Bell Hall</option>
-    <option value="6">Bissell Hall</option>
-    <option value="7">Bonner Hall</option>
-    <option value="8">Bookstore</option>
-    <option value="9">Capen Hall</option>
-    <option value="10">Center for the Arts</option>
-    <option value="11">Center for Tomorrow</option>
-    <option value="12">Child Care Center</option>
-    <option value="13">Clemens Hall</option>
-    <option value="14">Commons</option>
-    <option value="15">Cooke Hall</option>
-    <option value="16">Davis Hall</option>
-    <option value="17">Fronczak Hall</option>
-    <option value="18">Hochstetter Hall</option>
-    <option value="19">Jacobs Management Center</option>
-    <option value="20">Jarvis Hall</option>
-    <option value="21">Ketter Hall</option>
-    <option value="22">Knox Lecture Hall</option>
-    <option value="23">Lockwood Library</option>
-    <option value="24">Mathematics Building</option>
-    <option value="25">Natural Sciences Complex
-</option>
-    <option value="26">Norton Hall</option>
-    <option value="27">O’Brian Hall</option>
-    <option value="28">Park Hall</option>
-    <option value="29">Slee Hall</option>
-    <option value="30">Student Union</option>
-    <option value="31">Talbert Hall</option>
-	  </select>
+	  <input list="buildings" placeholder="Starting Location" name="search">
+	  <input list="buildings" placeholder="Destination" name="search">
+	  	  <datalist id="buildings">
+			<option value="Alfiero Center">
+			<option value="Alumni Arena">
+			<option value="Baird Hall">
+			<option value="Baldy Hall">
+			<option value="Bell Hall">
+		    <option value="Bissell Hall">
+			<option value="Bonner Hall">
+		    <option value="Bookstore">
+		    <option value="Capen Hall">
+			<option value="Center for the Arts">
+			<option value="Center for Tomorrow">
+			<option value="Child Care Center">
+			<option value="Clemens Hall">
+			<option value="Commons">
+			<option value="Cooke Hall">
+			<option value="Davis Hall">
+			<option value="Fronczak Hall">
+			<option value="Hochstetter Hall">
+			<option value="Jacobs Management Center">
+			<option value="Jarvis Hall">
+			<option value="Ketter Hall">
+			<option value="Knox Lecture Hall">
+			<option value="Lockwood Library">
+			<option value="Mathematics Building">
+			<option value="Natural Sciences Complex">
+			<option value="Norton Hall">
+			<option value="O’Brian Hall">
+			<option value="Park Hall">
+			<option value="Slee Hall">
+			<option value="Student Union">
+			<option value="Talbert Hall">
+	    </datalist>
       <button type="submit" style="color: white;">Go!</button>
     </form>
   </div>
