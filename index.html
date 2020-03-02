@@ -13,13 +13,14 @@ body {
 iframe{
   float:left;
   width: 100%;
-  top:100px;
-  height:100%;
+  top: 100px;
+  height: 100%;
   position: fixed;
 }
+
 .header {
   background-color: #176BE2;
-  padding: 7px;
+  padding: 8px;
   text-align: center;
   position: fixed;
   z-index: 1;
@@ -32,28 +33,35 @@ ul {
   right: 0;
   top:100px;
   list-style-type: none;
-  margin: 0;
+  margin-top: 50px;
   padding: 0;
-  min-width: 22%;
+  min-width: 10%;
   background-color: transparent;
   overflow: auto;
-}
-.topnav a {
-  display: block;
-  color: black;
   text-align: center;
-  text-decoration: none;
-  font-size: 17px;
+}
+top {
+  list-style-type: none;
+  overflow: hidden;
+  background-color: #173660;
+  position: fixed;
+  width: 100%;
+}
+li {
+  float: right;
+  border-left:1px solid #bbb;
 }
 
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #2196F3;
+li a {
+  display: block;
   color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
 }
 
 .topnav .search-container input {
@@ -74,31 +82,10 @@ ul {
   border: outset;
   cursor: pointer;
   opacity:0.9;
-  width: 99%;
 }
 
 .topnav .search-container button:hover {
   background: #ccc;
-}
-.contact-container{
-  position: fixed;
-  width:100%;
-  bottom: 0; 
-  padding: 10px;
-  background-color: #176BE2;
-  color: white;
-  text-align: center;
-  border:1px solid black;
-  cursor: pointer;
-}
-.contact-container button{
-  color: white;
-  background: none;
-  border:none;
-  text-align: center;
-  text-decoration: none;
-  font-size: 17px;
-  cursor: pointer;
 }
 
 .matrix {
@@ -120,7 +107,7 @@ ul {
 
 .matrix .btn {
   position: absolute;
-  top: 25%;
+  top: 28%;
   left: 5%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -143,7 +130,7 @@ ul {
 
 .matrix .btn2 {
   position: absolute;
-  top: 31%;
+  top: 34%;
   left: 5%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -168,6 +155,10 @@ ul {
 <div class="header">
   <h1 style="color: White;">UB North Campus Map</h1>
 </div>
+<top>
+  <li><a class="active" href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
+  <li><a href="#about">About Us</a></li>
+</top>
 <div class="matrix">
 	<button class="btn">+</button>
 	<button class="btn2">-</button>
@@ -188,10 +179,10 @@ ul {
 			<option value="Baird Hall">
 			<option value="Baldy Hall">
 			<option value="Bell Hall">
-		 	<option value="Bissell Hall">
+		    <option value="Bissell Hall">
 			<option value="Bonner Hall">
-		    	<option value="Bookstore">
-		    	<option value="Capen Hall">
+		    <option value="Bookstore">
+		    <option value="Capen Hall">
 			<option value="Center for the Arts">
 			<option value="Center for Tomorrow">
 			<option value="Child Care Center">
@@ -220,9 +211,6 @@ ul {
   </div>
   </div>
 </ul>
-<div class="contact-container">
-<button onclick="window.location.href = 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact';">Contact Us</button>
-</div>
 </body>
 </html>
 
