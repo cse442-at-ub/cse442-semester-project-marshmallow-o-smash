@@ -4,27 +4,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
-      body, html{
+      body,html{
         background-image: url("Bull.jpg");
         width:100%;
         height:100%;
         background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-		    position:fixed;
-
+        background-size:cover;
+		    background-attachment: :fixed;
       }
       .box{
-          position:fixed;
+          position:relative;
           text-align:center;
           align-items: center;
           vertical-align: middle;
-          /* width: 300px;
-          height: 400px;
-          opacity: 0.8; */
+          max-width: 100%;
+          /* opacity: 0.8; */
+          padding-left: 100px;
           transform: translate(-50%,-50%);
           top: 50%;
           left:50%;
+          /* top: 150px;
+          left:150px; */
       }
       .header {
         position:relative;
@@ -75,7 +75,24 @@
         font-family: sans-seri;
         font-weight:bold;
       }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
 
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
       /* @media only screen and (max-height: 575px ) {
         .returnToHome{
           position: relative;
@@ -87,10 +104,9 @@
 
     </style>
   </head>
-
   <body>
-    <div class="box">
 
+    <div class="box">
       <div class="returnToHome">
       <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Homepage</a>
       </div>
