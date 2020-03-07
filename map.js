@@ -64,7 +64,7 @@ function tile_list(center_tile){
       new Tile(zoom, 1,1),
       new Tile(zoom, 0,1),
       new Tile(zoom, 0,0),
-      center,
+      new Tile(zoom, 1,0),
       new Tile(zoom, 0,0),
       new Tile(zoom, 0,1),
       new Tile(zoom, 1,1),
