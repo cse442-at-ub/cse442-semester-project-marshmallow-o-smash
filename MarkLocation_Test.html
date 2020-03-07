@@ -117,9 +117,8 @@ li a:hover {
 <ul>
 <div class="topnav">
 <div class="search-container">
-    <form action="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">
-	  <input list="buildings" placeholder="Starting Location" name="search">
-	  <input list="buildings" placeholder="Destination" name="search">
+	  <input type="text" id="from" list="buildings" placeholder="Starting Location" name="search">
+	  <input type="text" id="to" list="buildings" placeholder="Destination" name="search">
 	  	  <datalist id="buildings">
 			<option value="Alfiero Center">
 			<option value="Alumni Arena">
@@ -153,24 +152,31 @@ li a:hover {
 			<option value="Student Union">
 			<option value="Talbert Hall">
 	    </datalist>
-      <button type="submit" style="color: white;">Go!</button>
+      <button type="submit" onclick="get_input()" style="color: white;">Go!</button>
     </form>
   </div>
   </div>
 </ul>
 <script>
- var cIcon = L.icon({
-    iconUrl: 'current_mark.png',
-    iconSize:     [38, 38], // size of the icon
-    iconAnchor:   [0, 50], // point of the icon which will correspond to marker's location
-    popupAnchor:  [19, -50] // point from which the popup should open relative to the iconAnchor
- });
  var map=L.map('mapid').setView([43.0007353,-78.7888962], 17);
     L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: ['a','b','c']
     }).addTo( map );
-	L.marker([43.00040,-78.78713],{icon: cIcon}).addTo(map).bindPopup("<b>Current Location</b>").openPopup();
+ var markIcon = L.Icon.extend({
+	opetions: {
+		iconSize:     [38, 38], // size of the icon
+		iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	}
+ });
+ var current = new markIcon({iconUrl: 'current_mark.png'});
+function get_input(){
+	if (document.getElementById("from").value=="Baldy Hall"){
+		L.marker([43.00040,-78.78713],{icon: current}).addTo(map).bindPopup("<b>Current Location</b>").openPopup();
+		
+	}
+}
 </script>
 </body>
 </html>
