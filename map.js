@@ -2,7 +2,10 @@ let zoom=16;
 let max_zoom=18;
 let min_zoom=0;
 let center = getTile(16, 43.0007353, -78.7888962);
-
+let list = tile_list(center);
+display(list);
+document.getElementById("zoomIn").addEventListener("click", zoomIn);
+document.getElementById("zoomOut").addEventListener("click", zoomOut);
 
 function Tile(zoom, x, y){
   this.zoom=zoom;
@@ -11,6 +14,14 @@ function Tile(zoom, x, y){
   this.getZoom=function(){return this.zoom;}
   this.getX=function(){return this.x;}
   this.getY=function(){return this.y;}
+  this.lati=function(){
+    let temp=Math.PI - 2 * Math.PI * this.y /Math.pow(2,this.zoom);
+    return (180/Math.PI*Math.atan(0.5*(Math.exp(temp)-Math.exp(-temp))));
+  }
+  this.long=function(){
+    let temp= this.x/Math.pow(2,this.zoom);
+    return temp * 360 - 180;
+  }
   this.getURL=function() {
   let x = "http://tile.openstreetmap.org/" + this.zoom + "/" + this.x + "/" + this.y + ".png";
   let url=null;
@@ -45,26 +56,29 @@ function tile_list(center_tile){
   let x=center_tile.getX();
   let y=center_tile.getY();
   if(zoom==0) {
-  for(var i =0; i<9; i++) { tiles[i]=new Tile(zoom, x, y);}}
-  if(zoom==1){
+  center=new Tile(0, 0, 0);
+  for(var i =0; i<9; i++) { tiles[i]=center;}}
+  else if(zoom==1){
     tiles=[
       new Tile(zoom, 0,1),
       new Tile(zoom, 1,1),
       new Tile(zoom, 0,1),
       new Tile(zoom, 0,0),
-      center_tile,
+      center,
       new Tile(zoom, 0,0),
       new Tile(zoom, 0,1),
       new Tile(zoom, 1,1),
       new Tile(zoom, 0,1),
     ];
   }else{
+    if(x<=0)x=1;
+    if(y<1)y=1;
     tiles=[
       new Tile(zoom, x-1,y-1),
       new Tile(zoom, x,y-1),
       new Tile(zoom, x+1,y-1),
       new Tile(zoom, x-1,y),
-      center_tile,
+      center,
       new Tile(zoom, x+1,y),
       new Tile(zoom, x-1,y+1),
       new Tile(zoom, x,y+1),
@@ -79,6 +93,7 @@ function display(tiles){
   for (var i=0;i<3;i++){
     for(var j=0;j<3;j++){
       let img = document.createElement("IMG");
+      img.setAttribute("id", "IMAGES");
       img.setAttribute("src", tiles[index].getURL());
       img.setAttribute("style", "width:33.33%; height: auto;");
       index++;
@@ -88,12 +103,28 @@ function display(tiles){
 }
 
 function zoomIn(){
-  if(zoom<max_zoom) zoom+=1;
+  if(zoom<max_zoom){
+    zoom++;
+    empty();
+    center=getTile(zoom, 43.0007353, -78.7888962);
+    let temp = tile_list(center);
+    display(temp);
+  }
 }
 
 function zoomOut(){
-  if(zoom>min_zoom) zoom-=1;
+  if(zoom>min_zoom){
+    zoom--;
+    empty();
+    center=getTile(zoom, 43.0007353, -78.7888962);
+    let temp = tile_list(center);
+    display(temp);
+  }
 }
+function empty() {
+    while(document.getElementById("IMAGES")!=null){
+      var element = document.getElementById("IMAGES");
+      element.parentNode.removeChild(element);
+    }
 
-let list = tile_list(center);
-display(list);
+}
