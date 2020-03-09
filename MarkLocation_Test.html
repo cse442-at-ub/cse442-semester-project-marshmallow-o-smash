@@ -164,17 +164,18 @@ li a:hover {
         subdomains: ['a','b','c']
     }).addTo( map );
  var markIcon = L.Icon.extend({
-	opetions: {
+	options: {
 		iconSize:     [38, 38], // size of the icon
-		iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+		iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+		popupAnchor:  [19, 0] // point from which the popup should open relative to the iconAnchor
 	}
  });
  var current = new markIcon({iconUrl: 'current_mark.png'});
+ var dest = new markIcon({iconUrl: 'dest_mark.png'});
 function get_input(){
-	if (document.getElementById("from").value=="Baldy Hall"){
-		L.marker([43.00040,-78.78713],{icon: current}).addTo(map).bindPopup("<b>Current Location</b>").openPopup();
-		
+	if (document.getElementById("from").value=="Baldy Hall" && document.getElementById("to").value=="Student Union"){
+		L.marker([43.00052, -78.78698],{icon: current}).addTo(map).bindPopup("<b>Current Location</b>").openPopup();
+		L.marker([43.00140, -78.78639],{icon: dest}).addTo(map).bindPopup("<b>Student Union</b>").openPopup();
 	}
 }
 </script>
