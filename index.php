@@ -94,12 +94,12 @@ li a:hover {
 
 #mapid {   
   /*display: flex;*/
-  transform:translate(0px,45px);
-  width: auto;
-  padding: 0px;
-  text-align: center;
-  margin-top: 100px; 
+  width: 100%;
+  top: 90px;
+  height: 100%;
   position: fixed;
+  transform:translate(0px,45px);
+
 }
 </style>
 </head>
@@ -109,16 +109,15 @@ li a:hover {
 </div>
 <top>
   <li><a class="active" href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
-  <li><a href="#about">About Us</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
 </top>
-
-<div id="mapid" style="width: 100%; height: 555px;"></div>
-
+<div id="mapid"></div>
 <ul>
 <div class="topnav">
 <div class="search-container">
-	  <input type="text" id="from" list="buildings" placeholder="Starting Location" name="search">
-	  <input type="text" id="to" list="buildings" placeholder="Destination" name="search">
+    <form method ="POST" action="">
+	  <input type="text" id = "from" list="buildings" placeholder="Starting Location" name="start">
+	  <input type="text" id = "to" list="buildings" placeholder="Destination" name="dest">
 	  	  <datalist id="buildings">
 			<option value="Alfiero Center">
 			<option value="Alumni Arena">
@@ -152,32 +151,57 @@ li a:hover {
 			<option value="Student Union">
 			<option value="Talbert Hall">
 	    </datalist>
-      <button type="submit" onclick="get_input()" style="color: white;">Go!</button>
+       <input type="submit" name="search" style="color: white;background:#176BE2;" value="Go!">
     </form>
+	<?php
+	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
+	$db=mysqli_select_db($conn,"yingyinl_db");
+
+	if(isset($_POST['search'])){
+		$name =$_POST['start'];
+		$name2 =$_POST['dest'];
+		$query="SELECT * FROM locations where name='$name'";
+		$query_run=mysqli_query($conn,$query);
+		while($row=mysqli_fetch_array($query_run)){
+			?>
+			<script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
+				//var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+				//alert(str);
+			</script>
+			<?php
+		}
+	$query2="SELECT * FROM locations where name='$name2'";
+		$query_run2=mysqli_query($conn,$query2);
+		while($row=mysqli_fetch_array($query_run2)){
+			?>
+			<script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
+				//var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+				//alert(str);	
+			</script>
+			<?php
+		}
+	}
+	?>
+
   </div>
   </div>
-</ul>
-<script>
- var map=L.map('mapid').setView([43.0007353,-78.7888962], 17);
+  <script>
+ var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: ['a','b','c']
     }).addTo( map );
- var markIcon = L.Icon.extend({
-	options: {
-		iconSize:     [38, 38], // size of the icon
-		iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
-		popupAnchor:  [19, 0] // point from which the popup should open relative to the iconAnchor
+	var clat = document.getElementById("s").getAttribute("startlat");
+	var clon = document.getElementById("s").getAttribute("startlon");
+	var cname= document.getElementById("s").getAttribute("startname");
+	var dlat = document.getElementById("d").getAttribute("destlat");
+	var dlon = document.getElementById("d").getAttribute("destlon");
+	var dname= document.getElementById("d").getAttribute("destname");
+	if (cname == cname && dname==dname){
+		L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
+		L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
 	}
- });
- var current = new markIcon({iconUrl: 'current_mark.png'});
- var dest = new markIcon({iconUrl: 'dest_mark.png'});
-function get_input(){
-	if (document.getElementById("from").value=="Baldy Hall" && document.getElementById("to").value=="Student Union"){
-		L.marker([43.00052, -78.78698],{icon: current}).addTo(map).bindPopup("<b>Current Location</b>").openPopup();
-		L.marker([43.00140, -78.78639],{icon: dest}).addTo(map).bindPopup("<b>Student Union</b>").openPopup();
-	}
-}
 </script>
+</ul>
 </body>
 </html>
