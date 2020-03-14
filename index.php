@@ -111,9 +111,7 @@ li a:hover {
   <li><a class="active" href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="#about">About Us</a></li>
 </top>
-
 <div id="mapid"></div>
-
 <ul>
 <div class="topnav">
 <div class="search-container">
@@ -166,10 +164,10 @@ li a:hover {
 		$query_run=mysqli_query($conn,$query);
 		while($row=mysqli_fetch_array($query_run)){
 			?>
-			<script>
+			<script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
 				var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
 				alert(str);
-			
+				myMark();
 			</script>
 			<?php
 		}
@@ -177,31 +175,38 @@ li a:hover {
 		$query_run2=mysqli_query($conn,$query2);
 		while($row=mysqli_fetch_array($query_run2)){
 			?>
-			<script>
+			<script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
 				var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
-				alert(str);
-			
+				alert(str);	
 			</script>
 			<?php
 		}
 	}
 	?>
+
   </div>
   </div>
-</ul>
-<script>
- var cIcon = L.icon({
-    iconUrl: 'current_mark.png',
-    iconSize:     [38, 38], // size of the icon
-    iconAnchor:   [0, 50], // point of the icon which will correspond to marker's location
-    popupAnchor:  [19, -50] // point from which the popup should open relative to the iconAnchor
- });
+  <script>
  var map=L.map('mapid').setView([43.0007353,-78.7888962], 17);
     L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: ['a','b','c']
     }).addTo( map );
-	L.marker([43.00040,-78.78713],{icon: cIcon}).addTo(map).bindPopup("<b>Current Location</b>").openPopup();
+	 var cIcon = L.icon({
+    iconUrl: 'current_mark.png',
+    iconSize:     [38, 38], // size of the icon
+    iconAnchor:   [0, 50], // point of the icon which will correspond to marker's location
+    popupAnchor:  [19, -50] // point from which the popup should open relative to the iconAnchor
+ });
+	var x = document.getElementById("s").getAttribute("startlat");
+	var y = document.getElementById("s").getAttribute("startlon");
+	var z= document.getElementById("s").getAttribute("startname");
+	L.marker([x,y]).addTo(map).bindPopup(z).openPopup();
+	var a = document.getElementById("d").getAttribute("destlat");
+	var b = document.getElementById("d").getAttribute("destlon");
+	var c= document.getElementById("d").getAttribute("destname");
+	L.marker([a,b]).addTo(map).bindPopup(c).openPopup();
 </script>
+</ul>
 </body>
 </html>
