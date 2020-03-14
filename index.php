@@ -197,9 +197,11 @@ li a:hover {
 	var dlat = document.getElementById("d").getAttribute("destlat");
 	var dlon = document.getElementById("d").getAttribute("destlon");
 	var dname= document.getElementById("d").getAttribute("destname");
+	var test_dname = dname+": ("+dlat+","+dlon+")";
+	var test_cname = "Starting Location"+": ("+clat+","+clon+")";
 	if (cname == cname && dname==dname){
-		L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
-		L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
+		L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
+		L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
 	}
 </script>
 </ul>
