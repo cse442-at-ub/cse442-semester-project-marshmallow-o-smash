@@ -197,11 +197,12 @@ li a:hover {
   </div>
   </div>
   <script>
- var map=L.map('mapid').setView([42.9997, -78.7857], 16);
+  var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: ['a','b','c']
+        subdomains: ['a','b','c'],
     }).addTo( map );
+
 	var clat = document.getElementById("s").getAttribute("startlat");
 	var clon = document.getElementById("s").getAttribute("startlon");
 	var cname= document.getElementById("s").getAttribute("startname");
@@ -216,9 +217,9 @@ li a:hover {
 
   	var test_dname = dname+": ("+dlat+","+dlon+")";
   	var test_cname = "Starting Location"+": ("+clat+","+clon+")";
-  	if (cname == cname && dname==dname){
-  		L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
-  		L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
+
+  		// L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
+  		// L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
 	}
 
   function getRoute(clat, clon, cname, dlat, dlon, dname){
