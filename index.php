@@ -209,6 +209,16 @@ li a:hover {
 	var dlon = document.getElementById("d").getAttribute("destlon");
 	var dname= document.getElementById("d").getAttribute("destname");
 
+  	if (cname == cname && dname == dname){
+  		L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
+  		L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
+      getRoute(clat,clon,cname,dlat,dlon,dname);
+
+  	var test_dname = dname+": ("+dlat+","+dlon+")";
+  	var test_cname = "Starting Location"+": ("+clat+","+clon+")";
+  	if (cname == cname && dname==dname){
+  		L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
+  		L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
 	}
 
   function getRoute(clat, clon, cname, dlat, dlon, dname){
