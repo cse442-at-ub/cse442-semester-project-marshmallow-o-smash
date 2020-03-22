@@ -155,6 +155,17 @@ li a:hover {
     </form>
 	<?php
 	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
+	if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} else{
+	$message="Database connected successfully";
+    ?>
+			<script>
+				var str="<?php echo $message?>";
+				alert(str);
+			</script>
+	<?php
+}
 	$db=mysqli_select_db($conn,"yingyinl_db");
 
 	if(isset($_POST['search'])){
@@ -198,10 +209,6 @@ li a:hover {
 	var dlon = document.getElementById("d").getAttribute("destlon");
 	var dname= document.getElementById("d").getAttribute("destname");
 
-	if (cname == cname && dname == dname){
-		L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
-		L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
-    getRoute(clat,clon,cname,dlat,dlon,dname);
 	}
 
   function getRoute(clat, clon, cname, dlat, dlon, dname){
