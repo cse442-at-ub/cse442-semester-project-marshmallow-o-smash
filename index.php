@@ -222,29 +222,38 @@ li a:hover {
   		// L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
 	}
 
+
+
   function getRoute(clat, clon, cname, dlat, dlon, dname){
-    var geojson = {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-          "type": "LineString",
-          "coordinates": [
-            [-78.7869,43.00044],
-            [-78.78590,43.00044],
-            [-78.78573,43.00060],
-            [-78.78620,43.00090],
-            [-78.78628,43.00117]
-          ]
-        }
-      },
-    ]
-    };
-    L.geoJSON(geojson,{
-      style:myStyle
-    }).addTo(map);
+    if(cname == "Baldy Hall" && dname == "Student Union"){
+      var geojson = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [-78.7869,43.00044],
+              [-78.78590,43.00044],
+              [-78.78573,43.00060],
+              [-78.78620,43.00090],
+              [-78.78628,43.00117]
+            ]
+          }
+        },
+      ]
+      };
+      var myStyle = {
+        "color": "#ff7800",
+        "weight": 5,
+        //"opacity": 0.65
+      };
+      L.geoJSON(geojson,{
+        style:myStyle
+      }).addTo(map);
+    }
   }
 
 
