@@ -4,28 +4,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
-      body, html{
+        html{
         background-image: url("Bull.jpg");
         width:100%;
         height:100%;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-		position:fixed;
+		    position:relative;
+      }
+      .box{
+          position:absolute;
+          text-align:center;
+          transform: translate(-50%,-50%);
+          top: 50%;
+          left:50%;
 
       }
-
       .header {
-        position:fixed;
-        text-align:center;
+        position:absolute;
         background-color: #FFE4E1;
+        text-align: center;
         align-items: center;
         vertical-align: middle;
         width: 300px;
         height: 400px;
-        opacity: 0.8;
-		transform: translate(-50%,-50%);
-		top: 50%;
+		    transform: translate(-50%,-50%);
+		    top: 50%;
         left:50%;
       }
 
@@ -48,37 +53,56 @@
         margin-top: 50px;
         padding: 0;
       }
+
+      .returnToHome{
+        position: absolute;
+        top:-15%;
+        left:37.5%;
+      }
+      .returnToHome a{
+        font-size: 50px;
+        color: #FFE4E1;
+        text-decoration: none;
+        padding: 10px 10px;
+        font-family: sans-seri;
+        font-weight:bold;
+      }
+}
+
     </style>
   </head>
 
   <body>
-
-    <div class ="header">
-      <h1>Contact Us</h1>
-      <div class="icon">
-        <p>
-        <!-- <ion-icon name="mail"></ion-icon> -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/You%27ve_got_mail.png" style="max-width:10%">
-      </p>
-      </div>
-      <div class="email">
-        <p>
-        <a href="mailto:taojunzh@buffalo.edu" >Zheng, TaoJun<br></a>
-        <a href="mailto:jzhuang3@buffalo.edu">Zhuang, JingJing<br></a>
-        <a href="mailto:yingyinl@buffalo.edu">Li, YingYin<br></a>
-        <a href="mailto:ldong7@buffalo.edu">Dong, Liang<br></a>
-        </p>
-        </div>
-      <div class="github">
-        <p>
-        <a href="https://github.com/cse442-spring-2020-offering/cse442-semester-project-marshmallow-o-smash/tree/master">
-        <img src="GitHub-Mark-120px-plus.png">
+    <div class="box">
+      <div class ="header">
+        <div class="returnToHome">
+          <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">
+          <ion-icon name="home"></ion-icon>
         </a>
-      </p>
-      </div>
+        </div>
+        <h1>Contact Us</h1>
+        <div class="icon">
+          <p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/You%27ve_got_mail.png" style="max-width:10%">
+          </p>
+        </div>
+        <div class="email">
+          <p>
+          <a href="mailto:taojunzh@buffalo.edu" >Zheng, TaoJun<br></a>
+          <a href="mailto:jzhuang3@buffalo.edu">Zhuang, JingJing<br></a>
+          <a href="mailto:yingyinl@buffalo.edu">Li, YingYin<br></a>
+          <a href="mailto:ldong7@buffalo.edu">Dong, Liang<br></a>
+          </p>
+          </div>
+          <div class="github">
+            <p>
+            <a href="https://github.com/cse442-spring-2020-offering/cse442-semester-project-marshmallow-o-smash/tree/master">
+            <img src="GitHub-Mark-120px-plus.png">
+            </a>
+          </p>
+          </div>
+        </div>
     </div>
-
-
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
   </body>
 <html>
