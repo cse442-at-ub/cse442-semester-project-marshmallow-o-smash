@@ -276,6 +276,7 @@ li a:hover {
     glat=position.coords.latitude;
     glon=position.coords.longitude;
     L.marker([glat,glon]).addTo(map);
+    map.setView([glat, glon], 16);
   }
 
 
