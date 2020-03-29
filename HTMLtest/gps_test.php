@@ -72,6 +72,7 @@ li a:hover {
   padding: 10px 10px;
   margin-top: 3px;
   font-size: 17px;
+  border: inset;
   opacity:0.9;
   display: block;
   margin-right: 3px;
@@ -100,23 +101,6 @@ li a:hover {
   transform:translate(0px,45px);
 
 }
-.selectbar{
-	display: inline-block;
-	margin:3px 3px 3px 3px;
-	postion:relative;
-}
-.selectbar div{
-	display: inline-block;
-	line-height:30px;
-	color: #173660;
-	font-size: 13px;
-	font-weight: bold;
-}
-.selectbar select{
-	padding: 5px 5px;
-	font-size: 13px;
-	opacity:0.8;
-}
 </style>
 </head>
 <body>
@@ -134,15 +118,7 @@ li a:hover {
     <form method ="POST" action="">
 	  <input type="text" id = "from" list="buildings" placeholder="Starting Location" name="start">
 	  <input type="text" id = "to" list="buildings" placeholder="Destination" name="dest">
-	  <div class="selectbar">
-		<div>Route Option:</div>
-		<select id="options">
-			<option value="shortest">Shortest Route</option>
-			<option value="outdoor">Outdoor Route</option>
-			<option value="tunnel">Tunnel Route</option>
-		</select>
-	  </div>
-		 <datalist id="buildings">
+	  	  <datalist id="buildings">
 			<option value="Alfiero Center">
 			<option value="Alumni Arena">
 			<option value="Baird Hall">
@@ -175,9 +151,9 @@ li a:hover {
 			<option value="Student Union">
 			<option value="Talbert Hall">
 	    </datalist>
-       <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
+       <input type="submit" name="search" style="color: white;background:#176BE2;" value="Go!">
     </form>
- <?php
+	<?php
 	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
 	if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -185,8 +161,8 @@ li a:hover {
 	$message="Database connected successfully";
     ?>
 			<script>
-			//	var str="<?php echo $message?>";
-				//alert(str);
+				var str="<?php echo $message?>";
+				alert(str);
 			</script>
 	<?php
 }
@@ -195,22 +171,8 @@ li a:hover {
 	if(isset($_POST['search'])){
 		$name =$_POST['start'];
 		$name2 =$_POST['dest'];
-		if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
-		{
-			?>
-		<script>
-			var str="No valid string inputs. Please reenter."
-				alert(str);
-		</script>
-		<?php
-		}
 		$query="SELECT * FROM locations where name='$name'";
 		$query_run=mysqli_query($conn,$query);
-		$v1=true;
-		$v2=true;
-		if(mysqli_num_rows($query_run) <1){
-			$v1=false;
-		}
 		while($row=mysqli_fetch_array($query_run)){
 			?>
 			<script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
@@ -219,11 +181,8 @@ li a:hover {
 			</script>
 			<?php
 		}
-		$query2="SELECT * FROM locations where name='$name2'";
+	$query2="SELECT * FROM locations where name='$name2'";
 		$query_run2=mysqli_query($conn,$query2);
-		if(mysqli_num_rows($query_run2) <1){
-			$v2=false;
-		}
 		while($row=mysqli_fetch_array($query_run2)){
 			?>
 			<script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
@@ -231,25 +190,17 @@ li a:hover {
 				//alert(str);
 			</script>
 			<?php
-		}	
-		?>
-		<script>
-			var v1="<?php echo $v1 ?>";
-			var v2="<?php echo $v2 ?>";
-			if(v1==false || v2==false){
-				var str="No route existing between the two locations. Please reenter locations.";
-				alert(str);
-				}
-		</script>
-		<?php
+		}
 	}
 	?>
+
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
-  <script type="text/javascript">
+
+  <script>
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
-    L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: ['a','b','c'],
     }).addTo( map );
@@ -261,16 +212,16 @@ li a:hover {
 	var dlon = document.getElementById("d").getAttribute("destlon");
 	var dname= document.getElementById("d").getAttribute("destname");
 
-  if (cname&&dname){
-  	// L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
-  	// L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
-    getRoute(clat,clon,cname,dlat,dlon,dname);
+  	if (cname&&dname){
+  		// L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
+  		// L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
+      getRoute(clat,clon,cname,dlat,dlon,dname);
 
-  var test_dname = dname+": ("+dlat+","+dlon+")";
-  var test_cname = "Starting Location"+": ("+clat+","+clon+")";
+  	var test_dname = dname+": ("+dlat+","+dlon+")";
+  	var test_cname = "Starting Location"+": ("+clat+","+clon+")";
 
-  L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
-  L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
+  		L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
+  		L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
 	}
 
 
@@ -308,25 +259,18 @@ li a:hover {
   }
 
 
-
   /********For GPS*********/
   var glat;
   var glon;
 
   function getLocation() {
     if (navigator.geolocation) {
-      var options ={timeout:15000};
-      navigator.geolocation.getCurrentPosition(showPosition,error,options);
+      navigator.geolocation.getCurrentPosition(showPosition);
     }
     else {
-      alert("Browser is not supported.");
+      x.innerHTML = "Geolocation is not supported by this browser.";
     }
   }
-
-  function error(error){
-    alert("error");
-  }
-
 
   function showPosition(position) {
     glat=position.coords.latitude;
@@ -334,6 +278,7 @@ li a:hover {
     L.marker([glat,glon]).addTo(map);
     map.setView([glat, glon], 16);
   }
+
 
 
 </script>
