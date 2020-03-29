@@ -177,19 +177,8 @@ li a:hover {
 	    </datalist>
        <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
     </form>
-	<?php
-	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
-	if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else{
-	$message="Database connected successfully";
-    ?>
-			<script>
-				var str="<?php echo $message?>";
-				//alert(str);
-			</script>
-	<?php
-}
+
+  <?php
 	$db=mysqli_select_db($conn,"yingyinl_db");
 
 	if(isset($_POST['search'])){
@@ -221,9 +210,9 @@ li a:hover {
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
-  <script>
+  <script type="text/javascript">
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
-    L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: ['a','b','c'],
     }).addTo( map );
@@ -289,13 +278,18 @@ li a:hover {
 
   function getLocation() {
     if (navigator.geolocation) {
-      var options ={timeout:60000};
-      navigator.geolocation.getCurrentPosition(showPosition);
+      var options ={timeout:15000};
+      navigator.geolocation.getCurrentPosition(showPosition,error,options);
     }
     else {
-      window.alert("Browser is not supported.");
+      alert("Browser is not supported.");
     }
   }
+
+  function error(error){
+    alert("error");
+  }
+
 
   function showPosition(position) {
     glat=position.coords.latitude;
