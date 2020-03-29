@@ -177,7 +177,8 @@ li a:hover {
 	    </datalist>
        <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
     </form>
- <?php
+
+  <?php
 	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
 	if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -199,7 +200,7 @@ li a:hover {
 		{
 			?>
 		<script>
-			var str="No valid string inputs. Please reenter."
+			var str="Not valid string inputs. Please reenter."
 				alert(str);
 		</script>
 		<?php
@@ -244,6 +245,7 @@ li a:hover {
 		<?php
 	}
 	?>
+
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
