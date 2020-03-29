@@ -177,7 +177,7 @@ li a:hover {
 	    </datalist>
        <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
     </form>
-	<?php
+		<?php
 	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
 	if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -185,7 +185,7 @@ li a:hover {
 	$message="Database connected successfully";
     ?>
 			<script>
-				var str="<?php echo $message?>";
+			//	var str="<?php echo $message?>";
 				//alert(str);
 			</script>
 	<?php
@@ -195,8 +195,22 @@ li a:hover {
 	if(isset($_POST['search'])){
 		$name =$_POST['start'];
 		$name2 =$_POST['dest'];
+		if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
+		{
+			?>
+		<script>
+			var str="No valid string inputs. Please reenter."
+				alert(str);
+		</script>
+		<?php
+		}
 		$query="SELECT * FROM locations where name='$name'";
 		$query_run=mysqli_query($conn,$query);
+		$v1=true;
+		$v2=true;
+		if(mysqli_num_rows($query_run) <1){
+			$v1=false;
+		}
 		while($row=mysqli_fetch_array($query_run)){
 			?>
 			<script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
@@ -205,8 +219,11 @@ li a:hover {
 			</script>
 			<?php
 		}
-	$query2="SELECT * FROM locations where name='$name2'";
+		$query2="SELECT * FROM locations where name='$name2'";
 		$query_run2=mysqli_query($conn,$query2);
+		if(mysqli_num_rows($query_run2) <1){
+			$v2=false;
+		}
 		while($row=mysqli_fetch_array($query_run2)){
 			?>
 			<script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
@@ -214,10 +231,19 @@ li a:hover {
 				//alert(str);
 			</script>
 			<?php
-		}
+		}	
+		?>
+		<script>
+			var v1="<?php echo $v1 ?>";
+			var v2="<?php echo $v2 ?>";
+			if(v1==false || v2==false){
+				var str="No route existing between the two locations. Please reenter locations.";
+				alert(str);
+				}
+		</script>
+		<?php
 	}
 	?>
-
   </div>
   </div>
   <script>
