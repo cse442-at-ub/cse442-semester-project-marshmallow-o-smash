@@ -72,7 +72,6 @@ li a:hover {
   padding: 10px 10px;
   margin-top: 3px;
   font-size: 17px;
-  border: inset;
   opacity:0.9;
   display: block;
   margin-right: 3px;
@@ -101,6 +100,23 @@ li a:hover {
   transform:translate(0px,45px);
 
 }
+.selectbar{
+	display: inline-block;
+	margin:3px 3px 3px 3px;
+	postion:relative;
+}
+.selectbar div{
+	display: inline-block;
+	line-height:30px;
+	color: #173660;
+	font-size: 13px;
+	font-weight: bold;
+}
+.selectbar select{
+	padding: 5px 5px;
+	font-size: 13px;
+	opacity:0.8;
+}
 </style>
 </head>
 <body>
@@ -118,7 +134,15 @@ li a:hover {
     <form method ="POST" action="">
 	  <input type="text" id = "from" list="buildings" placeholder="Starting Location" name="start">
 	  <input type="text" id = "to" list="buildings" placeholder="Destination" name="dest">
-	  	  <datalist id="buildings">
+	  <div class="selectbar">
+		<div>Route Option:</div>
+		<select id="options">
+			<option value="shortest">Shortest Route</option>
+			<option value="outdoor">Outdoor Route</option>
+			<option value="tunnel">Tunnel Route</option>
+		</select>
+	  </div>
+		 <datalist id="buildings">
 			<option value="Alfiero Center">
 			<option value="Alumni Arena">
 			<option value="Baird Hall">
@@ -151,7 +175,7 @@ li a:hover {
 			<option value="Student Union">
 			<option value="Talbert Hall">
 	    </datalist>
-       <input type="submit" name="search" style="color: white;background:#176BE2;" value="Go!">
+       <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
     </form>
 	<?php
 	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
@@ -162,7 +186,7 @@ li a:hover {
     ?>
 			<script>
 				var str="<?php echo $message?>";
-				alert(str);
+				//alert(str);
 			</script>
 	<?php
 }
