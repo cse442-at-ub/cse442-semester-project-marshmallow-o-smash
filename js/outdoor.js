@@ -1,5 +1,5 @@
 var dict={
-  "Alfiero Center":["Baldy Hall","Lockwood Library","Park Hall","Jacobs Management Center"],
+  "Alfiero Center":["Baldy Hall","Lockwood Library","Park Hall","Jacobs Management Center","O’Brian Hall"],
   "Alumni Arena":["Center for the Arts"],
   "Baird Hall":["Slee Hall","Clemens Hall"],
   "Baldy Hall":["Lockwood Library","Student Union","O’Brian Hall","Knox Lecture Hall","Alfiero Center","Park Hall"],
@@ -24,7 +24,7 @@ var dict={
   "Mathematics Building":["Natural Sciences Complex"],
   "Natural Sciences Complex":["Mathematics Building","Cooke Hall","Fronczak Hall","Hochstetter Hall","Talbert Hall"],
   "Norton Hall":["Bonner Hall","Capen Hall","Knox Lecture Hall","O’Brian Hall"],
-  "O’Brian Hall":["Baldy Hall","Knox Lecture Hall","Norton Hall","Park Hall"],
+  "O’Brian Hall":["Alfiero Center","Baldy Hall","Knox Lecture Hall","Norton Hall","Park Hall"],
   "Park Hall":["Alfiero Center","Jacobs Management Center","O’Brian Hall"],
   "Slee Hall":["Baird Hall","Center for the Arts"],
   "Student Union":["Baldy Hall","Bell Hall","Clemens Hall","Commons"],
