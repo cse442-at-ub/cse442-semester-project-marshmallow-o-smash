@@ -1,4 +1,4 @@
-var dict={
+var outdoorDict={
   "Alfiero Center":["Baldy Hall","Lockwood Library","Park Hall","Jacobs Management Center"],
   "Alumni Arena":["Center for the Arts"],
   "Baird Hall":["Slee Hall","Clemens Hall"],
@@ -31,8 +31,3 @@ var dict={
   "Talbert Hall":["Capen Hall","Fronczak Hall","Hochstetter Hall","Natural Sciences Complex"],
   "Furnas Hall":["Bell Hall","Commons","Jarvis Hall","Ketter Hall"],
 };
-
-for(var key in dict){
-  alert(key);
-  alert(dict[key]);
-}

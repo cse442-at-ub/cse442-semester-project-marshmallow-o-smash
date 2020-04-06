@@ -1,4 +1,4 @@
-var dict={
+var tunnelDict={
   "Alfiero Center":["Jacobs Management Center"],
   "Alumni Arena":["Center for the Arts"],
   "Baird Hall":["Slee Hall","Clemens Hall"],
@@ -27,7 +27,3 @@ var dict={
   "Student Union":["Knox Lecture Hall","Bell Hall","Lockwood Library","Commons"],
   "Talbert Hall":["Natural Sciences Complex","Capen Hall"]
 };
-
-for(var key in dict){
-  alert(dict[key]);
-}

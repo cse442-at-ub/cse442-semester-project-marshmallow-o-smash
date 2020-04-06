@@ -5,7 +5,15 @@
     <title>test</title>
   </head>
   <body>
+  <div id="test"></div>
+  <div id="result"></div>
+  <script src="../js/shortest.js"></script>
+  <script src="../js/algo.js"></script>
+  <script src="../js/outdoor.js"></script>
   <script src="../js/tunnel.js"></script>
-  <div id="id"></div>
+  <script>
+  var result=document.getElementById("result");
+  result.innerHTML=BFS(tunnelDict,"Alfiero Center","Baldy Hall");
+  </script>
   </body>
 </html>
