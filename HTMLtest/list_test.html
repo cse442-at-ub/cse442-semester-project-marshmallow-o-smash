@@ -5,6 +5,10 @@
     <title>test</title>
   </head>
   <body>
+    <select id="options" onchange="changeFunc();">
+      <option value="shortest">Shortest Route</option>
+      <option value="outdoor">Outdoor Route</option>
+      <option value="tunnel">Tunnel Route</option>
   <div id="test"></div>
   <div id="result"></div>
   <script src="../js/shortest.js"></script>
@@ -14,6 +18,14 @@
   <script>
   var result=document.getElementById("result");
   result.innerHTML=BFS(tunnelDict,"Alfiero Center","Baldy Hall");
+
+  function changeFunc(){
+    var box = document.getElementById("options");
+    var value=box.options[box.selectedIndex].value;
+    if(value=="outdoor") setOutdoor();
+    if(value=="tunnel") setTunnel();
+    if(value=="shortest") setShortest();
+  }
   </script>
   </body>
 </html>

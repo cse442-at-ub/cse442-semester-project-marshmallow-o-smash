@@ -141,7 +141,7 @@ li a:hover {
 	  <input type="text" id = "to" list="buildings" placeholder="Destination" name="dest">
 	  <div class="selectbar">
 		<div>Route Option:</div>
-		<select id="options">
+		<select id="options" onchange="changeFunc();">
 			<option value="shortest">Shortest Route</option>
 			<option value="outdoor">Outdoor Route</option>
 			<option value="tunnel">Tunnel Route</option>
@@ -191,8 +191,7 @@ li a:hover {
 	$message="Database connected successfully";
     ?>
 			<script>
-			//	var str="<?php echo $message?>";
-				//alert(str);
+			alert(tunnel);
 			</script>
 	<?php
 }
@@ -255,6 +254,14 @@ li a:hover {
   </div>
   <button onclick="getLocation()">GPS</button>
   <script type="text/javascript">
+  function changeFunc(){
+    var box = document.getElementById("options");
+    var value=box.options[box.selectedIndex].value;
+    if(value=="outdoor") setOutdoor();
+    if(value=="tunnel") setTunnel();
+    if(value=="shortest") setShortest();
+  }
+
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',

@@ -1,3 +1,23 @@
+  let tunnel=false;
+  let shortest=true;
+  let outdoor=false;
+
+  function setTunnel(){
+    tunnel=true;
+    shortest=false;
+    outdoor=false;
+  }
+  function setShortest(){
+    tunnel=false;
+    shortest=true;
+    outdoor=false;
+  }
+  function setOutdoor(){
+    tunnel=false;
+    shortest=false;
+    outdoor=true;
+  }
+
   function BFS(dict,start,end){
     let visited=[];
     let pair={};
