@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <script src="../js/shortest.js"></script>
+    <script src="../js/algo.js"></script>
+    <script src="../js/outdoor.js"></script>
+    <script src="../js/tunnel.js"></script>
     <meta charset="utf-8">
     <title>test</title>
   </head>
@@ -9,15 +13,14 @@
       <option value="shortest">Shortest Route</option>
       <option value="outdoor">Outdoor Route</option>
       <option value="tunnel">Tunnel Route</option>
+    </select>
   <div id="test"></div>
   <div id="result"></div>
-  <script src="../js/shortest.js"></script>
-  <script src="../js/algo.js"></script>
-  <script src="../js/outdoor.js"></script>
-  <script src="../js/tunnel.js"></script>
+  <form id="form" method ="POST" action="">
+    <input type="hidden" id="array" name="array" value="">
+   </form>
   <script>
-  var result=document.getElementById("result");
-  result.innerHTML=BFS(tunnelDict,"Alfiero Center","Baldy Hall");
+
 
   function changeFunc(){
     var box = document.getElementById("options");
@@ -26,6 +29,13 @@
     if(value=="tunnel") setTunnel();
     if(value=="shortest") setShortest();
   }
+
+  let jsondata = JSON.stringify(BFS(tunnelDict,"Alfiero Center","Baldy Hall"));
+  let element=document.getElementById("array");
+  element.setAttribute("value",jsondata);
+  alert(typeof(document.getElementById));
+  document.getElementById("form").submit();
+
   </script>
   </body>
 </html>

@@ -182,6 +182,9 @@ li a:hover {
 	    </datalist>
        <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
     </form>
+    <form method ="POST">
+      <input type="hidden" id="array" name="array" value="">
+     </form>
 
   <?php
 	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
@@ -191,7 +194,8 @@ li a:hover {
 	$message="Database connected successfully";
     ?>
 			<script>
-			alert(tunnel);
+			//	var str="<?php echo $message?>";
+				//alert(str);
 			</script>
 	<?php
 }
@@ -245,8 +249,21 @@ li a:hover {
 				var str="No route existing between the two locations. Please reenter locations.";
 				alert(str);
 				}
+
+      let array=[];
+      var start= document.getElementById("s").getAttribute("startname");
+    	var end= document.getElementById("d").getAttribute("destname");
+      if(tunnel) array=BFS(tunnelDict,start,end);
+      if(shortest) array=BFS(shortestDict,start,end);
+      if(outdoor) array=BFS(outdoorDict,start,end);
+      let jsondata = JSON.stringify(array);
+      // let element=document.getElementById("array");
+      // element.setAttribute("value",jsondata);
+      // element.submit();
+      alert(array);
+
 		</script>
-		<?php
+    <?php
 	}
 	?>
 
@@ -260,8 +277,8 @@ li a:hover {
     if(value=="outdoor") setOutdoor();
     if(value=="tunnel") setTunnel();
     if(value=="shortest") setShortest();
-  }
 
+  }
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',

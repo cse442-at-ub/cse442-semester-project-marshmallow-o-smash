@@ -1,4 +1,4 @@
-var dict={
+var outdoorDict={
   "Alfiero Center":["Baldy Hall","Lockwood Library","Park Hall","Jacobs Management Center","O’Brian Hall"],
   "Alumni Arena":["Center for the Arts"],
   "Baird Hall":["Slee Hall","Clemens Hall"],
