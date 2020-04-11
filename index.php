@@ -6,6 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<script src="js/algo.js"></script>
+<script src="js/dist.js"></script>
+<script src="js/GPS.js"></script>
+<script src="js/outdoor.js"></script>
+<script src="js/shortest.js"></script>
+<script src="js/tunnel.js"></script>
 <style>
 body {
   margin: 0;
@@ -232,7 +238,7 @@ li a:hover {
 				//alert(str);
 			</script>
 			<?php
-		}	
+		}
 		?>
 		<script>
 			var v1="<?php echo $v1 ?>";
@@ -310,32 +316,6 @@ li a:hover {
   }
 
 
-
-  /********For GPS*********/
-  var glat;
-  var glon;
-
-  function getLocation() {
-    if (navigator.geolocation) {
-      var options ={timeout:15000};
-      navigator.geolocation.getCurrentPosition(showPosition,error,options);
-    }
-    else {
-      alert("Browser is not supported.");
-    }
-  }
-
-  function error(error){
-    alert("error");
-  }
-
-
-  function showPosition(position) {
-    glat=position.coords.latitude;
-    glon=position.coords.longitude;
-    L.marker([glat,glon]).addTo(map);
-    map.setView([glat, glon], 16);
-  }
 
 
 </script>
