@@ -16,8 +16,7 @@
     </select>
   <div id="test"></div>
   <div id="result"></div>
-  <form id="form" method ="POST" action="">
-    <input type="hidden" id="array" name="array" value="">
+
    </form>
   <script>
 
@@ -30,12 +29,8 @@
     if(value=="shortest") setShortest();
   }
 
-  let jsondata = JSON.stringify(BFS(tunnelDict,"Alfiero Center","Baldy Hall"));
-  let element=document.getElementById("array");
-  element.setAttribute("value",jsondata);
-  alert(typeof(document.getElementById));
-  document.getElementById("form").submit();
-
+  let result = document.getElementById("result");
+  result.innerHTML=BFS(shortestDict,"Bookstore","Cooke Hall");
   </script>
   </body>
 </html>

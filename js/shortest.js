@@ -12,10 +12,11 @@ var shortestDict={
   "Center for the Arts":["Child Care Center","Tim Hortons","Commons","Alumni Arena","Slee Hall"],
   "Child Care Center":["Alumni Arena","Center for the Arts"],
   "Clemens Hall":["Slee Hall","Lockwood Library","Baird Hall","Student Union","Commons"],
-  "Commons":["Bell Hall","Clemens Hall","Student Union","Center for the Arts","Bookstore","Furnas Hall"],
+  "Commons":["Student Union","Bell Hall","Clemens Hall","Center for the Arts","Bookstore","Furnas Hall"],
   "Cooke Hall":["Hochstetter Hall","Natural Sciences Complex"],
   "Davis Hall":["Bonner Hall","Ketter Hall","Jarvis Hall","Bookstore"],
   "Fronczak Hall":["Bonner Hall","Natural Sciences Complex","Talbert Hall","Capen Hall","Mathematics Building"],
+  "Furnas Hall":["Bonner Hall","Bookstore","Knox Lecture Hall","Bell Hall","Commons","Jarvis Hall","Ketter Hall"],
   "Hochstetter Hall":["O’Brian Hall","Cooke Hall","Talbert Hall","Natural Sciences Complex","Capen Hall"],
   "Jacobs Management Center":["Alfiero Center","Park Hall","Tim Hortons"],
   "Jarvis Hall":["Davis Hall","Ketter Hall","Furnas Hall"],
@@ -29,6 +30,5 @@ var shortestDict={
   "Park Hall":["Baldy Hall","Alfiero Center","Jacobs Management Center","O’Brian Hall"],
   "Slee Hall":["Clemens Hall","Baird Hall","Center for the Arts","Alumni Arena"],
   "Student Union":["Bookstore","Lockwood Library","Knox Lecture Hall","Baldy Hall","Bell Hall","Clemens Hall","Commons"],
-  "Talbert Hall":["Capen Hall","Fronczak Hall","Hochstetter Hall","Natural Sciences Complex"],
-  "Furnas Hall":["Bonner Hall","Bookstore","Knox Lecture Hall","Bell Hall","Commons","Jarvis Hall","Ketter Hall"],
+  "Talbert Hall":["Capen Hall","Fronczak Hall","Hochstetter Hall","Natural Sciences Complex"]
 };

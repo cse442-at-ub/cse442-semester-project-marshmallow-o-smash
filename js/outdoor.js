@@ -15,6 +15,7 @@ var outdoorDict={
   "Cooke Hall":["Hochstetter Hall","Natural Sciences Complex"],
   "Davis Hall":["Ketter Hall","Jarvis Hall"],
   "Fronczak Hall":["Natural Sciences Complex","Talbert Hall","Capen Hall"],
+  "Furnas Hall":["Bell Hall","Commons","Jarvis Hall","Ketter Hall"],
   "Hochstetter Hall":["Cooke Hall","Talbert Hall","Natural Sciences Complex"],
   "Jacobs Management Center":["Alfiero Center","Park Hall","Lockwood Library"],
   "Jarvis Hall":["Davis Hall","Ketter Hall","Furnas Hall"],
@@ -28,6 +29,5 @@ var outdoorDict={
   "Park Hall":["Alfiero Center","Jacobs Management Center","O’Brian Hall"],
   "Slee Hall":["Baird Hall","Center for the Arts"],
   "Student Union":["Baldy Hall","Bell Hall","Clemens Hall","Commons"],
-  "Talbert Hall":["Capen Hall","Fronczak Hall","Hochstetter Hall","Natural Sciences Complex"],
-  "Furnas Hall":["Bell Hall","Commons","Jarvis Hall","Ketter Hall"],
+  "Talbert Hall":["Capen Hall","Fronczak Hall","Hochstetter Hall","Natural Sciences Complex"]
 };
