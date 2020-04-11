@@ -117,6 +117,45 @@ li a:hover {
 	font-size: 13px;
 	opacity:0.8;
 }
+
+.callout {
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  margin-left: 10px;
+  max-width: 300px;
+  opacity:0.8;
+}
+
+.callout-header {
+  padding: 10px 15px;
+  padding-right:30px;
+  background: #47626b;
+  font-size: 15px;
+  color: white;
+}
+
+.callout-container {
+  padding: 13px;
+  background-color: #b3c6cc;
+  font-size: 13px;
+  text-align: left;
+  color: #141c1f;
+}
+
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: red;
+}
+
 </style>
 </head>
 <body>
@@ -249,6 +288,8 @@ li a:hover {
  </div>
  </div>
  <button onclick="getLocation()">GPS</button>
+
+
  <script type="text/javascript">
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -262,18 +303,13 @@ li a:hover {
 	var dlat = document.getElementById("d").getAttribute("destlat");
 	var dlon = document.getElementById("d").getAttribute("destlon");
 	var dname= document.getElementById("d").getAttribute("destname");
-	
+
   if (cname&&dname){
   	// L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
   	// L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
     getRoute(clat,clon,cname,dlat,dlon,dname);
-	// calculate distance
-	var dist = distance(clat, clon, dlat, dlon);
-	// calculate walking time: 4828.03m/hr
-	var time = Math.ceil((dist * 60)/4828.03);
-	var test_dname = dname+": ("+dlat+","+dlon+")<br>Distance between " + cname +" & " +dname+": " + dist + "m. Estimate walking time: " + time + "min";
+	var test_dname = dname+": ("+dlat+","+dlon+")";
 	var test_cname = "Starting Location"+": ("+clat+","+clon+")";
-
 	L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
 	L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
 }
@@ -357,5 +393,43 @@ li a:hover {
 
 </script>
 </ul>
+<div class="callout">
+  <div class="callout-header"><b>Route Info</b></div>
+	<span class="closebtn" onclick="this.parentElement.style.display='none';"><b>×</b></span>
+	<div class="callout-container">
+	<script type="text/javascript">
+		var clat = document.getElementById("s").getAttribute("startlat");
+		var clon = document.getElementById("s").getAttribute("startlon");
+		var cname= document.getElementById("s").getAttribute("startname");
+		var dlat = document.getElementById("d").getAttribute("destlat");
+		var dlon = document.getElementById("d").getAttribute("destlon");
+		var dname= document.getElementById("d").getAttribute("destname");
+		if (cname&&dname){
+			var dist = distance(clat, clon, dlat, dlon);
+			// calculate walking time: 4828.03m/hr
+			var time = Math.ceil((dist * 60)/4828.03);
+			var info1 = "<b>"+cname+" to "+dname+":</b><br>";
+			var info = "Distance: " + dist + "m <br>Estimate walking time: " + time + "min";
+			document.write(info1);
+			document.write(info);
+		}
+		function distance(lat1,lon1,lat2,lon2) {
+			var R = 6371; // km (change this constant to get miles)
+			var dLat = (lat2-lat1) * Math.PI / 180;
+			var dLon = (lon2-lon1) * Math.PI / 180;
+			var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+				Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+				Math.sin(dLon/2) * Math.sin(dLon/2);
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+			var d = R * c;
+			if (d>1) return Math.round(d); 		//+"km." + " Estimate time: " + time + "min";
+			else if (d<=1){
+				return Math.round(d*1000);		//+"m." + " Estimate time: " + time + "min";
+			}
+			return d;
+		}
+	</script>
+  <div>
+</div>
 </body>
 </html>
