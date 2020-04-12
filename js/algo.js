@@ -67,6 +67,5 @@
       }
       if(visited[tail]) break;
     }
-
     return ret;
   }

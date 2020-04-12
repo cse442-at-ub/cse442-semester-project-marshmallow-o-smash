@@ -16,6 +16,7 @@
   <body>
     <h1> MAP </h1>
     <div id="mapid"></div>
+           <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!" onclick="myfunc()">
   </body>
   <script>
     var map=L.map('mapid').setView([43.0007353,-78.7888962],14);
@@ -24,7 +25,9 @@
         subdomains: ['a','b','c'],
         maxZoom:19
     }).addTo( map );
-
+    function myfunc(){
+      alert(1);
+    }
 
   </script>
 </html>

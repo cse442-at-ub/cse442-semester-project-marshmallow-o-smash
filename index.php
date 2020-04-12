@@ -190,12 +190,6 @@ li a:hover {
     die("Connection failed: " . $conn->connect_error);
 } else{
 	$message="Database connected successfully";
-    ?>
-			<script>
-			//	var str="<?php echo $message?>";
-				//alert(str);
-			</script>
-	<?php
 }
 	$db=mysqli_select_db($conn,"yingyinl_db");
 
