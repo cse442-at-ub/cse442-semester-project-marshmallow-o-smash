@@ -41,23 +41,32 @@
     queue.push(start);
 
     while(queue.length!=0){
-      let temp=queue.shift();
-      let list=dict[temp];
-      for(let i of list){
-        if(visited[pair[i]]==false){
-          queue.push(i);
-          visited[pair[i]]=true;
-          parent[i]=temp;
+      let size=queue.length;
+      for(var j=0;j<size;j++){
+        let temp=queue.shift();
+        let list=dict[temp];
+        for(var i of list){
+          if(!visited[pair[i]]){
+            queue.push(i);
+            visited[pair[i]]=true;
+            parent[i]=temp;
+          }
+          if(i==end){
+            parent[i]=temp;
+            let arr=[];
+            let element=end;
+            arr.push(element);
+            while(parent[element]!=""){
+              element=parent[element];
+              arr.push(element);
+            }
+            arr.reverse();
+            ret.push(arr);
+          }
         }
       }
+      if(visited[tail]) break;
     }
 
-    let temp=end;
-    ret.push(temp);
-    while(parent[temp]!=""){
-      temp=parent[temp];
-      ret.push(temp);
-    }
-
-    return ret.reverse();
+    return ret;
   }
