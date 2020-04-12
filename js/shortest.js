@@ -1,9 +1,9 @@
 var shortestDict={
-  "Tim Hortons":["Alfiero Center","Baldy Hall","Lockwood Library","Jacobs Management Center","Baird Hall","Center for the Arts","Alumni Arena"],
+  "Tim Hortons":["Alfiero Center","Baldy Hall","Lockwood Library","Jacobs Management Center","Baird Hall","Center for the Arts","Alumni Arena","Park Hall"],
   "Alfiero Center":["Park Hall","Jacobs Management Center","O’Brian Hall","Tim Hortons"],
-  "Alumni Arena":["Center for the Arts","Tim Hortons","Slee Hall" ,"Baird Hall","Child Care Center"],
+  "Alumni Arena":["Bissell Hall","Center for the Arts","Tim Hortons","Slee Hall" ,"Baird Hall","Child Care Center"],
   "Baird Hall":["Slee Hall","Clemens Hall","Tim Hortons","Alumni Arena"],
-  "Baldy Hall":["Tim Hortons","Capen Hall","Bell Hall","Lockwood Library","Student Union","O’Brian Hall","Knox Lecture Hall","Alfiero Center","Park Hall"],
+  "Baldy Hall":["Tim Hortons","Capen Hall","Bell Hall","Lockwood Library","Student Union","O’Brian Hall","Knox Lecture Hall"],
   "Bell Hall":["Knox Lecture Hall","Commons","Bookstore","Baldy Hall","Ketter Hall","Furnas Hall","Student Union","Bonner Hall"],
   "Bissell Hall":["Alumni Arena"],
   "Bonner Hall":["Capen Hall","Davis Hall","Fronczak Hall","Ketter Hall","Norton Hall","Bell Hall","Knox Lecture Hall","Furnas Hall"],
@@ -27,7 +27,7 @@ var shortestDict={
   "Natural Sciences Complex":["Mathematics Building","Cooke Hall","Fronczak Hall","Hochstetter Hall","Talbert Hall"],
   "Norton Hall":["Bonner Hall","Capen Hall","Knox Lecture Hall","O’Brian Hall"],
   "O’Brian Hall":["Alfiero Center","Hochstetter Hall","Capen Hall","Baldy Hall","Knox Lecture Hall","Norton Hall","Park Hall"],
-  "Park Hall":["Baldy Hall","Alfiero Center","Jacobs Management Center","O’Brian Hall"],
+  "Park Hall":["Alfiero Center","Jacobs Management Center","O’Brian Hall","Tim Hortons"],
   "Slee Hall":["Clemens Hall","Baird Hall","Center for the Arts","Alumni Arena"],
   "Student Union":["Bookstore","Lockwood Library","Knox Lecture Hall","Baldy Hall","Bell Hall","Clemens Hall","Commons"],
   "Talbert Hall":["Capen Hall","Fronczak Hall","Hochstetter Hall","Natural Sciences Complex"]

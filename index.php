@@ -260,6 +260,7 @@ li a:hover {
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: ['a','b','c'],
+        maxZoom:19
     }).addTo( map );
 
 	var clat = document.getElementById("s").getAttribute("startlat");

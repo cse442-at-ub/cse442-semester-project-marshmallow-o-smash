@@ -16,55 +16,14 @@
   <body>
     <h1> MAP </h1>
     <div id="mapid"></div>
-    <button onclick="getLocation()">Try It</button>
   </body>
   <script>
     var map=L.map('mapid').setView([43.0007353,-78.7888962],14);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: ['a','b','c']
+        subdomains: ['a','b','c'],
+        maxZoom:19
     }).addTo( map );
-
-    var glat;
-    var glon;
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        var options ={timeout:15000};
-        navigator.geolocation.getCurrentPosition(showPosition,showError,options);
-      }
-      else {
-        alert("Browser is not supported.");
-      }
-    }
-
-    function error(error){
-      alert("error");
-    }
-
-    function showError(error) {
-    switch(error.code) {
-      case error.PERMISSION_DENIED:
-        alert("User denied the request for Geolocation.");
-        break;
-      case error.POSITION_UNAVAILABLE:
-        alert( "Location information is unavailable.");
-        break;
-      case error.TIMEOUT:
-        alert( "The request to get user location timed out.");
-        break;
-      case error.UNKNOWN_ERROR:
-        alert( "An unknown error occurred.");
-        break;
-    }
-  }
-
-    function showPosition(position) {
-      glat=position.coords.latitude;
-      glon=position.coords.longitude;
-      L.marker([glat,glon]).addTo(map);
-      map.setView([glat, glon], 16);
-    }
 
 
   </script>
