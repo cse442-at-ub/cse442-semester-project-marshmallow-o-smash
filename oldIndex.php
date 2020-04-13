@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-<script src="js/dist.js"></script>
-<script src="js/shortest.js"></script>
 <script src="js/algo.js"></script>
-<script src="js/outdoor.js"></script>
-<script src="js/tunnel.js"></script>
+<script src="js/dist.js"></script>
 <script src="js/GPS.js"></script>
+<script src="js/outdoor.js"></script>
+<script src="js/shortest.js"></script>
+<script src="js/tunnel.js"></script>
 <style>
 body {
   margin: 0;
@@ -126,7 +126,6 @@ li a:hover {
 </style>
 </head>
 <body>
-
 <div class="header">
   <h1 style="color: White;">UB North Campus Map</h1>
 </div>
@@ -143,11 +142,11 @@ li a:hover {
 	  <input type="text" id = "to" list="buildings" placeholder="Destination" name="dest">
 	  <div class="selectbar">
 		<div>Route Option:</div>
-    <select id="options" onchange="changeFunc();">
-      <option value="shortest">Shortest Route</option>
-      <option value="outdoor">Outdoor Route</option>
-      <option value="tunnel">Tunnel Route</option>
-    </select>
+		<select id="options">
+			<option value="shortest">Shortest Route</option>
+			<option value="outdoor">Outdoor Route</option>
+			<option value="tunnel">Tunnel Route</option>
+		</select>
 	  </div>
 		 <datalist id="buildings">
 			<option value="Alfiero Center">
@@ -185,17 +184,72 @@ li a:hover {
        <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
     </form>
 
+  <?php
+	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
+	if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} else{
+	$message="Database connected successfully";
+}
+	$db=mysqli_select_db($conn,"yingyinl_db");
+
+	if(isset($_POST['search'])){
+		$name =$_POST['start'];
+		$name2 =$_POST['dest'];
+		if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
+		{
+			?>
+		<script>
+			var str="Not valid string inputs. Please reenter."
+				alert(str);
+		</script>
+		<?php
+		}
+		$query="SELECT * FROM locations where name='$name'";
+		$query_run=mysqli_query($conn,$query);
+		$v1=true;
+		$v2=true;
+		if(mysqli_num_rows($query_run) <1){
+			$v1=false;
+		}
+		while($row=mysqli_fetch_array($query_run)){
+			?>
+			<script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
+				//var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+				//alert(str);
+			</script>
+			<?php
+		}
+		$query2="SELECT * FROM locations where name='$name2'";
+		$query_run2=mysqli_query($conn,$query2);
+		if(mysqli_num_rows($query_run2) <1){
+			$v2=false;
+		}
+		while($row=mysqli_fetch_array($query_run2)){
+			?>
+			<script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
+				//var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+				//alert(str);
+			</script>
+			<?php
+		}
+		?>
+		<script>
+			var v1="<?php echo $v1 ?>";
+			var v2="<?php echo $v2 ?>";
+			if(v1==false || v2==false){
+				var str="No route existing between the two locations. Please reenter locations.";
+				alert(str);
+				}
+		</script>
+		<?php
+	}
+	?>
+
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
-  </ul>
-
-<form id="form" method ="POST" action="">
-      <input type="hidden" id="array" name="array" value="">
-     </form>
-
   <script type="text/javascript">
-
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -203,27 +257,25 @@ li a:hover {
         maxZoom:19
     }).addTo( map );
 
-  function route(){
-    let array=[];
-    var start= document.getElementById("s").getAttribute("startname");
-    var end= document.getElementById("d").getAttribute("destname");
-    if(tunnel) array=BFS(tunnelDict,start,end);
-    if(shortest) array=BFS(shortestDict,start,end);
-    if(outdoor) array=BFS(outdoorDict,start,end);
+	var clat = document.getElementById("s").getAttribute("startlat");
+	var clon = document.getElementById("s").getAttribute("startlon");
+	var cname= document.getElementById("s").getAttribute("startname");
+	var dlat = document.getElementById("d").getAttribute("destlat");
+	var dlon = document.getElementById("d").getAttribute("destlon");
+	var dname= document.getElementById("d").getAttribute("destname");
 
-    if (array.length!=0){
-      jsondata = JSON.stringify(array);
-      let element=document.getElementById("array");
-      element.setAttribute("value",jsondata);
-    }else{
-      noRoute();
-    }
-  }
+  if (cname&&dname){
+  	// L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
+  	// L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
+    getRoute(clat,clon,cname,dlat,dlon,dname);
 
-  function noRoute(){
-    var str="No route existing between the two locations. Please reenter locations.";
-    alert(str);
-  }
+  var test_dname = dname+": ("+dlat+","+dlon+")";
+  var test_cname = "Starting Location"+": ("+clat+","+clon+")";
+
+  L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
+  L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
+	}
+
 
 
   function getRoute(clat, clon, cname, dlat, dlon, dname){
@@ -247,7 +299,6 @@ li a:hover {
         },
       ]
       };
-
       var myStyle = {
         "color": "#ff7800",
         "weight": 5,
@@ -259,134 +310,10 @@ li a:hover {
     }
   }
 
-    function changeFunc(){
-      var box = document.getElementById("options");
-      var value=box.options[box.selectedIndex].value;
-      if(value=="outdoor") setOutdoor();
-      if(value=="tunnel") setTunnel();
-      if(value=="shortest") setShortest();
-      let element=document.getElementById("Bool");
-      element.setAttribute("value",value);
-    }
 
-    function addTo(arr){
-      let ret=[];
-      if(typeof(arr[0])==='object'){
-        for(var i of arr){
-          ret.push(help(arr[i]));
-        }
-      }else{
-        return help(arr);
-      }
-      return ret;
-    }
 
-    function help(arr){
-      let ret=[];
-      let temp=arr[0]
-      for(var i=1; i<arr.length;i++){
-        let s=temp+" to "+arr[i];
-        ret.push(s);
-      }
-    }
 
 </script>
-
-<?php
-$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-} else{
-$message="Database connected successfully";
-
-}
-$db=mysqli_select_db($conn,"yingyinl_db");
-
-if(isset($_POST['search'])){
-  $name =$_POST['start'];
-  $name2 =$_POST['dest'];
-  echo "<script>alert(' $name');</script>";
-  if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
-  {
-    ?>
-  <script>
-    var str="Not valid string inputs. Please reenter."
-      alert(str);
-  </script>
-  <?php
-  }
-  $query="SELECT * FROM locations where name='$name'";
-  $query_run=mysqli_query($conn,$query);
-  $v1=true;
-  $v2=true;
-  if(mysqli_num_rows($query_run) <1){
-    $v1=false;
-  }
-  while($row=mysqli_fetch_array($query_run)){
-    ?>
-    <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
-      //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
-      //alert(str);
-
-    </script>
-    <?php
-  }
-  $query2="SELECT * FROM locations where name='$name2'";
-  $query_run2=mysqli_query($conn,$query2);
-  if(mysqli_num_rows($query_run2) <1){
-    $v2=false;
-  }
-  while($row=mysqli_fetch_array($query_run2)){
-    ?>
-    <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
-      //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
-      //alert(str);
-    </script>
-    <?php
-  }
-  ?>
-  <script>
-    var v1="<?php echo $v1 ?>";
-    var v2="<?php echo $v2 ?>";
-    if(v1==false || v2==false){
-      noRoute();
-    }else{
-      route();
-	  document.getElementById("form").submit();
-    }
-  </script>
-  <?php
-}
-
-?>
-
-<script>
-if(document.getElementById("s")!=null){
-  var clat = document.getElementById("s").getAttribute("startlat");
-  var clon = document.getElementById("s").getAttribute("startlon");
-  var cname= document.getElementById("s").getAttribute("startname");
-  var dlat = document.getElementById("d").getAttribute("destlat");
-  var dlon = document.getElementById("d").getAttribute("destlon");
-  var dname= document.getElementById("d").getAttribute("destname");
-  if(cname&&dname){
-    getRoute(clat,clon,cname,dlat,dlon,dname);
-
-    var test_dname = dname+": ("+dlat+","+dlon+")";
-    var test_cname = "Starting Location"+": ("+clat+","+clon+")";
-
-    L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
-    L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
-  }
-}
-
-</script>
-<?php
-if(isset($_POST['array'])){
-$json=$_POST['array'];
-    $arr=json_decode($json,true);
-    echo "<script>alert('$json')</script>";
-}
- ?>
+</ul>
 </body>
-
 </html>

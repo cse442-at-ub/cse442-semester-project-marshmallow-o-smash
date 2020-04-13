@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-<script src="js/algo.js"></script>
 <script src="js/dist.js"></script>
-<script src="js/GPS.js"></script>
-<script src="js/outdoor.js"></script>
 <script src="js/shortest.js"></script>
+<script src="js/algo.js"></script>
+<script src="js/outdoor.js"></script>
 <script src="js/tunnel.js"></script>
+<script src="js/GPS.js"></script>
 <style>
 body {
   margin: 0;
@@ -126,6 +126,7 @@ li a:hover {
 </style>
 </head>
 <body>
+
 <div class="header">
   <h1 style="color: White;">UB North Campus Map</h1>
 </div>
@@ -142,11 +143,11 @@ li a:hover {
 	  <input type="text" id = "to" list="buildings" placeholder="Destination" name="dest">
 	  <div class="selectbar">
 		<div>Route Option:</div>
-		<select id="options">
-			<option value="shortest">Shortest Route</option>
-			<option value="outdoor">Outdoor Route</option>
-			<option value="tunnel">Tunnel Route</option>
-		</select>
+    <select id="options" >
+      <option value="shortest">Shortest Route</option>
+      <option value="outdoor">Outdoor Route</option>
+      <option value="tunnel">Tunnel Route</option>
+    </select>
 	  </div>
 		 <datalist id="buildings">
 			<option value="Alfiero Center">
@@ -159,7 +160,6 @@ li a:hover {
 		    <option value="Bookstore">
 		    <option value="Capen Hall">
 			<option value="Center for the Arts">
-			<option value="Center for Tomorrow">
 			<option value="Child Care Center">
 			<option value="Clemens Hall">
 			<option value="Commons">
@@ -181,75 +181,21 @@ li a:hover {
 			<option value="Student Union">
 			<option value="Talbert Hall">
 	    </datalist>
-       <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!">
+       <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!" onclick="changeFunc();">
     </form>
-
-  <?php
-	$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
-	if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else{
-	$message="Database connected successfully";
-}
-	$db=mysqli_select_db($conn,"yingyinl_db");
-
-	if(isset($_POST['search'])){
-		$name =$_POST['start'];
-		$name2 =$_POST['dest'];
-		if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
-		{
-			?>
-		<script>
-			var str="Not valid string inputs. Please reenter."
-				alert(str);
-		</script>
-		<?php
-		}
-		$query="SELECT * FROM locations where name='$name'";
-		$query_run=mysqli_query($conn,$query);
-		$v1=true;
-		$v2=true;
-		if(mysqli_num_rows($query_run) <1){
-			$v1=false;
-		}
-		while($row=mysqli_fetch_array($query_run)){
-			?>
-			<script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
-				//var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
-				//alert(str);
-			</script>
-			<?php
-		}
-		$query2="SELECT * FROM locations where name='$name2'";
-		$query_run2=mysqli_query($conn,$query2);
-		if(mysqli_num_rows($query_run2) <1){
-			$v2=false;
-		}
-		while($row=mysqli_fetch_array($query_run2)){
-			?>
-			<script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
-				//var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
-				//alert(str);
-			</script>
-			<?php
-		}
-		?>
-		<script>
-			var v1="<?php echo $v1 ?>";
-			var v2="<?php echo $v2 ?>";
-			if(v1==false || v2==false){
-				var str="No route existing between the two locations. Please reenter locations.";
-				alert(str);
-				}
-		</script>
-		<?php
-	}
-	?>
 
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
+  </ul>
+
+<form id="form" method ="POST" action="">
+      <input type="hidden" id="array" name="array" value="">
+	  <input type="hidden" id="Str" name="Str" value="shortest">
+     </form>
+
   <script type="text/javascript">
+  //changeFunc();
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -257,29 +203,40 @@ li a:hover {
         maxZoom:19
     }).addTo( map );
 
-	var clat = document.getElementById("s").getAttribute("startlat");
-	var clon = document.getElementById("s").getAttribute("startlon");
-	var cname= document.getElementById("s").getAttribute("startname");
-	var dlat = document.getElementById("d").getAttribute("destlat");
-	var dlon = document.getElementById("d").getAttribute("destlon");
-	var dname= document.getElementById("d").getAttribute("destname");
-
-  if (cname&&dname){
-  	// L.marker([clat,clon]).addTo(map).bindPopup("Current Location").openPopup();
-  	// L.marker([dlat,dlon]).addTo(map).bindPopup(dname).openPopup();
-    getRoute(clat,clon,cname,dlat,dlon,dname);
-
-  var test_dname = dname+": ("+dlat+","+dlon+")";
-  var test_cname = "Starting Location"+": ("+clat+","+clon+")";
-
-  L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
-  L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
+  function route(){
+    let array=[];
+    var start= document.getElementById("s").getAttribute("startname");
+    var end= document.getElementById("d").getAttribute("destname");
+	var option=localStorage.getItem("OP");
+	let element2=document.getElementById("Str");
+	element2.setAttribute("value",option);
+    if(option=="tunnel") array=BFS(tunnelDict,start,end);
+    if(option=="shortest") array=BFS(shortestDict,start,end);
+    if(option=="outdoor") array=BFS(outdoorDict,start,end);
+	var bool=true;
+    if (array.length!=0){
+	  let array1= addTo(array);
+      let jsondata = JSON.stringify(array1);
+      let element=document.getElementById("array");
+      element.setAttribute("value",jsondata);
+    }else if (start==end){
+      alert("Start location and destination are the same!");
+	  bool=false;
+    }else {
+		noRoute();
+		bool=false;
 	}
+	return bool;
+  }
+
+  function noRoute(){
+    var str="No route existing between the two locations. Please reenter locations.";
+    alert(str);
+  }
 
 
-
-  function getRoute(clat, clon, cname, dlat, dlon, dname){
-    if(cname == "Baldy Hall" && dname == "Student Union"){
+  function getRoute(clat, clon, dlat, dlon){
+	  
       var geojson = {
       "type": "FeatureCollection",
       "features": [
@@ -288,18 +245,18 @@ li a:hover {
           "properties": {},
           "geometry": {
             "type": "LineString",
-            "coordinates": [
-              [-78.7869,43.00044],
-              [-78.78590,43.00044],
-              [-78.78573,43.00060],
-              [-78.78620,43.00090],
-              [-78.78628,43.00117]
+            "coordinates": [[parseFloat(clon),parseFloat(clat)],[parseFloat(dlon),parseFloat(dlat)]
+              // [-78.7869,43.00044],
+              // [-78.78590,43.00044],
+              // [-78.78573,43.00060],
+              // [-78.78620,43.00090],
+              // [-78.78628,43.00117]
             ]
           }
         },
       ]
-      };
-      var myStyle = {
+      }
+	  var myStyle = {
         "color": "#ff7800",
         "weight": 5,
         //"opacity": 0.65
@@ -307,13 +264,307 @@ li a:hover {
       L.geoJSON(geojson,{
         style:myStyle
       }).addTo(map);
+    
+  };
+
+   function changeFunc(){
+      var box = document.getElementById("options");
+      var value=box.options[box.selectedIndex].value;
+	  //alert(value);
+      //if(value=="outdoor") setOutdoor();
+      //if(value=="tunnel") setTunnel();
+      //if(value=="shortest") setShortest();
+      //let element=document.getElementById("Str");
+      localStorage.setItem("OP", value);
     }
+function addTo(arr){
+    let ret=[];
+    if(typeof(arr[0])==='object'){
+      for(var i of arr){
+        ret.push(help(i));
+      }
+    }else{
+      return help(arr);
+    }
+    return ret;
   }
 
+  function help(arr){
+    let ret=[];
+    let temp=arr[0];
+    for(var i=1; i<arr.length;i++){
+      let s=temp+" to "+arr[i];
+      ret.push(s);
+      temp=arr[i];
+    }
+    return ret;
+  }
+</script>
 
+<?php
+$conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+} else{
+$message="Database connected successfully";
+}
+$db=mysqli_select_db($conn,"yingyinl_db");
+$option1=$_POST['options'];
+if(isset($_POST['search'])){
+  $name =$_POST['start'];
+  $name2 =$_POST['dest'];
+  if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
+  {
+    ?>
+  <script>
+    var str="Not valid string inputs. Please reenter."
+      alert(str);
+  </script>
+  <?php
+  }
+  $query="SELECT * FROM locations where name='$name'";
+  $query_run=mysqli_query($conn,$query);
+  $v1=true;
+  $v2=true;
+  if(mysqli_num_rows($query_run) <1){
+    $v1=false;
+  }
+  while($row=mysqli_fetch_array($query_run)){
+    ?>
+    <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
+      //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+      //alert(str);
+	  
+    </script>
+    <?php
+  }
+  $query2="SELECT * FROM locations where name='$name2'";
+  $query_run2=mysqli_query($conn,$query2);
+  if(mysqli_num_rows($query_run2) <1){
+    $v2=false;
+  }
+  while($row=mysqli_fetch_array($query_run2)){
+    ?>
+    <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
+      //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+      //alert(str);
+    </script>
+    <?php
+  }
+  ?>
+  <script>
+    var v1="<?php echo $v1 ?>";
+    var v2="<?php echo $v2 ?>";
+    if(v1==false || v2==false){
+      noRoute();
+    }else{
+		if(route()){
+	  document.getElementById("form").submit();
+		}
+    }
+  </script>
+  <?php
+}
+$db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+if(isset($_POST['array'])){
+		$start="";
+		$dest="";	
+		$json=$_POST['array'];		
+		$arr=json_decode($json);
+		$firstKey = $arr[0];
+		$lastKey= end($arr[0]);
+		$key1=$firstKey[0];
+		$query10="SELECT * FROM shortest where name='$key1'";
+		$query_run10=mysqli_query($conn,$query10);
+		while($row=mysqli_fetch_array($query_run10)){				
+			$start=$row['p1'];	
+			
+		}
+		$query11="SELECT * FROM shortest where name='$lastKey'";
+		$query_run11=mysqli_query($conn,$query11);
+		while($row=mysqli_fetch_array($query_run11)){
+			$w=$row['nPoints'];
+			$dest=$row['p'.$w];	
+			
+		}
+		$db3=mysqli_select_db($conn,"yingyinl_db");
+		 $query12="SELECT * FROM locations where name='$start'";
+		$query_run12=mysqli_query($conn,$query12);
+		  while($row=mysqli_fetch_array($query_run12)){
+    ?>
+    <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
+      //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+      //alert(str);
+	  
+    </script>
+    <?php
+  }
+  $query13="SELECT * FROM locations where name='$dest'";
+  $query_run13=mysqli_query($conn,$query13);
+  while($row=mysqli_fetch_array($query_run13)){
+    ?>
+    <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
+      //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
+      //alert(str);
+    </script>
+    <?php
+}
+}
+$db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+if(isset($_POST['array'])){
+	$option =$_POST['Str'];
+	$json=$_POST['array'];
+	$points2=[];
+    $arr=json_decode($json);
+	$data2=[];
+	if(strcmp($option, "shortest") === 0){
+		foreach($arr as $key => $value){		
+		 $data=[];
+		 foreach($arr[$key] as $element){
+			$query3="SELECT * FROM shortest where name='$element'";
+			$query_run3=mysqli_query($conn,$query3);
+			while($row=mysqli_fetch_array($query_run3)){
+				for($x=1;$x<$row['nPoints']-1;$x++){
+					array_push($data,$row['p'.$x]);
+				}
+			}
+		}
+		array_push($data2,$data);
+		}
+		foreach($data2 as $key => $value){
+			$points=[];
+			foreach($data2[$key] as $element){
+		$query4="SELECT * FROM points where name='$element'";
+		
+		$query_run4=mysqli_query($conn,$query4);
+		while($row=mysqli_fetch_array($query_run4)){	
+					$array=[$row['lat'],$row['lon'],$row['ins']];
+					array_push($points,$array);
+				}
+			}
+			array_push($points2,$points);
+		}
+	}else if(strcmp($option, "tunnel") === 0){
+		foreach($arr as $key => $value){		
+		 $data=[];
+		 foreach($arr[$key] as $element){
+			$query3="SELECT * FROM tunnel where name='$element'";
+			$query_run3=mysqli_query($conn,$query3);
+			while($row=mysqli_fetch_array($query_run3)){
+				for($x=1;$x<$row['nPoints']-1;$x++){
+					array_push($data,$row['p'.$x]);
+				}
+			}
+		}
+		array_push($data2,$data);
+		}
+		foreach($data2 as $key => $value){
+			$points=[];
+			foreach($data2[$key] as $element){
+		$query4="SELECT * FROM tunnel_points where name='$element'";
+		
+		$query_run4=mysqli_query($conn,$query4);
+		while($row=mysqli_fetch_array($query_run4)){	
+					$array=[$row['lat'],$row['lon'],$row['ins']];
+					array_push($points,$array);
+				}
+			}
+			array_push($points2,$points);
+		}
+	}else if(strcmp($option, "outdoor") === 0){
+		foreach($arr as $key => $value){		
+		 $data=[];
+		 foreach($arr[$key] as $element){
+			$query3="SELECT * FROM outdoor where name='$element'";
+			$query_run3=mysqli_query($conn,$query3);
+			while($row=mysqli_fetch_array($query_run3)){
+				for($x=0;$x<$row['nPoints'];$x++){
+					array_push($data,$row['p'.$x]);
+				}
+			}
+		}
+		array_push($data2,$data);
+		}
+		foreach($data2 as $key => $value){
+			$points=[];
+			foreach($data2[$key] as $element){
+		$query4="SELECT * FROM Outdoor_points where name='$element'";
+		
+		$query_run4=mysqli_query($conn,$query4);
+		while($row=mysqli_fetch_array($query_run4)){	
+					$array=[$row['lat'],$row['lon'],$row['ins']];
+					array_push($points,$array);
+				}
+			}
+			array_push($points2,$points);
+		}
+	}
+	  ?>
+  <script>
+var str1=<?php echo json_encode($points2); ?>;
+  let minD=Number.MAX_VALUE;
+  let minI=-1;
+  let index1=0;
+  for(var x of str1){
+    let arr=[];
+    let dis=0;
+    let lat3=x[0][0];
+    let lon3=x[0][1];
+    for(var y=1; y<x.length;y++){
+      let lat4=x[y][0];
+      let lon4=x[y][1];
+      dis+=distance(lat3,lon3,lat4,lon4);
+      lat3=lat4;
+      lon3=lon4;
+    }
+    if(dis<minD) {
+      minD=dis;
+      minI=index1;
+    }
+    index1+=1;
+  }
+ let minArray=str1[minI];
+  let minArraySize=minArray.length;
+  let startlat=document.getElementById("s").getAttribute("startlat");
+  let startlon=document.getElementById("s").getAttribute("startlon");
+  //L.marker(startlat,startlon).addTo(map).bindPopup(document.getElementById("s").getAttribute("startname")).openPopup();
+  for(var x of minArray){
+    if(x[2]!="" || x[2]!=""){
+      L.marker([x[0],x[1]]).addTo(map).bindPopup(x[2]).openPopup();
+    }
+    getRoute(startlat,startlon,x[0],x[1]);
+    startlat=x[0];
+    startlon=x[1];
+  }
+  //L.marker(document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon")).addTo(map).bindPopup(document.getElementById("d").getAttribute("destname")).openPopup();
+  getRoute(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
+ 
+ </script>
+  <?php
+}
+?>
 
+<script>
+if(document.getElementById("s")!=null){
+  var clat = document.getElementById("s").getAttribute("startlat");
+  var clon = document.getElementById("s").getAttribute("startlon");
+  var cname= document.getElementById("s").getAttribute("startname");
+  var dlat = document.getElementById("d").getAttribute("destlat");
+  var dlon = document.getElementById("d").getAttribute("destlon");
+  var dname= document.getElementById("d").getAttribute("destname");
+  if(cname&&dname){
+   // getRoute(clat,clon,cname,dlat,dlon,dname);
+
+    var test_dname = dname+": ("+dlat+","+dlon+")";
+    var test_cname = "Starting Location"+": ("+clat+","+clon+")";
+
+    L.marker([clat,clon]).addTo(map).bindPopup(test_cname).openPopup();
+    L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
+  }
+}
 
 </script>
-</ul>
+
 </body>
+
 </html>
