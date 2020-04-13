@@ -123,6 +123,43 @@ li a:hover {
 	font-size: 13px;
 	opacity:0.8;
 }
+.callout {
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  margin-left: 10px;
+  max-width: 300px;
+  opacity:0.8;
+}
+
+.callout-header {
+  padding: 10px 15px;
+  padding-right:30px;
+  background: #47626b;
+  font-size: 15px;
+  color: white;
+}
+
+.callout-container {
+  padding: 13px;
+  background-color: #b3c6cc;
+  font-size: 13px;
+  text-align: left;
+  color: #141c1f;
+}
+
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: red;
+}
 </style>
 </head>
 <body>
@@ -187,7 +224,15 @@ li a:hover {
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
+
   </ul>
+
+  <div class="callout">
+    <div class="callout-header"><b>Route Info</b></div>
+  	<span class="closebtn" onclick="this.parentElement.style.display='none';"><b>×</b></span>
+  	<div class="callout-container" id="callout">
+    </div>
+  </div>
 
 <form id="form" method ="POST" action="">
       <input type="hidden" id="array" name="array" value="">
@@ -236,7 +281,7 @@ li a:hover {
 
 
   function getRoute(clat, clon, dlat, dlon){
-	  
+
       var geojson = {
       "type": "FeatureCollection",
       "features": [
@@ -264,7 +309,7 @@ li a:hover {
       L.geoJSON(geojson,{
         style:myStyle
       }).addTo(map);
-    
+
   };
 
    function changeFunc(){
@@ -334,7 +379,7 @@ if(isset($_POST['search'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-	  
+
     </script>
     <?php
   }
@@ -368,24 +413,24 @@ if(isset($_POST['search'])){
 $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 if(isset($_POST['array'])){
 		$start="";
-		$dest="";	
-		$json=$_POST['array'];		
+		$dest="";
+		$json=$_POST['array'];
 		$arr=json_decode($json);
 		$firstKey = $arr[0];
 		$lastKey= end($arr[0]);
 		$key1=$firstKey[0];
 		$query10="SELECT * FROM shortest where name='$key1'";
 		$query_run10=mysqli_query($conn,$query10);
-		while($row=mysqli_fetch_array($query_run10)){				
-			$start=$row['p1'];	
-			
+		while($row=mysqli_fetch_array($query_run10)){
+			$start=$row['p1'];
+
 		}
 		$query11="SELECT * FROM shortest where name='$lastKey'";
 		$query_run11=mysqli_query($conn,$query11);
 		while($row=mysqli_fetch_array($query_run11)){
 			$w=$row['nPoints'];
-			$dest=$row['p'.$w];	
-			
+			$dest=$row['p'.$w];
+
 		}
 		$db3=mysqli_select_db($conn,"yingyinl_db");
 		 $query12="SELECT * FROM locations where name='$start'";
@@ -395,7 +440,7 @@ if(isset($_POST['array'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-	  
+
     </script>
     <?php
   }
@@ -418,7 +463,7 @@ if(isset($_POST['array'])){
     $arr=json_decode($json);
 	$data2=[];
 	if(strcmp($option, "shortest") === 0){
-		foreach($arr as $key => $value){		
+		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
 			$query3="SELECT * FROM shortest where name='$element'";
@@ -435,9 +480,9 @@ if(isset($_POST['array'])){
 			$points=[];
 			foreach($data2[$key] as $element){
 		$query4="SELECT * FROM points where name='$element'";
-		
+
 		$query_run4=mysqli_query($conn,$query4);
-		while($row=mysqli_fetch_array($query_run4)){	
+		while($row=mysqli_fetch_array($query_run4)){
 					$array=[$row['lat'],$row['lon'],$row['ins']];
 					array_push($points,$array);
 				}
@@ -445,7 +490,7 @@ if(isset($_POST['array'])){
 			array_push($points2,$points);
 		}
 	}else if(strcmp($option, "tunnel") === 0){
-		foreach($arr as $key => $value){		
+		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
 			$query3="SELECT * FROM tunnel where name='$element'";
@@ -462,9 +507,9 @@ if(isset($_POST['array'])){
 			$points=[];
 			foreach($data2[$key] as $element){
 		$query4="SELECT * FROM tunnel_points where name='$element'";
-		
+
 		$query_run4=mysqli_query($conn,$query4);
-		while($row=mysqli_fetch_array($query_run4)){	
+		while($row=mysqli_fetch_array($query_run4)){
 					$array=[$row['lat'],$row['lon'],$row['ins']];
 					array_push($points,$array);
 				}
@@ -472,7 +517,7 @@ if(isset($_POST['array'])){
 			array_push($points2,$points);
 		}
 	}else if(strcmp($option, "outdoor") === 0){
-		foreach($arr as $key => $value){		
+		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
 			$query3="SELECT * FROM outdoor where name='$element'";
@@ -489,9 +534,9 @@ if(isset($_POST['array'])){
 			$points=[];
 			foreach($data2[$key] as $element){
 		$query4="SELECT * FROM Outdoor_points where name='$element'";
-		
+
 		$query_run4=mysqli_query($conn,$query4);
-		while($row=mysqli_fetch_array($query_run4)){	
+		while($row=mysqli_fetch_array($query_run4)){
 					$array=[$row['lat'],$row['lon'],$row['ins']];
 					array_push($points,$array);
 				}
@@ -527,18 +572,26 @@ var str1=<?php echo json_encode($points2); ?>;
   let minArraySize=minArray.length;
   let startlat=document.getElementById("s").getAttribute("startlat");
   let startlon=document.getElementById("s").getAttribute("startlon");
+  dis=0;
   //L.marker(startlat,startlon).addTo(map).bindPopup(document.getElementById("s").getAttribute("startname")).openPopup();
   for(var x of minArray){
     if(x[2]!="" || x[2]!=""){
       L.marker([x[0],x[1]]).addTo(map).bindPopup(x[2]).openPopup();
     }
     getRoute(startlat,startlon,x[0],x[1]);
+    dis+=distance(startlat,startlon,x[0],x[1]);
     startlat=x[0];
     startlon=x[1];
   }
   //L.marker(document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon")).addTo(map).bindPopup(document.getElementById("d").getAttribute("destname")).openPopup();
   getRoute(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
- 
+  dis+=distance(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
+
+  var time1 = Math.ceil((dist * 60)/4828.03);
+  var info1 = "<b>"+document.getElementById("s").getAttribute("startname")+" to "+document.getElementById("d").getAttribute("destname")+":</b><br>";
+  var info = "Distance: " + dis + "m <br>Estimate walking time: " + time1 + "min";
+  document.getElementById("callout")write(info1);
+  document.getElementById("callout")write(info);
  </script>
   <?php
 }
