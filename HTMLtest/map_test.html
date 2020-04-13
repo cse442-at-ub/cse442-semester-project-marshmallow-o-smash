@@ -16,32 +16,18 @@
   <body>
     <h1> MAP </h1>
     <div id="mapid"></div>
-    <button onclick="getLocation()">Try It</button>
+           <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!" onclick="myfunc()">
   </body>
   <script>
     var map=L.map('mapid').setView([43.0007353,-78.7888962],14);
-    L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: ['a','b','c']
+        subdomains: ['a','b','c'],
+        maxZoom:19
     }).addTo( map );
-
-    var glat;
-    var glon;
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      }
-      else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-      }
+    function myfunc(){
+      alert(1);
     }
 
-    function showPosition(position) {
-      glat=position.coords.latitude;
-      glon=position.coords.longitude;
-      L.marker([glat,glon]).addTo(map);
-      map.setView([glat, glon], 16);
-    }
   </script>
 </html>
