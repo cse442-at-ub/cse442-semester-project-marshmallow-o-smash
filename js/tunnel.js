@@ -20,7 +20,7 @@ var tunnelDict={
   "Lockwood Library":["Baldy Hall","Clemens Hall","Student Union"],
   "Mathematics Building":["Natural Sciences Complex"],
   "Natural Sciences Complex":["Mathematics Building","Fronczak Hall","Cooke Hall","Hochstetter Hall","Talbert Hall"],
-  "Norton Hall":["Bonner Hall","O’Brian Hall","Capen Hall"],
+  "Norton Hall":["Bonner Hall","O’Brian Hall","Capen Hall","Knox Lecture Hall"],
   "O’Brian Hall":["Norton Hall","Park Hall","Baldy Hall"],
   "Park Hall":["O’Brian Hall","Jacobs Management Center"],
   "Slee Hall":["Baird Hall"],

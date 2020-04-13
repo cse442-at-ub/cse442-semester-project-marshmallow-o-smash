@@ -587,11 +587,11 @@ var str1=<?php echo json_encode($points2); ?>;
   getRoute(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
   dis+=distance(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
 
-  var time1 = Math.ceil((dist * 60)/4828.03);
+  var time1 = Math.ceil((dis * 60)/4828.03);
   var info1 = "<b>"+document.getElementById("s").getAttribute("startname")+" to "+document.getElementById("d").getAttribute("destname")+":</b><br>";
   var info = "Distance: " + dis + "m <br>Estimate walking time: " + time1 + "min";
-  document.getElementById("callout")write(info1);
-  document.getElementById("callout")write(info);
+  document.getElementById("callout").innerHTML=info1;
+  document.getElementById("callout").innerHTML+=info;
  </script>
   <?php
 }
