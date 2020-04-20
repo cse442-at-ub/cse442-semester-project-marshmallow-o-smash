@@ -4,6 +4,7 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
   $pwd=$_POST['pwd'];
   $dpwd;
   $did;
+  $demail;
   $mysqli = new mysqli("tethys.cse.buffalo.edu:3306", "yingyinl", "50239602", "cse442_542_2020_spring_teamt_db");
   if ($conn->connect_error) {
     exit("Something is wrong. Please try again");
@@ -23,11 +24,16 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
       echo "Username or Password incorrect";
   }
   else if($dpwd==$pwd && $did==$id){
+    echo "<p>You are logged in.";
+    echo "</p>";
     echo "<p> Your Username is:";
     echo htmlspecialchars($id);
     echo "</p>";
     echo "<p> Your Password is:";
     echo htmlspecialchars($pwd);
+    echo "</p>";
+    echo "<p> Your E-mail is:";
+    echo htmlspecialchars($demail);
     echo "</p>";
   }
   $stmt->close();
