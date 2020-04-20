@@ -168,7 +168,9 @@ li a:hover {
   <h1 style="color: White;">UB North Campus Map</h1>
 </div>
 <top>
-  <li><a class="active" href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
+  <li><a class="active" href="">Register</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/login.php">Sign In</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
 </top>
 <div id="mapid"></div>
@@ -469,7 +471,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM shortest where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<$row['nPoints']-1;$x++){
+				for($x=1;$x<$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -496,7 +498,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM tunnel where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<$row['nPoints']-1;$x++){
+				for($x=1;$x<$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -523,7 +525,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM outdoor where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=0;$x<$row['nPoints'];$x++){
+				for($x=1;$x<=$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
