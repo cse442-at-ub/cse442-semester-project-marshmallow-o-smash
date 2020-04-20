@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>UB North Campus Map Navigation</title>
+<title>UB North Campus Navigation</title>
+<meta name="description" content="UB North Campus Navigation for shortest, outdoor, and tunnel routes">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -165,7 +166,7 @@ li a:hover {
 <body>
 
 <div class="header">
-  <h1 style="color: White;">UB North Campus Map</h1>
+  <h1 style="color: White;">UB North Campus Navigation</h1>
 </div>
 <top>
   <li><a class="active" href="">Sign Up</a></li>
