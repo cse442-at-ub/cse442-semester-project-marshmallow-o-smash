@@ -54,7 +54,6 @@
 
     </style>
   </head>
-
   <body>
     <div class="box">
       <div class ="header">
@@ -76,7 +75,7 @@
 				echo '<tr><td>Password:</td>';
 				echo '<td><input type="password" name="pwd" required></td></tr>';
 				echo '<tr><td colspan="2" align="center">';
-				echo '<input type="submit" value="Log in"></td></tr>';
+				echo '<input type="submit" name="submit" value="Log in"></td></tr>';
 				echo '</table></form>';
 			?>
 		</div>
