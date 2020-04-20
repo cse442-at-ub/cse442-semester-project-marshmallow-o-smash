@@ -183,8 +183,8 @@ li a:hover {
 	  <div class="selectbar">
 		<div>Route Option:</div>
     <select id="options" >
-      <option value="shortest">Shortest Route</option>
       <option value="outdoor">Outdoor Route</option>
+      <option value="shortest">Shortest Route</option>
       <option value="tunnel">Tunnel Route</option>
     </select>
 	  </div>
@@ -223,7 +223,6 @@ li a:hover {
 	    </datalist>
        <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!" onclick="changeFunc();">
     </form>
-
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
@@ -242,7 +241,7 @@ li a:hover {
 	  <input type="hidden" id="Str" name="Str" value="shortest">
      </form>
 
-  <script type="text/javascript">
+<script type="text/javascript">
   //changeFunc();
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -259,12 +258,9 @@ li a:hover {
 	let element2=document.getElementById("Str");
 	element2.setAttribute("value",option);
 	var bool=true;
-	alert(start);
-	alert(end);
     if(option=="tunnel") array= BFS(tunnelDict,start,end);
     else if(option=="shortest") array= BFS(shortestDict,start,end);
-    else if(option=="outdoor") array= BFS(outdoorDict,start,end);
-	alert(array);
+    else array= BFS(outdoorDict,start,end);
     if (array.length!=0){
 	  let array1= addTo(array);
       let jsondata = JSON.stringify(array1);
@@ -427,7 +423,8 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 if(isset($_POST['array'])){
 		$start="";
 		$dest="";
-		$json=$_POST['array'];
+		$json=$_POST['array'];	
+
 		$arr=json_decode($json);
 		$firstKey = $arr[0];
 		$lastKey= end($arr[0]);
@@ -482,7 +479,7 @@ if(isset($_POST['array'])){
 		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
-			$query3="SELECT * FROM shortest where name='$element'";
+			$query3="SELECT * FROM shortest where name='$element'";		
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
 				for($x=1;$x<$row['nPoints'];$x++){
@@ -539,7 +536,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM outdoor where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<=$row['nPoints'];$x++){
+				for($x=1;$x<=$row['nPoints'];$x++){					
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -558,11 +555,14 @@ if(isset($_POST['array'])){
 				}
 			}
 			array_push($points2,$points);
+
 		}
 	}
 	  ?>
   <script>
-var str1=<?php echo json_encode($points2); ?>;
+   let option1=localStorage.getItem("OP");
+   var str1;
+   str1=<?php echo json_encode($points2); ?>;
   let minD=Number.MAX_VALUE;
   let minI=-1;
   let index1=0;
@@ -584,7 +584,6 @@ var str1=<?php echo json_encode($points2); ?>;
     }
     index1+=1;
   }
-  let option1=localStorage.getItem("OP");
   let minArray=str1[minI];
   let minArraySize=minArray.length;
   let startlat;
