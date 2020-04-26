@@ -23,15 +23,17 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $did=$row['userid'];
     $demail=$row['email'];
   }
-  if(!$arr) {$message = "Username or Password incorrect";}
-  else if ($dpwd!=$pwd) {
-    $message = "Username or Password incorrect";
-  }
-  else if($dpwd==$pwd && $did==$id){
-    $_SESSION['did']=$id;
-    $_SESSION['dpwd']=$pwd;
-    $_SESSION['demail']=$demail;
-	$_SESSION['login_time'] = time();
+  if(!$arr) $message= "Username or Password incorrect";
+  else {
+    if(!password_verify($pwd,$dpwd)){
+        $message=  "Username or Password incorrect";
+    }
+    else if(password_verify($pwd,$dpwd) && $did==$id){
+		$_SESSION['did']=$id;
+		$_SESSION['dpwd']=$pwd;
+		$_SESSION['demail']=$demail;
+		$_SESSION['login_time'] = time();
+	}
   }
   $stmt->free_result();
   $mysqli->close();
