@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>UB North Campus Navigation</title>
-<meta name="description" content="UB North Campus Navigation for shortest, outdoor, and tunnel routes">
+<title>UB North Campus Map Navigation</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -166,11 +165,11 @@ li a:hover {
 <body>
 
 <div class="header">
-  <h1 style="color: White;">UB North Campus Navigation</h1>
+  <h1 style="color: White;">UB North Campus Map</h1>
 </div>
 <top>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Signup.html">Sign Up</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/loginpage.php">Log In</a></li>
+  <li><a class="active" href="">Sign Up</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/login.php">Log In</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
 </top>
@@ -184,8 +183,8 @@ li a:hover {
 	  <div class="selectbar">
 		<div>Route Option:</div>
     <select id="options" >
-      <option value="shortest">Shortest Route</option>
       <option value="outdoor">Outdoor Route</option>
+      <option value="shortest">Shortest Route</option>
       <option value="tunnel">Tunnel Route</option>
     </select>
 	  </div>
@@ -220,10 +219,10 @@ li a:hover {
 			<option value="Slee Hall">
 			<option value="Student Union">
 			<option value="Talbert Hall">
+			<option value="Furnas Hall">
 	    </datalist>
        <input type="submit" name="search" style="color: white; background:#176BE2;" value="Go!" onclick="changeFunc();">
     </form>
-
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
@@ -242,7 +241,7 @@ li a:hover {
 	  <input type="hidden" id="Str" name="Str" value="shortest">
      </form>
 
- <script type="text/javascript">
+<script type="text/javascript">
   //changeFunc();
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -621,32 +620,8 @@ if(isset($_POST['array'])){
   var time1 = Math.ceil((dis * 60)/4828.03);
   var info1 = "<b>"+sname+" to "+dname+":</b><br>";
   var info = "Distance: " + dis + "m <br>Estimate walking time: " + time1 + "min";
-  var info2="";
-  var info3="";
-  var current_t = new Date();
-  var c_h=current_t.getHours();
-  var c_m=checkTime(current_t.getMinutes());
-  var h =current_t.getHours();
-  var m =current_t.getMinutes()+time1;
-  if(checkMin(m)==true){
-  	m=m-60;
-    if((h+1)>=24){h="0"+(h+1-24);}else {h=h+1;}
-  }
-  m = checkTime(m);
-  info2="<br>Estimate arrival time: "+h + ":" + m ;
-function checkMin(i){
-	if (i>=60){return true;}
-    return false;
-}
-function checkTime(i) {
-  if (i < 10) {i = "0" + i};
-  return i;
-}
-  info3="<br>Current time: "+c_h + ":" +c_m ;
   document.getElementById("callout").innerHTML=info1;
   document.getElementById("callout").innerHTML+=info;
-  document.getElementById("callout").innerHTML+=info3;
-  document.getElementById("callout").innerHTML+=info2;
  </script>
   <?php
 }
