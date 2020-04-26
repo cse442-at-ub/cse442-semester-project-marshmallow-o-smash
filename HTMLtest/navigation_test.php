@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-<script src="js/dist.js"></script>
-<script src="js/shortest.js"></script>
-<script src="js/algo.js"></script>
-<script src="js/outdoor.js"></script>
-<script src="js/tunnel.js"></script>
-<script src="js/GPS.js"></script>
+<script src="../js/dist.js"></script>
+<script src="../js/shortest.js"></script>
+<script src="../js/algo.js"></script>
+<script src="../js/outdoor.js"></script>
+<script src="../js/tunnel.js"></script>
+<script src="../js/GPS.js"></script>
 <style>
 body {
   margin: 0;
@@ -236,7 +236,7 @@ li a:hover {
 
 
   function getRoute(clat, clon, dlat, dlon){
-	  
+
       var geojson = {
       "type": "FeatureCollection",
       "features": [
@@ -264,7 +264,7 @@ li a:hover {
       L.geoJSON(geojson,{
         style:myStyle
       }).addTo(map);
-    
+
   };
 
    function changeFunc(){
@@ -334,7 +334,7 @@ if(isset($_POST['search'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-	  
+
     </script>
     <?php
   }
@@ -368,24 +368,24 @@ if(isset($_POST['search'])){
 $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 if(isset($_POST['array'])){
 		$start="";
-		$dest="";	
-		$json=$_POST['array'];		
+		$dest="";
+		$json=$_POST['array'];
 		$arr=json_decode($json);
 		$firstKey = $arr[0];
 		$lastKey= end($arr[0]);
 		$key1=$firstKey[0];
 		$query10="SELECT * FROM shortest where name='$key1'";
 		$query_run10=mysqli_query($conn,$query10);
-		while($row=mysqli_fetch_array($query_run10)){				
-			$start=$row['p1'];	
-			
+		while($row=mysqli_fetch_array($query_run10)){
+			$start=$row['p1'];
+
 		}
 		$query11="SELECT * FROM shortest where name='$lastKey'";
 		$query_run11=mysqli_query($conn,$query11);
 		while($row=mysqli_fetch_array($query_run11)){
 			$w=$row['nPoints'];
-			$dest=$row['p'.$w];	
-			
+			$dest=$row['p'.$w];
+
 		}
 		$db3=mysqli_select_db($conn,"yingyinl_db");
 		 $query12="SELECT * FROM locations where name='$start'";
@@ -395,7 +395,7 @@ if(isset($_POST['array'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-	  
+
     </script>
     <?php
   }
@@ -418,7 +418,7 @@ if(isset($_POST['array'])){
     $arr=json_decode($json);
 	$data2=[];
 	if(strcmp($option, "shortest") === 0){
-		foreach($arr as $key => $value){		
+		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
 			$query3="SELECT * FROM shortest where name='$element'";
@@ -435,9 +435,9 @@ if(isset($_POST['array'])){
 			$points=[];
 			foreach($data2[$key] as $element){
 		$query4="SELECT * FROM points where name='$element'";
-		
+
 		$query_run4=mysqli_query($conn,$query4);
-		while($row=mysqli_fetch_array($query_run4)){	
+		while($row=mysqli_fetch_array($query_run4)){
 					$array=[$row['lat'],$row['lon'],$row['ins']];
 					array_push($points,$array);
 				}
@@ -445,7 +445,7 @@ if(isset($_POST['array'])){
 			array_push($points2,$points);
 		}
 	}else if(strcmp($option, "tunnel") === 0){
-		foreach($arr as $key => $value){		
+		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
 			$query3="SELECT * FROM tunnel where name='$element'";
@@ -462,9 +462,9 @@ if(isset($_POST['array'])){
 			$points=[];
 			foreach($data2[$key] as $element){
 		$query4="SELECT * FROM tunnel_points where name='$element'";
-		
+
 		$query_run4=mysqli_query($conn,$query4);
-		while($row=mysqli_fetch_array($query_run4)){	
+		while($row=mysqli_fetch_array($query_run4)){
 					$array=[$row['lat'],$row['lon'],$row['ins']];
 					array_push($points,$array);
 				}
@@ -472,7 +472,7 @@ if(isset($_POST['array'])){
 			array_push($points2,$points);
 		}
 	}else if(strcmp($option, "outdoor") === 0){
-		foreach($arr as $key => $value){		
+		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
 			$query3="SELECT * FROM outdoor where name='$element'";
@@ -489,9 +489,9 @@ if(isset($_POST['array'])){
 			$points=[];
 			foreach($data2[$key] as $element){
 		$query4="SELECT * FROM Outdoor_points where name='$element'";
-		
+
 		$query_run4=mysqli_query($conn,$query4);
-		while($row=mysqli_fetch_array($query_run4)){	
+		while($row=mysqli_fetch_array($query_run4)){
 					$array=[$row['lat'],$row['lon'],$row['ins']];
 					array_push($points,$array);
 				}
@@ -538,7 +538,7 @@ var str1=<?php echo json_encode($points2); ?>;
   }
   //L.marker(document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon")).addTo(map).bindPopup(document.getElementById("d").getAttribute("destname")).openPopup();
   getRoute(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
- 
+
  </script>
   <?php
 }

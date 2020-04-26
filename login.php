@@ -25,14 +25,14 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
   }
   if(!$arr) $message = "Username or Password incorrect";
   else if ($dpwd!=$pwd) {
-      echo $message = "Username or Password incorrect";
+     $message = "Username or Password incorrect";
   }
   else if($dpwd==$pwd && $did==$id){
     $_SESSION['did']=$id;
     $_SESSION['dpwd']=$pwd;
     $_SESSION['demail']=$demail;
 	$_SESSION['login_time'] = time();
-	header("Location: account.php"); 
+	header("Location: account.php");
 	exit;
   }
   $stmt->close();
@@ -114,7 +114,7 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
 		<div class = "form">
           <?php
 			session_start();
-				// provide form to log in 
+				// provide form to log in
 				echo '<form method="post">';
 				echo '<table>';
 				echo '<tr><td>Username:</td>';
@@ -133,4 +133,3 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
   </body>
 <html>
-
