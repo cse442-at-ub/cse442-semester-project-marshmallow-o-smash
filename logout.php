@@ -61,12 +61,11 @@ if (isset($_GET['session_expired'])){
 		<h1>UB North Campus Navigation</h1>
 		<div class="message"> <?php echo $text; ?> </div>
 		<h2>Click here to <a href="login.php" title="Logout">Login</a></h2>
-		<h2>Click here to <a href="index.php" title="home">Back to MAP</a></h2>
+		<h2>Click here to <a href="index.php" title="home">Back to Map</a></h2>
 	</div>
     </div>
 <?php
-}
-if (!empty($old_user)){
+} else if (!empty($old_user)){
 	$text ="You are Logged Out";
 	//alert($text);
 	?>
@@ -75,7 +74,7 @@ if (!empty($old_user)){
 		<h1>UB North Campus Navigation</h1>
 		<div class="message"> <?php echo $text; ?> </div>
 		<h2>Click here to <a href="login.php" title="Logout">Login</a></h2>
-		<h2>Click here to <a href="index.php" title="home">Back to MAP</a></h2>
+		<h2>Click here to <a href="index.php" title="home">Back to Map</a></h2>
 	</div>
     </div>
 	<?php
@@ -88,7 +87,7 @@ if (!empty($old_user)){
 		<h1>UB North Campus Navigation</h1>
 		<div class="message"> <?php echo $text; ?> </div>
 		<h2>Click here to <a href="login.php" title="Login">Login<br /></a></h2>
-		<h2>Click here to <a href="index.php" title="home">Back to MAP</a></h2>
+		<h2>Click here to <a href="index.php" title="home">Back to Map</a></h2>
 	  </div>
     </div>
 <?php
