@@ -621,9 +621,32 @@ if(isset($_POST['array'])){
   var time1 = Math.ceil((dis * 60)/4828.03);
   var info1 = "<b>"+sname+" to "+dname+":</b><br>";
   var info = "Distance: " + dis + "m <br>Estimate walking time: " + time1 + "min";
-  
+  var info2="";
+  var info3="";
+  var current_t = new Date();
+  var c_h=current_t.getHours();
+  var c_m=checkTime(current_t.getMinutes());
+  var h =current_t.getHours();
+  var m =current_t.getMinutes()+time1;
+  if(checkMin(m)==true){
+  	m=m-60;
+    if((h+1)>=24){h="0"+(h+1-24);}else {h=h+1;}
+  }
+  m = checkTime(m);
+  info2="<br>Estimate arrival time: "+h + ":" + m ;
+function checkMin(i){
+	if (i>=60){return true;}
+    return false;
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};
+  return i;
+}
+  info3="<br>Current time: "+c_h + ":" +c_m ;
   document.getElementById("callout").innerHTML=info1;
   document.getElementById("callout").innerHTML+=info;
+  document.getElementById("callout").innerHTML+=info3;
+  document.getElementById("callout").innerHTML+=info2;
  </script>
   <?php
 }
