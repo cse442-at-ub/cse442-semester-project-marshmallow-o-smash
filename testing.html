@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>My account</title>
+    <style>
+    top {
+      transform:translate(0px,95px);
+      list-style-type: none;
+      overflow: show;
+      background-color: #173660;
+      position: fixed;
+      width: 100%;
+      z-index: 1;
+    }
+    li {
+      float: right;
+      border-left:1px solid #bbb;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    </style>
+  </head>
+  <body>
+    <top>
+      <!-- <p id="output"></p> -->
+      <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Signup.html"><p id="output"></p></a></li>
+      <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/loginpage.php">Log In</a></li>
+      <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
+      <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
+    </top>
+    <script>
+      // window.onload = function(){
+      var name = prompt("What's your name?");
+      var lengthOfName = 5
+
+      document.getElementById('output').innerHTML = lengthOfName;
+  // };
+  </script>
+
+  </body>
+
+
+</html>
