@@ -5,12 +5,12 @@ var outdoorDict={
   "Baldy Hall":["Clemens Hall","OBrian Hall","Lockwood Library","Student Union","Alfiero Center","Park Hall","Capen Hall","Bell Hall","Commons"],
   "Bell Hall":["Commons","Baldy Hall","Furnas Hall","Student Union","Knox Lecture Hall","Bonner Hall"],
   "Bissell Hall":["Alumni Arena"],
-  "Bonner Hall":["Knox Lecture Hall","Ketter Hall","Norton Hall","Bell Hall","Capen Hall","Furnas Hall"],
+  "Bonner Hall":["Clemens Hall","Knox Lecture Hall","Ketter Hall","Furnas Hall","Norton Hall","Bell Hall","Capen Hall"],
   "Bookstore":[ "Commons"],
   "Capen Hall":["Hochstetter Hall","Cooke Hall","Natural Sciences Complex","Fronczak Hall","Bonner Hall","Baldy Hall","Norton Hall","Talbert Hall","OBrian Hall"],
   "Center for the Arts":["Baird Hall","Alumni Arena","Slee Hall","Commons"],
   "Child Care Center":["Alumni Arena"],
-  "Clemens Hall":["Baldy Hall","Alfiero Center","Lockwood Library","Baird Hall","Student Union","Commons","Jacobs Management Center"],
+  "Clemens Hall":["Bonner Hall","Baldy Hall","Alfiero Center","Lockwood Library","Baird Hall","Student Union","Commons","Jacobs Management Center"],
   "Commons":["Clemens Hall","Bell Hall","Baldy Hall","Student Union","Center for the Arts","Bookstore","Furnas Hall"],
   "Cooke Hall":["Talbert Hall","Capen Hall","Alfiero Center","Hochstetter Hall","Natural Sciences Complex"],
   "Davis Hall":["Furnas Hall","Ketter Hall","Jarvis Hall"],
@@ -31,6 +31,4 @@ var outdoorDict={
   "Talbert Hall":["Cooke Hall","Alfiero Center","Capen Hall","Fronczak Hall","Hochstetter Hall","Natural Sciences Complex"],
   "Furnas Hall":["Davis Hall","Bonner Hall","Bell Hall","Commons","Jarvis Hall","Ketter Hall"],
 };
-
-
 
