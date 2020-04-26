@@ -20,9 +20,9 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $did=$row['userid'];
     $demail=$row['email'];
   }
-  if(!$arr) $message = "Username or Password incorrect";
+  if(!$arr) echo "Username or Password incorrect";
   else if ($dpwd!=$pwd) {
-      echo $message = "Username or Password incorrect";
+      echo  "Username or Password incorrect";
   }
   else if($dpwd==$pwd && $did==$id){
     echo "<p>You are logged in.";
@@ -38,5 +38,7 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     echo "</p>";
   }
   $stmt->close();
+}else{
+  echo "Nothing was submitted";
 }
 ?>
