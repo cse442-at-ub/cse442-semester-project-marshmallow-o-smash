@@ -31,6 +31,8 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $_SESSION['demail']=$demail;
   }
   $stmt->close();
+  header("Location: account.php"); 
+  exit;
 }else{
   echo "Nothing is submitted. Please try again";
 }
