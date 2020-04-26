@@ -21,23 +21,26 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $demail=$row['email'];
   }
   if(!$arr) echo "Username or Password incorrect";
-  else if ($dpwd!=$pwd) {
-      echo  "Username or Password incorrect";
+  else {
+    if(!password_verify($pwd,$dpwd)){
+        echo  "Username or Password incorrect";
+    }
+    else if(password_verify($pwd,$dpwd) && $did==$id){
+      echo "<p>You are logged in.";
+      echo "</p>";
+      echo "<p> Your Username is:";
+      echo htmlspecialchars($did);
+      echo "</p>";
+      echo "<p> Your Password is:";
+      echo htmlspecialchars($dpwd);
+      echo "</p>";
+      echo "<p> Your E-mail is:";
+      echo htmlspecialchars($demail);
+      echo "</p>";
+    }
   }
-  else if($dpwd==$pwd && $did==$id){
-    echo "<p>You are logged in.";
-    echo "</p>";
-    echo "<p> Your Username is:";
-    echo htmlspecialchars($did);
-    echo "</p>";
-    echo "<p> Your Password is:";
-    echo htmlspecialchars($dpwd);
-    echo "</p>";
-    echo "<p> Your E-mail is:";
-    echo htmlspecialchars($demail);
-    echo "</p>";
-  }
-  $stmt->close();
+  $stmt->free_result();
+  $mysqli->close();
 }else{
   echo "Nothing was submitted";
 }

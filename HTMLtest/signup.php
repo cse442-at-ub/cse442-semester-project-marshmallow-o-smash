@@ -12,8 +12,9 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])&&isset($_POST['email'])){
   $stmt->execute();
   $result = $stmt->get_result();
   if($result->num_rows === 0){
+    $hash = password_hash($pwd, PASSWORD_BCRYPT);
     $stmt1 = $mysqli->prepare("INSERT INTO users(userid, pwd, email) VALUES(?,?,?)");
-    $stmt1->bind_param("sss", $id, $pwd, $email);
+    $stmt1->bind_param("sss", $id, $hash, $email);
     $stmt1->execute();
     $stmt1->close();
     echo "Account successfully created!";
