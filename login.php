@@ -1,6 +1,6 @@
 <?php
   session_start();
-  //include("duration.php")
+  include("duration.php");
   $message="";
 if(isset($_POST['userid'])&&isset($_POST['pwd'])){
   $id=$_POST['userid'];
@@ -23,19 +23,26 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $did=$row['userid'];
     $demail=$row['email'];
   }
-  if(!$arr) $message = "Username or Password incorrect";
+  if(!$arr) {$message = "Username or Password incorrect";}
   else if ($dpwd!=$pwd) {
-      echo $message = "Username or Password incorrect";
+    $message = "Username or Password incorrect";
   }
   else if($dpwd==$pwd && $did==$id){
     $_SESSION['did']=$id;
     $_SESSION['dpwd']=$pwd;
     $_SESSION['demail']=$demail;
 	$_SESSION['login_time'] = time();
-	header("Location: account.php"); 
-	exit;
   }
-  $stmt->close();
+  $stmt->free_result();
+  $mysqli->close();
+}
+
+if(isset($_SESSION['did'])){
+	if(!checkLoginExpired()) {
+		header("Location:account.php"); 
+	} else {
+		header("Location:logout.php?session_expired=1");
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -70,7 +77,7 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
         align-items: center;
         vertical-align: middle;
         width: 450px;
-        height: 300px;
+        height: 330px;
 		transform: translate(-50%,-50%);
 		top: 50%;
         left:50%;
