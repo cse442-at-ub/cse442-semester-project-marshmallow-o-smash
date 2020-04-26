@@ -169,8 +169,8 @@ li a:hover {
   <h1 style="color: White;">UB North Campus Navigation</h1>
 </div>
 <top>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Signup.html">Sign Up</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/loginpage.php">Log In</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/HTMLtest/Signup.html">Sign Up</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/HTMLtest/loginpage.php">Log In</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
 </top>
