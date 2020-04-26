@@ -29,10 +29,10 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $_SESSION['did']=$did;
     $_SESSION['dpwd']=$dpwd;
     $_SESSION['demail']=$demail;
+    header("Location: account.php");
+    exit;
   }
   $stmt->close();
-  header("Location: account.php"); 
-  exit;
 }else{
   echo "Nothing is submitted. Please try again";
 }
