@@ -1,4 +1,5 @@
 <?php
+	// check duration time (for testing it is 10 seconds)
 	session_start();
 	include("duration.php");
 	if(isset($_SESSION['did'])){
