@@ -1,4 +1,5 @@
 <?php
+  session_start();
 if(isset($_POST['userid'])&&isset($_POST['pwd'])){
   $id=$_POST['userid'];
   $pwd=$_POST['pwd'];
@@ -18,23 +19,16 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $arr[]=$row;
     $dpwd=$row['pwd'];
     $did=$row['userid'];
+    $demail=$row['email'];
   }
   if(!$arr) echo "Username doesn't exist";
   else if ($dpwd!=$pwd) {
       echo "Username or Password incorrect";
   }
   else if($dpwd==$pwd && $did==$id){
-    echo "<p>You are logged in.";
-    echo "</p>";
-    echo "<p> Your Username is:";
-    echo htmlspecialchars($id);
-    echo "</p>";
-    echo "<p> Your Password is:";
-    echo htmlspecialchars($pwd);
-    echo "</p>";
-    echo "<p> Your E-mail is:";
-    echo htmlspecialchars($demail);
-    echo "</p>";
+    $_SESSION['did']=$did;
+    $_SESSION['dpwd']=$dpwd;
+    $_SESSION['demail']=$demail;
   }
   $stmt->close();
 }else{
