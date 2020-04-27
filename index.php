@@ -668,7 +668,7 @@ function checkTime(i) {
   if(isset($sessionid)){ ?>
     <script>
     let id="<?php echo htmlspecialchars($sessionid);?>";
-  if(id!=Null||id!=""){
+  if(id!=""){
     var box = document.getElementById("options");
     box.value="tunnel";
     alert(99);
