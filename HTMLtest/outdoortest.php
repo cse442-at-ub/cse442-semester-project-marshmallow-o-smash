@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-<script src="js/dist.js"></script>
-<script src="js/shortest.js"></script>
-<script src="js/algo.js"></script>
-<script src="js/outdoor.js"></script>
-<script src="js/tunnel.js"></script>
-<script src="js/GPS.js"></script>
+<script src="../js/dist.js"></script>
+<script src="../js/shortest.js"></script>
+<script src="../js/algo.js"></script>
+<script src="../js/outdoor.js"></script>
+<script src="../js/tunnel.js"></script>
+<script src="../js/GPS.js"></script>
 <style>
 body {
   margin: 0;
@@ -391,7 +391,7 @@ if(isset($_POST['search'])){
   }
   $query2="SELECT * FROM locations where name='$name2'";
   $query_run2=mysqli_query($conn,$query2);
- 
+
   while($row=mysqli_fetch_array($query_run2)){
     ?>
     <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
@@ -423,7 +423,7 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 if(isset($_POST['array'])){
 		$start="";
 		$dest="";
-		$json=$_POST['array'];	
+		$json=$_POST['array'];
 
 		$arr=json_decode($json);
 		$firstKey = $arr[0];
@@ -479,7 +479,7 @@ if(isset($_POST['array'])){
 		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
-			$query3="SELECT * FROM shortest where name='$element'";		
+			$query3="SELECT * FROM shortest where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
 				for($x=1;$x<$row['nPoints'];$x++){
@@ -536,7 +536,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM outdoor where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<=$row['nPoints'];$x++){					
+				for($x=1;$x<=$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}

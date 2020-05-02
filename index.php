@@ -1,3 +1,13 @@
+<?php
+ // check duration time (for testing it is 10 seconds)
+ session_start();
+ include("duration.php");
+ if(isset($_SESSION['did'])){
+  if(checkLoginExpired()) {
+   header("Location: logout.php?session_expired=1");
+  }
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,13 +174,16 @@ li a:hover {
 </style>
 </head>
 <body>
-
+  <?php
+  session_start();
+  $sessionid=$_SESSION['did'];
+  ?>
 <div class="header">
   <h1 style="color: White;">UB North Campus Navigation</h1>
 </div>
-<top>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Signup.html">Sign Up</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/loginpage.php">Log In</a></li>
+<top id="top">
+  <li id="li1"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/signup.php">Sign Up</a></li>
+  <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/login.php">Log In</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
 </top>
@@ -250,6 +263,8 @@ li a:hover {
         subdomains: ['a','b','c'],
         maxZoom:19
     }).addTo( map );
+
+
 
   function route(){
     let array=[];
@@ -392,7 +407,7 @@ if(isset($_POST['search'])){
   }
   $query2="SELECT * FROM locations where name='$name2'";
   $query_run2=mysqli_query($conn,$query2);
- 
+
   while($row=mysqli_fetch_array($query_run2)){
     ?>
     <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
@@ -424,7 +439,7 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 if(isset($_POST['array'])){
 		$start="";
 		$dest="";
-		$json=$_POST['array'];	
+		$json=$_POST['array'];
 
 		$arr=json_decode($json);
 		$firstKey = $arr[0];
@@ -480,7 +495,7 @@ if(isset($_POST['array'])){
 		foreach($arr as $key => $value){
 		 $data=[];
 		 foreach($arr[$key] as $element){
-			$query3="SELECT * FROM shortest where name='$element'";		
+			$query3="SELECT * FROM shortest where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
 				for($x=1;$x<$row['nPoints'];$x++){
@@ -537,7 +552,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM outdoor where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<=$row['nPoints'];$x++){					
+				for($x=1;$x<=$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -650,6 +665,26 @@ function checkTime(i) {
  </script>
   <?php
 }
+  if(isset($sessionid)){ ?>
+    <script>
+    let id="<?php echo htmlspecialchars($sessionid);?>";
+  if(id!=""){
+    var box = document.getElementById("options");
+    box.value="tunnel";
+      let a = document.createElement("a");
+      a.innerHTML="Welcome! "+id;
+      a.href="account.php";
+      let ele=document.createElement("li");
+      ele.appendChild(a);
+        document.getElementById("top").appendChild(ele);
+        let element = document.getElementById("li1");
+        element.parentNode.removeChild(element);
+        let element2 = document.getElementById("li2");
+        element2.parentNode.removeChild(element2);
+      }
+    </script>
+    <?php
+  }
 ?>
 
 <script>
@@ -670,9 +705,9 @@ if(document.getElementById("s")!=null){
     L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
   }
 }
-
 </script>
 
-</body>
 
+
+</body>
 </html>

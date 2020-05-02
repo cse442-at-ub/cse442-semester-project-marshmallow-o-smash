@@ -1,68 +1,3 @@
-<?php
-  session_start();
-  include("duration.php");
-  $message="";
-if(isset($_POST['userid'])&&isset($_POST['pwd'])){
-  $id=$_POST['userid'];
-  $pwd=$_POST['pwd'];
-  $dpwd;
-  $did;
-  $demail;
-  $mysqli = new mysqli("tethys.cse.buffalo.edu:3306", "yingyinl", "50239602", "cse442_542_2020_spring_teamt_db");
-  if ($conn->connect_error) {
-    exit("Something is wrong. Please try again");
-  }
-  $arr = [];
-  $stmt = $mysqli->prepare("SELECT * FROM users WHERE userid = ?");
-  $stmt->bind_param("s", $id);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  while($row = $result->fetch_assoc()) {
-    $arr[]=$row;
-    $dpwd=$row['pwd'];
-    $did=$row['userid'];
-    $demail=$row['email'];
-  }
-<<<<<<< HEAD
-  if(!$arr) $message = "Username or Password incorrect";
-  else if ($dpwd!=$pwd) {
-     $message = "Username or Password incorrect";
-  }
-  else if($dpwd==$pwd && $did==$id){
-    $_SESSION['did']=$id;
-    $_SESSION['dpwd']=$dpwd;
-    $_SESSION['demail']=$demail;
-	$_SESSION['login_time'] = time();
-	header("Location: account.php");
-	exit;
-  }
-  $stmt->close();
-=======
-  if(!$arr) $message= "Username or Password incorrect";
-  else {
-    if(!password_verify($pwd,$dpwd)){
-        $message=  "Username or Password incorrect";
-    }
-    else if(password_verify($pwd,$dpwd) && $did==$id){
-		$_SESSION['did']=$id;
-		$_SESSION['dpwd']=$pwd;
-		$_SESSION['demail']=$demail;
-		$_SESSION['login_time'] = time();
-	}
-  }
-  $stmt->free_result();
-  $mysqli->close();
-}
-
-if(isset($_SESSION['did'])){
-	if(!checkLoginExpired()) {
-		header("Location:account.php"); 
-	} else {
-		header("Location:logout.php?session_expired=1");
-	}
->>>>>>> origin/dev
-}
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -70,7 +5,7 @@ if(isset($_SESSION['did'])){
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
       html{
-        background-image: url("pic/background.jpg");
+        background-image: url("../pic/background.jpg");
         width:100%;
         height:100%;
         background-repeat: no-repeat;
@@ -95,7 +30,7 @@ if(isset($_SESSION['did'])){
         align-items: center;
         vertical-align: middle;
         width: 450px;
-        height: 330px;
+        height: 300px;
 		transform: translate(-50%,-50%);
 		top: 50%;
         left:50%;
@@ -140,7 +75,7 @@ if(isset($_SESSION['did'])){
           <?php
 			session_start();
 				// provide form to log in
-				echo '<form method="post">';
+				echo '<form method="post" action="login.php">';
 				echo '<table>';
 				echo '<tr><td>Username:</td>';
 				echo '<td><input type="text" name="userid" placeholder="Enter Your Username" required></td></tr>';

@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>UB North Campus Map Navigation</title>
+<title>UB North Campus Navigation</title>
+<meta name="description" content="UB North Campus Navigation for shortest, outdoor, and tunnel routes">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-<script src="../js/dist.js"></script>
-<script src="../js/shortest.js"></script>
-<script src="../js/algo.js"></script>
-<script src="../js/outdoor.js"></script>
-<script src="../js/tunnel.js"></script>
-<script src="../js/GPS.js"></script>
+<script src="js/dist.js"></script>
+<script src="js/shortest.js"></script>
+<script src="js/algo.js"></script>
+<script src="js/outdoor.js"></script>
+<script src="js/tunnel.js"></script>
+<script src="js/GPS.js"></script>
 <style>
 body {
   margin: 0;
@@ -123,15 +124,54 @@ li a:hover {
 	font-size: 13px;
 	opacity:0.8;
 }
+.callout {
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  margin-left: 10px;
+  max-width: 300px;
+  opacity:0.8;
+}
+
+.callout-header {
+  padding: 10px 15px;
+  padding-right:30px;
+  background: #47626b;
+  font-size: 15px;
+  color: white;
+}
+
+.callout-container {
+  padding: 13px;
+  background-color: #b3c6cc;
+  font-size: 13px;
+  text-align: left;
+  color: #141c1f;
+}
+
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: red;
+}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1 style="color: White;">UB North Campus Map</h1>
+  <h1 style="color: White;">UB North Campus Navigation</h1>
 </div>
 <top>
-  <li><a class="active" href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/HTMLtest/Signup.html">Sign Up</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/HTMLtest/loginpage.php">Log In</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
 </top>
 <div id="mapid"></div>
@@ -175,7 +215,7 @@ li a:hover {
 			<option value="Mathematics Building">
 			<option value="Natural Sciences Complex">
 			<option value="Norton Hall">
-			<option value="O’Brian Hall">
+			<option value="OBrian Hall">
 			<option value="Park Hall">
 			<option value="Slee Hall">
 			<option value="Student Union">
@@ -187,14 +227,22 @@ li a:hover {
   </div>
   </div>
   <button onclick="getLocation()">GPS</button>
+
   </ul>
+
+  <div class="callout">
+    <div class="callout-header"><b>Route Info</b></div>
+  	<span class="closebtn" onclick="this.parentElement.style.display='none';"><b>×</b></span>
+  	<div class="callout-container" id="callout">
+    </div>
+  </div>
 
 <form id="form" method ="POST" action="">
       <input type="hidden" id="array" name="array" value="">
 	  <input type="hidden" id="Str" name="Str" value="shortest">
      </form>
 
-  <script type="text/javascript">
+ <script type="text/javascript">
   //changeFunc();
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -210,10 +258,10 @@ li a:hover {
 	var option=localStorage.getItem("OP");
 	let element2=document.getElementById("Str");
 	element2.setAttribute("value",option);
-    if(option=="tunnel") array=BFS(tunnelDict,start,end);
-    if(option=="shortest") array=BFS(shortestDict,start,end);
-    if(option=="outdoor") array=BFS(outdoorDict,start,end);
 	var bool=true;
+    if(option=="tunnel") array= BFS(tunnelDict,start,end);
+    else if(option=="shortest") array= BFS(shortestDict,start,end);
+    else array= BFS(outdoorDict,start,end);
     if (array.length!=0){
 	  let array1= addTo(array);
       let jsondata = JSON.stringify(array1);
@@ -276,6 +324,8 @@ li a:hover {
       //if(value=="shortest") setShortest();
       //let element=document.getElementById("Str");
       localStorage.setItem("OP", value);
+	  localStorage.setItem("startname",document.getElementById("from").value );
+	  localStorage.setItem("destname",document.getElementById("to").value );
     }
 function addTo(arr){
     let ret=[];
@@ -313,6 +363,8 @@ $option1=$_POST['options'];
 if(isset($_POST['search'])){
   $name =$_POST['start'];
   $name2 =$_POST['dest'];
+  $v1=true;
+  $v2=true;
   if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
   {
     ?>
@@ -324,8 +376,7 @@ if(isset($_POST['search'])){
   }
   $query="SELECT * FROM locations where name='$name'";
   $query_run=mysqli_query($conn,$query);
-  $v1=true;
-  $v2=true;
+
   if(mysqli_num_rows($query_run) <1){
     $v1=false;
   }
@@ -334,22 +385,26 @@ if(isset($_POST['search'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-
+		 localStorage.setItem("startlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("startlon", <?php echo $row['lon']?>);
     </script>
     <?php
   }
   $query2="SELECT * FROM locations where name='$name2'";
   $query_run2=mysqli_query($conn,$query2);
-  if(mysqli_num_rows($query_run2) <1){
-    $v2=false;
-  }
+
   while($row=mysqli_fetch_array($query_run2)){
     ?>
     <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
+		 localStorage.setItem("destlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("destlon", <?php echo $row['lon']?>);
     </script>
     <?php
+  }
+   if(mysqli_num_rows($query_run2) <1){
+    $v2=false;
   }
   ?>
   <script>
@@ -370,6 +425,7 @@ if(isset($_POST['array'])){
 		$start="";
 		$dest="";
 		$json=$_POST['array'];
+
 		$arr=json_decode($json);
 		$firstKey = $arr[0];
 		$lastKey= end($arr[0]);
@@ -395,7 +451,8 @@ if(isset($_POST['array'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-
+		localStorage.setItem("startlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("startlon", <?php echo $row['lon']?>);
     </script>
     <?php
   }
@@ -406,6 +463,8 @@ if(isset($_POST['array'])){
     <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
+	  	localStorage.setItem("destlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("destlon", <?php echo $row['lon']?>);
     </script>
     <?php
 }
@@ -424,7 +483,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM shortest where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<$row['nPoints']-1;$x++){
+				for($x=1;$x<$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -451,7 +510,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM tunnel where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<$row['nPoints']-1;$x++){
+				for($x=1;$x<$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -478,7 +537,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM outdoor where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=0;$x<$row['nPoints'];$x++){
+				for($x=1;$x<=$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -497,11 +556,14 @@ if(isset($_POST['array'])){
 				}
 			}
 			array_push($points2,$points);
+
 		}
 	}
 	  ?>
   <script>
-var str1=<?php echo json_encode($points2); ?>;
+   let option1=localStorage.getItem("OP");
+   var str1;
+   str1=<?php echo json_encode($points2); ?>;
   let minD=Number.MAX_VALUE;
   let minI=-1;
   let index1=0;
@@ -523,22 +585,68 @@ var str1=<?php echo json_encode($points2); ?>;
     }
     index1+=1;
   }
- let minArray=str1[minI];
+  let minArray=str1[minI];
   let minArraySize=minArray.length;
-  let startlat=document.getElementById("s").getAttribute("startlat");
-  let startlon=document.getElementById("s").getAttribute("startlon");
+  let startlat;
+  let startlon;
+  if(option1=="outdoor"){
+  startlat=minArray[0][0];
+  startlon=minArray[0][1];
+  }else{
+  startlat=localStorage.getItem("startlat");
+  startlon=localStorage.getItem("startlon");
+  }
+  dis=0;
   //L.marker(startlat,startlon).addTo(map).bindPopup(document.getElementById("s").getAttribute("startname")).openPopup();
   for(var x of minArray){
     if(x[2]!="" || x[2]!=""){
       L.marker([x[0],x[1]]).addTo(map).bindPopup(x[2]).openPopup();
     }
     getRoute(startlat,startlon,x[0],x[1]);
+    dis+=distance(startlat,startlon,x[0],x[1]);
     startlat=x[0];
     startlon=x[1];
   }
   //L.marker(document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon")).addTo(map).bindPopup(document.getElementById("d").getAttribute("destname")).openPopup();
-  getRoute(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
-
+  if(option1=="outdoor"){
+	  getRoute(startlat,startlon,minArray[minArraySize-1][0],minArray[minArraySize-1][1]);
+	  dis+=distance(startlat,startlon,minArray[minArraySize-1][0],minArray[minArraySize-1][1]);
+  }
+  else{
+  getRoute(startlat,startlon,localStorage.getItem("destlat"),localStorage.getItem("destlon"));
+  dis+=distance(startlat,startlon,localStorage.getItem("destlat"),localStorage.getItem("destlon"));
+  }
+  var sname=localStorage.getItem("startname");
+  var dname=localStorage.getItem("destname");
+  var time1 = Math.ceil((dis * 60)/4828.03);
+  var info1 = "<b>"+sname+" to "+dname+":</b><br>";
+  var info = "Distance: " + dis + "m <br>Estimate walking time: " + time1 + "min";
+  var info2="";
+  var info3="";
+  var current_t = new Date();
+  var c_h=current_t.getHours();
+  var c_m=checkTime(current_t.getMinutes());
+  var h =current_t.getHours();
+  var m =current_t.getMinutes()+time1;
+  if(checkMin(m)==true){
+  	m=m-60;
+    if((h+1)>=24){h="0"+(h+1-24);}else {h=h+1;}
+  }
+  m = checkTime(m);
+  info2="<br>Estimate arrival time: "+h + ":" + m ;
+function checkMin(i){
+	if (i>=60){return true;}
+    return false;
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};
+  return i;
+}
+  info3="<br>Current time: "+c_h + ":" +c_m ;
+  document.getElementById("callout").innerHTML=info1;
+  document.getElementById("callout").innerHTML+=info;
+  document.getElementById("callout").innerHTML+=info3;
+  document.getElementById("callout").innerHTML+=info2;
  </script>
   <?php
 }
@@ -546,12 +654,12 @@ var str1=<?php echo json_encode($points2); ?>;
 
 <script>
 if(document.getElementById("s")!=null){
-  var clat = document.getElementById("s").getAttribute("startlat");
-  var clon = document.getElementById("s").getAttribute("startlon");
-  var cname= document.getElementById("s").getAttribute("startname");
-  var dlat = document.getElementById("d").getAttribute("destlat");
-  var dlon = document.getElementById("d").getAttribute("destlon");
-  var dname= document.getElementById("d").getAttribute("destname");
+  var clat = localStorage.getItem("startlat");
+  var clon = localStorage.getItem("startlon");
+  var cname= localStorage.getItem("startname");
+  var dlat = localStorage.getItem("destlat");
+  var dlon = localStorage.getItem("destlon");
+  var dname= localStorage.getItem("destname");
   if(cname&&dname){
    // getRoute(clat,clon,cname,dlat,dlon,dname);
 
