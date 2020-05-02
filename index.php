@@ -671,7 +671,6 @@ function checkTime(i) {
   if(id!=""){
     var box = document.getElementById("options");
     box.value="tunnel";
-    alert(99);
       let a = document.createElement("a");
       a.innerHTML="Welcome! "+id;
       a.href="account.php";

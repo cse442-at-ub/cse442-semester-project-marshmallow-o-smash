@@ -29,7 +29,7 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
   }
   else if($dpwd==$pwd && $did==$id){
     $_SESSION['did']=$id;
-    $_SESSION['dpwd']=$pwd;
+    $_SESSION['dpwd']=$dpwd;
     $_SESSION['demail']=$demail;
 	$_SESSION['login_time'] = time();
 	header("Location: account.php");
