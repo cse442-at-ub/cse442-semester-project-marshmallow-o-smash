@@ -144,9 +144,9 @@ li a {
             <label >Default Route Option</label>
             <select  id="routes" class ="drop-box"name="routes">
               <option value=""></option>
-              <option value="Shortest Route">shortest</option>
-              <option value="Outdoor Route">outdoor</option>
-              <option value="Tunnel Route">tunnel</option>
+              <option value="shortest">shortest</option>
+              <option value="outdoor">outdoor</option>
+              <option value="tunnel">tunnel</option>
             </select>
           </tr>
 
