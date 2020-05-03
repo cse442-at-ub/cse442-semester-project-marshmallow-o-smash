@@ -4,7 +4,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
       html{
-        background-image: url("pic/background.jpg");
+        background-image: url("../pic/background.jpg");
         width:100%;
         height:100%;
         background-repeat: no-repeat;

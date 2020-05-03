@@ -186,6 +186,7 @@ li a:hover {
   <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">Log In</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
+  <li id="li3"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Construction Report</a></li>
 </top>
 <div id="mapid"></div>
 <ul>
