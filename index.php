@@ -669,9 +669,10 @@ function checkTime(i) {
     if(isset($_SESSION('route')&&$_SESSION['route']!="")){
       ?>
       <script>
-      if($_SESSION('route')=="shortest") document.getElementById("options").selectedIndex = 0;
-      if($_SESSION('route')=="outdoor") document.getElementById("options").selectedIndex = 1;
-      if($_SESSION('route')=="tunnel") document.getElementById("options").selectedIndex = 2;
+      let route="<?php echo $_SESSION['route'];?>";
+      if(route=="shortest") document.getElementById("options").selectedIndex = 0;
+      if(route=="outdoor") document.getElementById("options").selectedIndex = 1;
+      if(route=="tunnel") document.getElementById("options").selectedIndex = 2;
       </script>
       <?php
     }

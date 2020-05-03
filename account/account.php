@@ -98,7 +98,7 @@
 		echo "<top id='top'>";
 		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/logout.php".">Logout</a></li>";
 		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account_setting_page.php".">Settings</a></li>";
-		if($_SESSION['did']=='admin'&&$_SESSION['dpwd']=='admin'){
+		if($_SESSION['did']=='admin'){
 		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/inbox.php".">Inbox</a></li>";
 		}
 		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/".">Home</a></li>";
