@@ -17,5 +17,5 @@ For the versions available, see the tags on this repository.
 
 **Acknowledgments:**
 ---------------------
-Contributors to OpenStreetMap.
+Contributors to OpenStreetMap.  
 Contributors to LeatLet.
