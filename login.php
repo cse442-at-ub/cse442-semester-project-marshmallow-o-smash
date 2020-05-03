@@ -23,21 +23,6 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $did=$row['userid'];
     $demail=$row['email'];
   }
-<<<<<<< HEAD
-  if(!$arr) $message = "Username or Password incorrect";
-  else if ($dpwd!=$pwd) {
-     $message = "Username or Password incorrect";
-  }
-  else if($dpwd==$pwd && $did==$id){
-    $_SESSION['did']=$id;
-    $_SESSION['dpwd']=$dpwd;
-    $_SESSION['demail']=$demail;
-	$_SESSION['login_time'] = time();
-	header("Location: account.php");
-	exit;
-  }
-  $stmt->close();
-=======
   if(!$arr) $message= "Username or Password incorrect";
   else {
     if(!password_verify($pwd,$dpwd)){
@@ -56,11 +41,10 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
 
 if(isset($_SESSION['did'])){
 	if(!checkLoginExpired()) {
-		header("Location:account.php"); 
+		header("Location:account.php");
 	} else {
 		header("Location:logout.php?session_expired=1");
 	}
->>>>>>> origin/dev
 }
 ?>
 <!DOCTYPE html>
