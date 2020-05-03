@@ -90,8 +90,8 @@
 			text-align: center;
 			align-items: center;
 			vertical-align: middle;
-			width: 500px;
-			height: 600px;
+			width: 50%;
+			height: 95%;
 			transform: translate(-50%,-50%);
 			top: 50%;
 			left:50%;
@@ -138,7 +138,7 @@
 session_start();
 if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject']) && (isset($_POST['building']) || (isset($_POST['latname']) && isset($_POST['lonname'])) )){
 	?>
-<div class="container" style = "height: 400px">
+<div class="container" style = "height: 55%">
 	<h1>UB North Campus Navigation</h1>
 	<?php if($message!="") { ?>
 			<div class="message"> <h2>Thank You for Your Submission!</h2> <?php echo $message; ?> </div>
