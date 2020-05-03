@@ -29,7 +29,7 @@
        }
        //if(true){
          $stmt1 = $mysqli->prepare("INSERT INTO construction(First_name, Last_name, location, lat, lon, message, verify) VALUES(?,?,?,?,?,?,?)");
-         $stmt1->bind_param("sssssss", $first, $last, $build, $lat, $lon, $des, $verify);
+         $stmt1->bind_param("sssddsd", $first, $last, $build, $lat, $lon, $des, $verify);
          $stmt1->execute();
          $stmt1->close();
          $message="Your report has been submitted to the Administrator.";
@@ -58,7 +58,7 @@
 		  box-sizing: border-box;
 		}
 
-		input[type=text], select, textarea {
+		input[type=text], input[type=number], select, textarea {
 		  width: 100%;
 		  padding: 12px;
 		  border: 1px solid #ccc;
@@ -78,7 +78,7 @@
 		  border: none;
 		  border-radius: 4px;
 		  cursor: pointer;
-		  float: right;
+		  float: center;
 		}
 
 		input[type=submit]:hover {
@@ -162,7 +162,7 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
       <label for="fname">First Name</label>
     </div>
     <div class="col-75">
-      <input type="text" id="fname" name="firstname" placeholder="Your name.." required>
+      <input type="text" id="fname" name="firstname" placeholder="Enter Your First Name.." required>
     </div>
   </div>
   <div class="row">
@@ -170,7 +170,7 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
       <label for="lname">Last Name</label>
     </div>
     <div class="col-75">
-      <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
+      <input type="text" id="lname" name="lastname" placeholder="Enter Your Last Name.." required>
     </div>
   </div>
   <div class="row">
@@ -219,7 +219,7 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
       <label for="subject">Latitude</label>
     </div>
     <div class="col-75">
-      <input type="text" id="lat" name="latname" placeholder="Enter Latitude..">
+      <input type="number" step="any" id="lat" name="latname" placeholder="Enter Latitude...">
     </div>
   </div>
   <div class="row" id="lonrow" style="display:none">
@@ -227,7 +227,7 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
       <label for="subject">Longitude</label>
     </div>
     <div class="col-75">
-      <input type="text" id="lon" name="lonname" placeholder="Enter Longitude..">
+      <input type="number" step="any" id="lon" name="lonname" placeholder="Enter Longitude...">
     </div>
   </div>
   <div class="row">
