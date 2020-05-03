@@ -104,7 +104,7 @@ if(isset($_SESSION['did'])){
 	?>
 <div class="container">
 <h2>Construction Report Form</h2>
-  <form method = "POST" action="">
+  <form method = "POST" action="report_form_db.php">
   <div class="row">
     <div class="col-25">
       <label for="fname">First Name</label>
@@ -167,7 +167,7 @@ if(isset($_SESSION['did'])){
       <label for="subject">Latitude</label>
     </div>
     <div class="col-75">
-      <input type="text" id="lat" name="latname" placeholder="Enter Latitude.." required>
+      <input type="text" id="lat" name="latname" placeholder="Enter Latitude..">
     </div>
   </div>
   <div class="row" id="lonrow" style="display:none">
@@ -175,7 +175,7 @@ if(isset($_SESSION['did'])){
       <label for="subject">Longitude</label>
     </div>
     <div class="col-75">
-      <input type="text" id="lon" name="lonname" placeholder="Enter Longitude.." required>
+      <input type="text" id="lon" name="lonname" placeholder="Enter Longitude..">
     </div>
   </div>
   <div class="row">
@@ -190,30 +190,33 @@ if(isset($_SESSION['did'])){
     <input type="submit" value="Submit">
   </div>
   </form>
-  Click here to <a href="account.php">Back to Your Account.<a/>
+  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Back to Your Account.<a/>
 </div>
 <script>
 	function loc(){
 		var checkBox = document.getElementById("check");
 		var lat = document.getElementById("latrow");
 		var lon = document.getElementById("lonrow");
+		var latbox = document.getElementById("lat");
+		var lonbox = document.getElementById("lon");
 		var loca = document.getElementById("build");
-		if(checkBox.checked == true){
+		if (checkBox.checked == true){
 			lat.style.display = "block";
 			lon.style.display = "block";
-			lat.setAttribute("required", "");
-			lon.setAttribute("required", "");
 			loca.removeAttribute("required");
+			latbox.setAttribute("required", "");
+			lonbox.setAttribute("required", "");
 		} else{
 			lat.style.display = "none";
 			lon.style.display = "none";
+			loca.setAttribute("required", "");
 		}
 	}
 </script>
+</body>
+</html>
 <?php
 } else {
 	header("Location: login.php");
 }
 ?>
-</body>
-</html>
