@@ -575,38 +575,7 @@ if(isset($_POST['array'])){
 
 		}
 	}
-  $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
-  $qry= mysqli_query($conn,"SELECT * FROM construction");
-  $loc_name="";
-  $con_result=[];
-  while ($result=mysqli_fetch_array($qry)){
-	  $loc_name=$result['location'];
-	  $mess=$result['message'];
-	  if($result['lat']==0&&$result['lon']==0){
-		 $db=mysqli_select_db($conn,"yingyinl_db");
-		 $q="SELECT * FROM locations where name='$loc_name'";
-		 $q_run=mysqli_query($conn,$q);
-		 
-		 while($row=mysqli_fetch_array($q_run)){
-			 ?>
-		 <script>
-		 var str= "<?php echo $mess;?>";
-		 alert(str);
-		 L.marker([<?php echo $row['lat']; ?>,<?php echo $row['lon']; ?>]).addTo(map).bindPopup(str).openPopup();
-		 </script>
-		    <?php
-		 }
-		   $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
-	  }else{
-		  	 ?>
-		 <script>
-		 var str= "<?php echo $mess;?>";
-		 alert(str);
-		 L.marker([<?php echo $result['lat']; ?>,<?php echo $result['lon']; ?>]).addTo(map).bindPopup(str).openPopup();
-		 </script>
-		    <?php
-	  }
-  }
+  
 	  ?>
   <script>
    let option1=localStorage.getItem("OP");
@@ -698,6 +667,46 @@ function checkTime(i) {
  </script>
   <?php
 }
+$db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+  $qry= mysqli_query($conn,"SELECT * FROM construction");
+  $loc_name="";
+  $con_result=[];
+  while ($result=mysqli_fetch_array($qry)){
+	  $loc_name=$result['location'];
+	  $mess=$result['message'];
+	  if($result['verify']==1){
+	  if($result['lat']==0&&$result['lon']==0){
+		 $db=mysqli_select_db($conn,"yingyinl_db");
+		 $q="SELECT * FROM locations where name='$loc_name'";
+		 $q_run=mysqli_query($conn,$q);
+		 
+		 while($row=mysqli_fetch_array($q_run)){
+			 ?>
+		 <script>
+		 var str= "<?php echo $mess;?>";
+		 var ConIcon = L.icon({
+			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/pic/signs.png',
+			iconSize: [30, 30], 
+			});
+		 L.marker([<?php echo $row['lat']; ?>,<?php echo $row['lon']; ?>],{icon:ConIcon}).addTo(map).bindPopup(str).openPopup();
+		 </script>
+		    <?php
+		 }
+		   $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+	  }else{
+		  	 ?>
+		 <script>
+		 var str= "<?php echo $mess;?>";
+		 var ConIcon = L.icon({
+			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/pic/signs.png',
+			iconSize: [30, 30], 
+			});
+		 L.marker([<?php echo $result['lat']; ?>,<?php echo $result['lon']; ?>],{icon:ConIcon}).addTo(map).bindPopup(str).openPopup();
+		 </script>
+		    <?php
+	  }
+	}
+  }
   if(isset($sessionid)){ ?>
     <script>
     let id="<?php echo htmlspecialchars($sessionid);?>";
