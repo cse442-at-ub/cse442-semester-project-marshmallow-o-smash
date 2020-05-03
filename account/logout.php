@@ -61,7 +61,7 @@ if (isset($_GET['session_expired'])){
 		<h1>UB North Campus Navigation</h1>
 		<div class="message"> <?php echo $text; ?> </div>
 		<h2>Click here to <a href="login.php" title="Logout">Login</a></h2>
-		<h2>Click here to <a href="index.php" title="home">Back to Map</a></h2>
+		<h2>Click here to <a href="../index.php" title="home">Back to Map</a></h2>
 	</div>
     </div>
 <?php
@@ -74,7 +74,7 @@ if (isset($_GET['session_expired'])){
 		<h1>UB North Campus Navigation</h1>
 		<div class="message"> <?php echo $text; ?> </div>
 		<h2>Click here to <a href="login.php" title="Logout">Login</a></h2>
-		<h2>Click here to <a href="index.php" title="home">Back to Map</a></h2>
+		<h2>Click here to <a href="../index.php" title="home">Back to Map</a></h2>
 	</div>
     </div>
 	<?php
@@ -87,7 +87,7 @@ if (isset($_GET['session_expired'])){
 		<h1>UB North Campus Navigation</h1>
 		<div class="message"> <?php echo $text; ?> </div>
 		<h2>Click here to <a href="login.php" title="Login">Login<br /></a></h2>
-		<h2>Click here to <a href="index.php" title="home">Back to Map</a></h2>
+		<h2>Click here to <a href="../index.php" title="home">Back to Map</a></h2>
 	  </div>
     </div>
 <?php

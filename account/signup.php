@@ -110,7 +110,7 @@ padding: 5px 20px;
             </tr>
           </table>
           <hr>
-          <p><p>Already have an account? Click <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/loginpage.php">here</a> to log in.</p></p>
+          <p><p>Already have an account? Click <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">here</a> to log in.</p></p>
         </form>
   	   </div>
      </div>

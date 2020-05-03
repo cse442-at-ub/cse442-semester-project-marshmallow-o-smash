@@ -1,10 +1,10 @@
 <?php
  // check duration time (for testing it is 10 seconds)
  session_start();
- include("duration.php");
+ include("account/duration.php");
  if(isset($_SESSION['did'])){
   if(checkLoginExpired()) {
-   header("Location: logout.php?session_expired=1");
+   header("Location: account/logout.php?session_expired=1");
   }
  }
 ?>
@@ -182,8 +182,8 @@ li a:hover {
   <h1 style="color: White;">UB North Campus Navigation</h1>
 </div>
 <top id="top">
-  <li id="li1"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/signup.php">Sign Up</a></li>
-  <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/login.php">Log In</a></li>
+  <li id="li1"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up</a></li>
+  <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">Log In</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
 </top>
@@ -673,7 +673,7 @@ function checkTime(i) {
     box.value="tunnel";
       let a = document.createElement("a");
       a.innerHTML="Welcome! "+id;
-      a.href="account.php";
+      a.href="account/account.php";
       let ele=document.createElement("li");
       ele.appendChild(a);
         document.getElementById("top").appendChild(ele);
