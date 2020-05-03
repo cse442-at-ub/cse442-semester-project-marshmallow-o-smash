@@ -22,6 +22,7 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $dpwd=$row['pwd'];
     $did=$row['userid'];
     $demail=$row['email'];
+    $droute=$row['option1'];
   }
   if(!$arr) $message= "Username or Password incorrect";
   else {
@@ -29,9 +30,10 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
         $message=  "Username or Password incorrect";
     }
     else if(password_verify($pwd,$dpwd) && $did==$id){
-		$_SESSION['did']=$id;
-		$_SESSION['dpwd']=$pwd;
+		$_SESSION['did']=$did;
+		$_SESSION['dpwd']=$dpwd;
 		$_SESSION['demail']=$demail;
+    $_SESSION['route']=$droute;
 		$_SESSION['login_time'] = time();
 	}
   }
@@ -54,7 +56,7 @@ if(isset($_SESSION['did'])){
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <style>
       html{
-        background-image: url("pic/background.jpg");
+        background-image: url("../pic/background.jpg");
         width:100%;
         height:100%;
         background-repeat: no-repeat;
@@ -136,7 +138,7 @@ if(isset($_SESSION['did'])){
 			?>
 		</div>
 		<p> Don't have an account yet?</p>
-		<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Signup.html">Sign Up Here</a>
+		<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up Here</a>
         </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>

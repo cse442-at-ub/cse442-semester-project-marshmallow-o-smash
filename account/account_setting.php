@@ -77,10 +77,11 @@ session_start();
       $stmt->bind_param("ss", $option,$id);
       $stmt->execute();
       $stmt->close();
+      $_SESSION['route']=$option;
       $_SESSION['message'].='Default route option change succeed.\n';
     }
   }
-   header("Location: account.php");
+   header("Location: account_setting_page.php");
    exit();
   }
 ?>
