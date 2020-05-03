@@ -7,6 +7,36 @@
 			header("Location: logout.php?session_expired=1");
 		}
 	}
+	 $message="";
+     if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject']) && (isset($_POST['building']) || (isset($_POST['latname']) && isset($_POST['lonname'])) )){
+       $first=$_POST['firstname'];
+       $last=$_POST['lastname'];
+	   $build = "Not in list";
+	   $lat = 0;
+	   $lon = 0;
+	   if ($_POST['building'] != ""){
+		   $build = $_POST['building'];
+	   }
+	   if (isset($_POST['latname']) && isset($_POST['lonname'])){
+		   $lat = $_POST['latname'];
+		   $lon = $_POST['lonname'];
+	   }
+       $des=$_POST['subject']; //description
+	   $verify = 0;
+       $mysqli = new mysqli("tethys.cse.buffalo.edu:3306", "yingyinl", "50239602", "cse442_542_2020_spring_teamt_db");
+       if ($conn->connect_error) {
+         exit("Failed to connect to the database.");
+       }
+       //if(true){
+         $stmt1 = $mysqli->prepare("INSERT INTO construction(First_name, Last_name, location, lat, lon, message, verify) VALUES(?,?,?,?,?,?,?)");
+         $stmt1->bind_param("sssssss", $first, $last, $build, $lat, $lon, $des, $verify);
+         $stmt1->execute();
+         $stmt1->close();
+         $message="Your report has been submitted to the Administrator.";
+       //} else{$message= "Something is wrong";}
+	   //echo "<script>alert('$message');</script>";
+	   //header("Location: account.php");
+     }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -56,7 +86,7 @@
 		}
 
 		.container {
-			 position:absolute;
+			position:absolute;
 			text-align: center;
 			align-items: center;
 			vertical-align: middle;
@@ -88,6 +118,12 @@
 		  display: table;
 		  clear: both;
 		}
+		.message {
+			color: #333;
+			border: #22dd22 1px solid;
+			background: #d3f8d3;
+			padding: 5px 20px;
+		}	
 		@media screen and (max-width: 600px) {
 		  .col-25, .col-75, input[type=submit] {
 			width: 100%;
@@ -100,11 +136,27 @@
   <body>
 <?php
 session_start();
-if(isset($_SESSION['did'])){
+if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject']) && (isset($_POST['building']) || (isset($_POST['latname']) && isset($_POST['lonname'])) )){
+	?>
+<div class="container" style = "height: 400px">
+	<h1>UB North Campus Navigation</h1>
+	<?php if($message!="") { ?>
+			<div class="message"> <h2>Thank You for Your Submission!</h2> <?php echo $message; ?> </div>
+	<?php } ?>
+	<br/>
+	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Submit Another Report.<a/><br/><br/>
+	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php">Back to Your Account.<a/><br/><br/>
+	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Back to Map.<a/><br/><br/>
+</div>
+<?php
+} else if(isset($_SESSION['did'])){
 	?>
 <div class="container">
+<?php if($message!="") { ?>
+		<div class="message"> <?php echo $message; ?> </div>
+<?php } ?>
 <h2>Construction Report Form</h2>
-  <form method = "POST" action="report_form_db.php">
+  <form method = "POST" action="report_form.php">
   <div class="row">
     <div class="col-25">
       <label for="fname">First Name</label>
@@ -190,7 +242,8 @@ if(isset($_SESSION['did'])){
     <input type="submit" value="Submit">
   </div>
   </form>
-  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Back to Your Account.<a/>
+  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php">Back to Your Account.<a/><br/>
+  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Back to Map.<a/><br/><br/>
 </div>
 <script>
 	function loc(){
@@ -209,6 +262,8 @@ if(isset($_SESSION['did'])){
 		} else{
 			lat.style.display = "none";
 			lon.style.display = "none";
+			latbox.removeAttribute("required");
+			lonbox.removeAttribute("required");
 			loca.setAttribute("required", "");
 		}
 	}
@@ -216,6 +271,7 @@ if(isset($_SESSION['did'])){
 </body>
 </html>
 <?php
+
 } else {
 	header("Location: login.php");
 }
