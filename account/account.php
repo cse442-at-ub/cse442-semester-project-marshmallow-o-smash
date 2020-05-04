@@ -42,6 +42,7 @@
 		echo "</div>";
 
 		echo "<table>";
+
 		echo "<tr>";
 		echo "<th>Your Username:</th><td>".htmlspecialchars($_SESSION['did'])."</td>";
 		echo "</tr>";
@@ -52,6 +53,7 @@
 		echo "<th>Your Email:</th><td>".htmlspecialchars($_SESSION['demail'])."</td>";
 		echo "</tr>";
 		echo "<tr>";
+
 		echo "<th>Your default route option:</th><td>".htmlspecialchars($_SESSION['route'])."</td>";
 		echo "</tr>";
 		echo "</table>";
@@ -69,5 +71,6 @@
 		}
 	}
 	</script>
+
 </body>
 </html>
