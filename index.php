@@ -655,9 +655,69 @@ function checkTime(i) {
   document.getElementById("callout").innerHTML+=info;
   document.getElementById("callout").innerHTML+=info3;
   document.getElementById("callout").innerHTML+=info2;
- </script>
-  <?php
+  
+<?php
 }
+$db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+  $qry= mysqli_query($conn,"SELECT * FROM construction");
+  $loc_name="";
+  $con_result=[];
+  while ($result=mysqli_fetch_array($qry)){
+	  $loc_name=$result['location'];
+	  $mess=$result['message'];
+	  $temp=[];
+	  if($result['verify']==1){
+	  if($result['lat']==0&&$result['lon']==0){
+		 $db=mysqli_select_db($conn,"yingyinl_db");
+		 $q="SELECT * FROM locations where name='$loc_name'";
+		 $q_run=mysqli_query($conn,$q);
+		 
+		 while($row=mysqli_fetch_array($q_run)){
+			 $ck=0;
+			 foreach($con_result as &$value){
+				if(in_array($row['lat'],$value)&&in_array($row['lon'],$value)){
+				   $value[2]=$value[2]." ".$mess;
+				 $ck=1;
+				 break;
+				}
+			 }
+			 if($ck==0){
+			 $temp=[$row['lat'],$row['lon'],$mess];
+					array_push($con_result,$temp);
+			 }
+		 }
+		   $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+	  }else{
+		  $ck=0;
+			 foreach($con_result as $value){
+				if(in_array($result['lat'],$value)&&in_array($result['lon'],$value)){
+				 $value[2]=$value[2]." ".$mess;
+				 $ck=1;
+				 break;
+				}
+			 }
+			 if(ck==0){
+		  		$temp=[$result['lat'],$result['lon'],$mess];
+				array_push($con_result,$temp);
+			 }
+	  }
+	}
+  }
+			$print=$con_result;					 	
+  	foreach ($print as $z){
+		$message=$z[2];
+			?>
+		 <script>
+		 var str= "<?php echo $message;?>";
+		 var ConIcon = L.icon({
+			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/pic/signs.png',
+			iconSize: [30, 30], 
+			});
+		 L.marker([<?php echo $z[0]; ?>,<?php echo $z[1]; ?>],{icon:ConIcon}).addTo(map).bindPopup(str);
+		 </script>
+		    <?php
+	}
+
   if(isset($sessionid)){
     if(isset($sessionroute)&&$sessionroute!=""){
       ?>
