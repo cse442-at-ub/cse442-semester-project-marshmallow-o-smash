@@ -173,7 +173,7 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
       <input type="text" id="lname" name="lastname" placeholder="Enter Your Last Name.." required>
     </div>
   </div>
-  <div class="row">
+  <div class="row" id="buildrow">
     <div class="col-25">
       <label for="buildings">Building Name</label>
     </div>
@@ -253,15 +253,18 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
 		var latbox = document.getElementById("lat");
 		var lonbox = document.getElementById("lon");
 		var loca = document.getElementById("build");
+		var build = document.getElementById("buildrow");
 		if (checkBox.checked == true){
 			lat.style.display = "block";
 			lon.style.display = "block";
+			build.style.display="none";
 			loca.removeAttribute("required");
 			latbox.setAttribute("required", "");
 			lonbox.setAttribute("required", "");
 		} else{
 			lat.style.display = "none";
 			lon.style.display = "none";
+			build.style.display="block";
 			latbox.removeAttribute("required");
 			lonbox.removeAttribute("required");
 			loca.setAttribute("required", "");
