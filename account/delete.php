@@ -30,29 +30,48 @@
 			if(!empty($_POST['check_list'])){
 				foreach($_POST['check_list'] as $box){
           $box = json_decode($box, true);
-          if($box['lat']==0 && $box['lon']==0 ){
-            $location=$box['location'];
-            $stmt = $mysqli->prepare("DELETE FROM construction WHERE location= ?");
-            if ($stmt === false) {
-              trigger_error($this->mysqli->error, E_USER_ERROR);
-              return;
-            }
-            $stmt->bind_param("s", $location);
-            $stmt->execute();
-            $stmt->close();
 
-          }else{
-            $lat=$box['lat'];
-            $lon=$box['lon'];
-            $stmt = $mysqli->prepare("DELETE FROM construction WHERE (lat= ? AND lon= ?)");
-            if ($stmt === false) {
-              trigger_error($this->mysqli->error, E_USER_ERROR);
-              return;
-            }
-            $stmt->bind_param("idd", $verify,$lat,$lon);
-            $stmt->execute();
-            $stmt->close();
-          }
+					/*****************************/
+					$Firstname=$box['First_name'];
+					$Lastname=$box['Last_name'];
+					$location=$box['location'];
+					$lat=$box['lat'];
+					$lon=$box['lon'];
+					$message=$box['message'];
+					$verify=$box['verify'];
+
+					$stmt = $mysqli->prepare("DELETE FROM construction WHERE (First_name=? AND Last_name=? AND location=? AND lat= ? AND lon= ? AND message=? AND verify=?)");
+					if ($stmt === false) {
+						trigger_error($this->mysqli->error, E_USER_ERROR);
+						return;
+					}
+					$stmt->bind_param("sssddsi", $Firstname,$Lastname,$location,$lat,$lon,$message,$verify);
+					$stmt->execute();
+					$stmt->close();
+					/*****************************/
+          // if($box['lat']==0 && $box['lon']==0 ){
+          //   $location=$box['location'];
+          //   $stmt = $mysqli->prepare("DELETE FROM construction WHERE location= ?");
+          //   if ($stmt === false) {
+          //     trigger_error($this->mysqli->error, E_USER_ERROR);
+          //     return;
+          //   }
+          //   $stmt->bind_param("s", $location);
+          //   $stmt->execute();
+          //   $stmt->close();
+					//
+          // }else{
+          //   $lat=$box['lat'];
+          //   $lon=$box['lon'];
+          //   $stmt = $mysqli->prepare("DELETE FROM construction WHERE (lat= ? AND lon= ?)");
+          //   if ($stmt === false) {
+          //     trigger_error($this->mysqli->error, E_USER_ERROR);
+          //     return;
+          //   }
+          //   $stmt->bind_param("idd", $verify,$lat,$lon);
+          //   $stmt->execute();
+          //   $stmt->close();
+          // }
 
 
 				}

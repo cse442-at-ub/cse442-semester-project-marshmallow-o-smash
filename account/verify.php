@@ -29,37 +29,53 @@
   if(isset($_POST['verify'])){
 			if(!empty($_POST['check_list'])){
 				foreach($_POST['check_list'] as $box){
-					// echo $box."</br>";
-					// echo "<script>alert('$box');</script>";
           $box = json_decode($box, true);
-          // echo $box['verify'];
-          if($box['verify']==0){
-            if($box['lat']==0 && $box['lon']==0 ){
-              $location=$box['location'];
-              $stmt = $mysqli->prepare("UPDATE construction SET verify=? WHERE location= ?");
-              if ($stmt === false) {
-                trigger_error($this->mysqli->error, E_USER_ERROR);
-                return;
-              }
-			        $verify=1;
-              $stmt->bind_param("is", $verify,$location);
-              $stmt->execute();
-              $stmt->close();
+					if($box['verify']==0){
+						$Firstname=$box['First_name'];
+						$Lastname=$box['Last_name'];
+						$location=$box['location'];
+						$lat=$box['lat'];
+						$lon=$box['lon'];
+						$message=$box['message'];
+						$verify=$box['verify'];
 
-            }else{
-              $lat=$box['lat'];
-              $lon=$box['lon'];
-              $stmt = $mysqli->prepare("UPDATE construction SET verify=? WHERE (lat= ? AND lon= ?)");
-              if ($stmt === false) {
-                trigger_error($this->mysqli->error, E_USER_ERROR);
-                return;
-              }
-			        $verify=1;
-              $stmt->bind_param("idd", $verify,$lat,$lon);
-              $stmt->execute();
-              $stmt->close();
-            }
-          }
+						$stmt = $mysqli->prepare("UPDATE construction SET verify=? WHERE (First_name=? AND Last_name=? AND location=? AND lat= ? AND lon= ? AND message=? AND verify=?)");
+						if ($stmt === false) {
+							trigger_error($this->mysqli->error, E_USER_ERROR);
+							return;
+						}
+						$verify2=1;
+						$stmt->bind_param("isssddsi", $verify2,$Firstname,$Lastname,$location,$lat,$lon,$message,$verify);
+						$stmt->execute();
+						$stmt->close();
+					}
+          // if($box['verify']==0){
+          //   if($box['lat']==0 && $box['lon']==0 ){
+          //     $location=$box['location'];
+          //     $stmt = $mysqli->prepare("UPDATE construction SET verify=? WHERE location= ?");
+          //     if ($stmt === false) {
+          //       trigger_error($this->mysqli->error, E_USER_ERROR);
+          //       return;
+          //     }
+			    //     $verify=1;
+          //     $stmt->bind_param("is", $verify,$location);
+          //     $stmt->execute();
+          //     $stmt->close();
+					//
+          //   }else{
+          //     $lat=$box['lat'];
+          //     $lon=$box['lon'];
+          //     $stmt = $mysqli->prepare("UPDATE construction SET verify=? WHERE (lat= ? AND lon= ?)");
+          //     if ($stmt === false) {
+          //       trigger_error($this->mysqli->error, E_USER_ERROR);
+          //       return;
+          //     }
+			    //     $verify=1;
+          //     $stmt->bind_param("idd", $verify,$lat,$lon);
+          //     $stmt->execute();
+          //     $stmt->close();
+          //   }
+          // }
 				}
 			}
       header("Location: inbox.php");
