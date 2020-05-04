@@ -1,10 +1,23 @@
+<?php
+ // check duration time (for testing it is 10 seconds)
+ session_start();
+ include("account/duration.php");
+ if(isset($_SESSION['did'])){
+  if(checkLoginExpired()) {
+   header("Location: account/logout.php?session_expired=1");
+  }
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>UB North Campus Map Navigation</title>
+<title>UB North Campus Navigation</title>
+<meta name="description" content="UB North Campus Navigation for shortest, outdoor, and tunnel routes">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="js/dist.js"></script>
 <script src="js/shortest.js"></script>
@@ -13,11 +26,7 @@
 <script src="js/tunnel.js"></script>
 <script src="js/GPS.js"></script>
 <style>
-body {
-  margin: 0;
-  height:100%;
-  background-color: #D2E2F8;
-}
+
 iframe{
   float:left;
   width: 100%;
@@ -26,37 +35,18 @@ iframe{
   position: fixed;
 }
 
-.header {
-  background-color: #176BE2;
-  padding: 8px;
-  text-align: center;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-}
+
 ul {
   position: fixed;
   right: 0;
-  top:100px;
   list-style-type: none;
-  margin-top: 50px;
   padding: 0;
   min-width: 10%;
   background-color: transparent;
   overflow: auto;
   text-align: center;
 }
-top {
-  transform:translate(0px,95px);
-  list-style-type: none;
-  overflow: show;
-  background-color: #173660;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-}
+
 li {
   float: right;
   border-left:1px solid #bbb;
@@ -100,10 +90,9 @@ li a:hover {
 #mapid {
   /*display: flex;*/
   width: 100%;
-  top: 90px;
   height: 100%;
   position: fixed;
-  transform:translate(0px,45px);
+
 
 }
 .selectbar{
@@ -163,14 +152,30 @@ li a:hover {
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1 style="color: White;">UB North Campus Map</h1>
-</div>
-<top>
-  <li><a class="active" href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
-</top>
+  <?php
+  session_start();
+  $sessionid=$_SESSION['did'];
+  $sessionroute=$_SESSION['route'];
+  echo "<div class='header'>";
+  echo "<h1 style='color: White;'>UB North Campus Navigation</h1>";
+  echo "</div>";
+  echo "<div class='top' id='top'>";
+  echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/".">Home</a>";
+  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a>';
+  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a>';
+  echo	'<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Construction Report</a>';
+  if(isset($_SESSION['did'])){
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/logout.php".">Logout</a>";
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account_setting_page.php".">Settings</a>";
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php".">Welcome, ".$_SESSION['did']."!</a>";
+  }
+  else{
+    echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up</a>
+    <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">Log In</a>';
+  }
+  echo '<a href="javascript:void(0);" class="icon" onclick="nav()"><i class="fa fa-bars"></i></a>';
+  echo "</div>";
+  ?>
 <div id="mapid"></div>
 <ul>
 <div class="topnav">
@@ -212,7 +217,7 @@ li a:hover {
 			<option value="Mathematics Building">
 			<option value="Natural Sciences Complex">
 			<option value="Norton Hall">
-			<option value="O’Brian Hall">
+			<option value="OBrian Hall">
 			<option value="Park Hall">
 			<option value="Slee Hall">
 			<option value="Student Union">
@@ -239,7 +244,7 @@ li a:hover {
 	  <input type="hidden" id="Str" name="Str" value="shortest">
      </form>
 
-  <script type="text/javascript">
+ <script type="text/javascript">
   //changeFunc();
   var map=L.map('mapid').setView([42.9997, -78.7857], 16);
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -248,6 +253,8 @@ li a:hover {
         maxZoom:19
     }).addTo( map );
 
+
+
   function route(){
     let array=[];
     var start= document.getElementById("s").getAttribute("startname");
@@ -255,10 +262,10 @@ li a:hover {
 	var option=localStorage.getItem("OP");
 	let element2=document.getElementById("Str");
 	element2.setAttribute("value",option);
-    if(option=="tunnel") array=BFS(tunnelDict,start,end);
-    if(option=="shortest") array=BFS(shortestDict,start,end);
-    if(option=="outdoor") array=BFS(outdoorDict,start,end);
 	var bool=true;
+    if(option=="tunnel") array= BFS(tunnelDict,start,end);
+    else if(option=="shortest") array= BFS(shortestDict,start,end);
+    else array= BFS(outdoorDict,start,end);
     if (array.length!=0){
 	  let array1= addTo(array);
       let jsondata = JSON.stringify(array1);
@@ -321,6 +328,8 @@ li a:hover {
       //if(value=="shortest") setShortest();
       //let element=document.getElementById("Str");
       localStorage.setItem("OP", value);
+	  localStorage.setItem("startname",document.getElementById("from").value );
+	  localStorage.setItem("destname",document.getElementById("to").value );
     }
 function addTo(arr){
     let ret=[];
@@ -358,19 +367,20 @@ $option1=$_POST['options'];
 if(isset($_POST['search'])){
   $name =$_POST['start'];
   $name2 =$_POST['dest'];
+  $v1=true;
+  $v2=true;
   if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name)||preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $name2))
   {
     ?>
   <script>
     var str="Not valid string inputs. Please reenter."
-      alert(str);
+     alert(str);
   </script>
   <?php
   }
   $query="SELECT * FROM locations where name='$name'";
   $query_run=mysqli_query($conn,$query);
-  $v1=true;
-  $v2=true;
+
   if(mysqli_num_rows($query_run) <1){
     $v1=false;
   }
@@ -379,22 +389,26 @@ if(isset($_POST['search'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-
+		 localStorage.setItem("startlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("startlon", <?php echo $row['lon']?>);
     </script>
     <?php
   }
   $query2="SELECT * FROM locations where name='$name2'";
   $query_run2=mysqli_query($conn,$query2);
-  if(mysqli_num_rows($query_run2) <1){
-    $v2=false;
-  }
+
   while($row=mysqli_fetch_array($query_run2)){
     ?>
     <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
+		 localStorage.setItem("destlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("destlon", <?php echo $row['lon']?>);
     </script>
     <?php
+  }
+   if(mysqli_num_rows($query_run2) <1){
+    $v2=false;
   }
   ?>
   <script>
@@ -415,6 +429,7 @@ if(isset($_POST['array'])){
 		$start="";
 		$dest="";
 		$json=$_POST['array'];
+
 		$arr=json_decode($json);
 		$firstKey = $arr[0];
 		$lastKey= end($arr[0]);
@@ -440,7 +455,8 @@ if(isset($_POST['array'])){
     <script id="s" startname= "<?php echo $row['name']?>" startlon="<?php echo $row['lon']?>" startlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
-
+		localStorage.setItem("startlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("startlon", <?php echo $row['lon']?>);
     </script>
     <?php
   }
@@ -451,6 +467,8 @@ if(isset($_POST['array'])){
     <script id="d" destname="<?php echo $row['name']?>" destlon="<?php echo $row['lon']?>" destlat="<?php echo $row['lat']?>">
       //var str="<?php echo $row['name']?>"+": "+"<?php echo $row['lon']?>"+", "+"<?php echo $row['lat']?>";
       //alert(str);
+	  	localStorage.setItem("destlat", <?php echo $row['lat']?>);
+		 localStorage.setItem("destlon", <?php echo $row['lon']?>);
     </script>
     <?php
 }
@@ -469,7 +487,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM shortest where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<$row['nPoints']-1;$x++){
+				for($x=1;$x<$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -496,7 +514,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM tunnel where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=1;$x<$row['nPoints']-1;$x++){
+				for($x=1;$x<$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -523,7 +541,7 @@ if(isset($_POST['array'])){
 			$query3="SELECT * FROM outdoor where name='$element'";
 			$query_run3=mysqli_query($conn,$query3);
 			while($row=mysqli_fetch_array($query_run3)){
-				for($x=0;$x<$row['nPoints'];$x++){
+				for($x=1;$x<=$row['nPoints'];$x++){
 					array_push($data,$row['p'.$x]);
 				}
 			}
@@ -542,11 +560,14 @@ if(isset($_POST['array'])){
 				}
 			}
 			array_push($points2,$points);
+
 		}
 	}
 	  ?>
   <script>
-var str1=<?php echo json_encode($points2); ?>;
+   let option1=localStorage.getItem("OP");
+   var str1;
+   str1=<?php echo json_encode($points2); ?>;
   let minD=Number.MAX_VALUE;
   let minI=-1;
   let index1=0;
@@ -568,10 +589,17 @@ var str1=<?php echo json_encode($points2); ?>;
     }
     index1+=1;
   }
- let minArray=str1[minI];
+  let minArray=str1[minI];
   let minArraySize=minArray.length;
-  let startlat=document.getElementById("s").getAttribute("startlat");
-  let startlon=document.getElementById("s").getAttribute("startlon");
+  let startlat;
+  let startlon;
+  if(option1=="outdoor"){
+  startlat=minArray[0][0];
+  startlon=minArray[0][1];
+  }else{
+  startlat=localStorage.getItem("startlat");
+  startlon=localStorage.getItem("startlon");
+  }
   dis=0;
   //L.marker(startlat,startlon).addTo(map).bindPopup(document.getElementById("s").getAttribute("startname")).openPopup();
   for(var x of minArray){
@@ -584,27 +612,128 @@ var str1=<?php echo json_encode($points2); ?>;
     startlon=x[1];
   }
   //L.marker(document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon")).addTo(map).bindPopup(document.getElementById("d").getAttribute("destname")).openPopup();
-  getRoute(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
-  dis+=distance(startlat,startlon,document.getElementById("d").getAttribute("destlat"),document.getElementById("d").getAttribute("destlon"));
-
+  if(option1=="outdoor"){
+	  getRoute(startlat,startlon,minArray[minArraySize-1][0],minArray[minArraySize-1][1]);
+	  dis+=distance(startlat,startlon,minArray[minArraySize-1][0],minArray[minArraySize-1][1]);
+  }
+  else{
+  getRoute(startlat,startlon,localStorage.getItem("destlat"),localStorage.getItem("destlon"));
+  dis+=distance(startlat,startlon,localStorage.getItem("destlat"),localStorage.getItem("destlon"));
+  }
+  var sname=localStorage.getItem("startname");
+  var dname=localStorage.getItem("destname");
   var time1 = Math.ceil((dis * 60)/4828.03);
-  var info1 = "<b>"+document.getElementById("s").getAttribute("startname")+" to "+document.getElementById("d").getAttribute("destname")+":</b><br>";
+  var info1 = "<b>"+sname+" to "+dname+":</b><br>";
   var info = "Distance: " + dis + "m <br>Estimate walking time: " + time1 + "min";
+  var info2="";
+  var info3="";
+  var current_t = new Date();
+  var c_h=current_t.getHours();
+  var c_m=checkTime(current_t.getMinutes());
+  var h =current_t.getHours();
+  var m =current_t.getMinutes()+time1;
+  if(checkMin(m)==true){
+  	m=m-60;
+    if((h+1)>=24){h="0"+(h+1-24);}else {h=h+1;}
+  }
+  m = checkTime(m);
+  info2="<br>Estimate arrival time: "+h + ":" + m ;
+function checkMin(i){
+	if (i>=60){return true;}
+    return false;
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};
+  return i;
+}
+  info3="<br>Current time: "+c_h + ":" +c_m ;
   document.getElementById("callout").innerHTML=info1;
   document.getElementById("callout").innerHTML+=info;
+  document.getElementById("callout").innerHTML+=info3;
+  document.getElementById("callout").innerHTML+=info2;
  </script>
-  <?php
+<?php
 }
+$db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+  $qry= mysqli_query($conn,"SELECT * FROM construction");
+  $loc_name="";
+  $con_result=[];
+  while ($result=mysqli_fetch_array($qry)){
+	  $loc_name=$result['location'];
+	  $mess=$result['message'];
+	  $temp=[];
+	  if($result['verify']==1){
+	  if($result['lat']==0&&$result['lon']==0){
+		 $db=mysqli_select_db($conn,"yingyinl_db");
+		 $q="SELECT * FROM locations where name='$loc_name'";
+		 $q_run=mysqli_query($conn,$q);
+		 while($row=mysqli_fetch_array($q_run)){
+			 $ck=0;
+
+			 foreach($con_result as &$value){
+				if(in_array($row['lat'],$value)&&in_array($row['lon'],$value)){
+				   $value[2]=$value[2].'<br/>'.$mess;
+				 $ck=1;
+				 break;
+				}
+			 }
+			 if($ck==0){
+			 $temp=[$row['lat'],$row['lon'],$mess];
+					array_push($con_result,$temp);
+			 }
+		 }
+		   $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
+	  }else{
+		  $ck=0;
+			 foreach($con_result as $value){
+				if(in_array($result['lat'],$value)&&in_array($result['lon'],$value)){
+				 $value[2]=$value[2]." ".$mess;
+				 $ck=1;
+				 break;
+				}
+			 }
+			 if(ck==0){
+		  		$temp=[$result['lat'],$result['lon'],$mess];
+				array_push($con_result,$temp);
+			 }
+	  }
+	}
+  }
+			$print=$con_result;	
+  	foreach ($print as $z){
+
+		$message=$z[2];
+			?>
+		 <script>
+		 var str= "<?php echo $message;?>";
+		 var ConIcon = L.icon({
+			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/pic/signs.png',
+			iconSize: [30, 30], 
+			});
+		 L.marker([<?php echo $z[0]; ?>,<?php echo $z[1]; ?>],{icon:ConIcon}).addTo(map).bindPopup(str);
+		 </script>
+		    <?php
+	} if(isset($sessionid)){ ?>
+    <script>
+    let id="<?php echo htmlspecialchars($sessionid);?>";
+	let route5="<?php echo htmlspecialchars($sessionroute);?>";
+  if(id!=""){
+    var box = document.getElementById("options");
+    box.value=route5;
+      }
+    </script>
+    <?php
+  }
 ?>
 
 <script>
 if(document.getElementById("s")!=null){
-  var clat = document.getElementById("s").getAttribute("startlat");
-  var clon = document.getElementById("s").getAttribute("startlon");
-  var cname= document.getElementById("s").getAttribute("startname");
-  var dlat = document.getElementById("d").getAttribute("destlat");
-  var dlon = document.getElementById("d").getAttribute("destlon");
-  var dname= document.getElementById("d").getAttribute("destname");
+  var clat = localStorage.getItem("startlat");
+  var clon = localStorage.getItem("startlon");
+  var cname= localStorage.getItem("startname");
+  var dlat = localStorage.getItem("destlat");
+  var dlon = localStorage.getItem("destlon");
+  var dname= localStorage.getItem("destname");
   if(cname&&dname){
    // getRoute(clat,clon,cname,dlat,dlon,dname);
 
@@ -615,9 +744,18 @@ if(document.getElementById("s")!=null){
     L.marker([dlat,dlon]).addTo(map).bindPopup(test_dname).openPopup();
   }
 }
-
 </script>
 
-</body>
+<script type="text/javascript">
+   function nav() {
+   var x = document.getElementById("top");
+   if (x.className === "top") {
+     x.className += " responsive";
+   } else {
+     x.className = "top";
+   }
+ }
+ </script>
 
+</body>
 </html>

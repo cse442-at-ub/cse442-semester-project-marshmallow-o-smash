@@ -18,7 +18,7 @@
   <div id="result"></div>
 
   <script>
-
+  document.getElementById("options").selectedIndex = 1;
 
   function changeFunc(){
     var box = document.getElementById("options");
@@ -51,7 +51,7 @@
   }
 
   let result = document.getElementById("result");
-  let array = BFS(outdoorDict,"Bissell Hall","Furnas Hall");
+  let array = BFS(outdoorDict,"OBrian Hall","Baldy Hall");
 //    result.innerHTML=addTo(BFS(outdoorDict,"Bookstore","Cooke Hall"));
   result.innerHTML=array[0];
   </script>

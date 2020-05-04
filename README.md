@@ -8,7 +8,8 @@ To see the website, go to [UB North Campus Navigation](https://www-student.cse.b
 
 **Built With:**
 ----------------
-OpenStreetMap API
+OpenStreetMap API.  
+LeafLet API.  
 
 **Versioning:**
 ----------------
@@ -16,4 +17,5 @@ For the versions available, see the tags on this repository.
 
 **Acknowledgments:**
 ---------------------
-Contributors to OpenStreetMap.
+Contributors to OpenStreetMap.  
+Contributors to LeatLet.
