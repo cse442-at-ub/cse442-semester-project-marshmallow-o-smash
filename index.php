@@ -39,7 +39,7 @@ iframe{
 
 .header {
   background-color: #176BE2;
-  padding: 8px;
+  padding: 7px;
   text-align: center;
   position: fixed;
   z-index: 1;
@@ -62,7 +62,7 @@ ul {
 top {
   transform:translate(0px,95px);
   list-style-type: none;
-  overflow: show;
+  overflow: hidden;
   background-color: #173660;
   position: fixed;
   width: 100%;
@@ -84,7 +84,10 @@ li a {
 li a:hover {
   background-color: #111;
 }
-
+@media screen and (max-width: 600px) {
+  top li.right, 
+  top li {float: none;}
+}
 .topnav .search-container input {
   padding: 10px 10px;
   margin-top: 3px;
@@ -177,11 +180,13 @@ li a:hover {
   <?php
   session_start();
   $sessionid=$_SESSION['did'];
+  $sessionroute=$_SESSION['route'];
   ?>
 <div class="header">
   <h1 style="color: White;">UB North Campus Navigation</h1>
 </div>
 <top id="top">
+  <li id="li3"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Construction Report</a></li>
   <li id="li1"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up</a></li>
   <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">Log In</a></li>
   <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
@@ -665,12 +670,22 @@ function checkTime(i) {
  </script>
   <?php
 }
-  if(isset($sessionid)){ ?>
+  if(isset($sessionid)){
+    if(isset($sessionroute)&&$sessionroute!=""){
+      ?>
+     <script>
+      let route5="<?php echo $sessionroute;?>";
+      if(route5=="shortest") document.getElementById("options").selectedIndex = 0;
+      if(route5=="outdoor") document.getElementById("options").selectedIndex = 1;
+      if(route5=="tunnel") document.getElementById("options").selectedIndex = 2;
+      </script>
+      <?php
+    }
+    ?>
     <script>
     let id="<?php echo htmlspecialchars($sessionid);?>";
   if(id!=""){
     var box = document.getElementById("options");
-    box.value="tunnel";
       let a = document.createElement("a");
       a.innerHTML="Welcome! "+id;
       a.href="account/account.php";
