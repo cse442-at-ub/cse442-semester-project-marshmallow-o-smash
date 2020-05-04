@@ -667,12 +667,12 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 		 $db=mysqli_select_db($conn,"yingyinl_db");
 		 $q="SELECT * FROM locations where name='$loc_name'";
 		 $q_run=mysqli_query($conn,$q);
-		 
 		 while($row=mysqli_fetch_array($q_run)){
 			 $ck=0;
+
 			 foreach($con_result as &$value){
 				if(in_array($row['lat'],$value)&&in_array($row['lon'],$value)){
-				   $value[2]=$value[2]." ".$mess;
+				   $value[2]=$value[2].'<br/>'.$mess;
 				 $ck=1;
 				 break;
 				}
@@ -699,8 +699,9 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 	  }
 	}
   }
-			$print=$con_result;					 	
+			$print=$con_result;	
   	foreach ($print as $z){
+
 		$message=$z[2];
 			?>
 		 <script>
