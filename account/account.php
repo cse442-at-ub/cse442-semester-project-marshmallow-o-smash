@@ -6,87 +6,19 @@
 		if(checkLoginExpired()) {
 			header("Location: logout.php?session_expired=1");
 		}
-	}
+	}else{
+    echo "<script>alert('You\'re not logged-in!');
+    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php';
+    </script>";
+  }
 ?>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../style.css">
 	<title>My account</title>
-	<style>
-	body {
-	  margin: 0;
-	  height:100%;
-	  background-color: #D2E2F8;
-	}
-
-	.header {
-	  background-color: #176BE2;
-	  padding: 8px;
-	  text-align: center;
-	  position: fixed;
-	  z-index: 1;
-	  top: 0;
-	  left: 0;
-	  right: 0;
-	}
-
-	top {
-	  transform:translate(0px,95px);
-	  list-style-type: none;
-	  overflow: show;
-	  background-color: #173660;
-	  position: fixed;
-	  width: 100%;
-	  z-index: 1;
-	}
-
-	li {
-	  float: right;
-	  border-left:1px solid #bbb;
-	}
-
-	li a {
-	  display: block;
-	  color: white;
-	  text-align: center;
-	  padding: 14px 16px;
-	  text-decoration: none;
-	}
-
-	.buttons{
-	  position:fixed;
-	  top: 50%;
-	  left: 50%;
-	  width:30em;
-	  height:20em;
-	  margin-top: -9em;
-	  margin-left: -15em;
-	  border: 1px solid #ccc;
-	  background-color: #f3f3f3;
-	}
-
-	.buttons h1{
-	  text-align: center;
-	}
-
-	table, th, td {
-	  border: 1px solid black;
-	  border-collapse: collapse;
-	}
-	th, td {
-	  padding: 5px;
-	}
-	th {
-	  text-align: left;
-	}
-	table{
-		position:absolute;
-		transform: translate(-50%,-50%);
-		top: 50%;
-		left: 50%;
-	}
-	</style>
 </head>
 <body>
 	<?php
@@ -95,14 +27,20 @@
 		echo "<div class='header'>";
 		echo "<h1 style='color: White;'>UB North Campus Navigation</h1>";
 		echo "</div>";
-		echo "<top id='top'>";
-		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/logout.php".">Logout</a></li>";
-		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account_setting_page.php".">Settings</a></li>";
+
+		echo "<div class='top' id='top'>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/".">Home</a>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/logout.php".">Logout</a>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account_setting_page.php".">Settings</a>";
+
 		if($_SESSION['did']=='admin'){
-		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/inbox.php".">Inbox</a></li>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/inbox.php".">Inbox</a>";
 		}
-		echo "<li><a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/".">Home</a></li>";
-		echo "</top>";
+
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php".">Welcome, ".$_SESSION['did']."!</a>";
+		echo '<a href="javascript:void(0);" class="icon" onclick="nav()"><i class="fa fa-bars"></i></a>';
+		echo "</div>";
+
 		echo "<table>";
 		echo "<tr>";
 		echo "<th>Your Username:</th><td>".htmlspecialchars($_SESSION['did'])."</td>";
@@ -121,5 +59,15 @@
 
 	else {echo "You are not logged in.";}
 	?>
+	<script type="text/javascript">
+		function nav() {
+		var x = document.getElementById("top");
+		if (x.className === "top") {
+			x.className += " responsive";
+		} else {
+			x.className = "top";
+		}
+	}
+	</script>
 </body>
 </html>
