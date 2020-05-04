@@ -35,6 +35,7 @@ iframe{
   position: fixed;
 }
 
+
 ul {
   position: fixed;
   right: 0;
@@ -62,10 +63,7 @@ li a {
 li a:hover {
   background-color: #111;
 }
-@media screen and (max-width: 600px) {
-  top li.right, 
-  top li {float: none;}
-}
+
 .topnav .search-container input {
   padding: 10px 10px;
   margin-top: 3px;
@@ -158,7 +156,6 @@ li a:hover {
   session_start();
   $sessionid=$_SESSION['did'];
   $sessionroute=$_SESSION['route'];
-
   echo "<div class='header'>";
   echo "<h1 style='color: White;'>UB North Campus Navigation</h1>";
   echo "</div>";
@@ -179,7 +176,6 @@ li a:hover {
   echo '<a href="javascript:void(0);" class="icon" onclick="nav()"><i class="fa fa-bars"></i></a>';
   echo "</div>";
   ?>
-
 <div id="mapid"></div>
 <ul>
 <div class="topnav">
@@ -655,7 +651,7 @@ function checkTime(i) {
   document.getElementById("callout").innerHTML+=info;
   document.getElementById("callout").innerHTML+=info3;
   document.getElementById("callout").innerHTML+=info2;
-  
+ </script>
 <?php
 }
 $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
@@ -716,28 +712,13 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 		 L.marker([<?php echo $z[0]; ?>,<?php echo $z[1]; ?>],{icon:ConIcon}).addTo(map).bindPopup(str);
 		 </script>
 		    <?php
-	}
-
-  if(isset($sessionid)){
-    if(isset($sessionroute)&&$sessionroute!=""){
-      ?>
-     <script>
-      let route5="<?php echo $sessionroute;?>";
-      if(route5=="shortest") document.getElementById("options").selectedIndex = 0;
-      if(route5=="outdoor") document.getElementById("options").selectedIndex = 1;
-      if(route5=="tunnel") document.getElementById("options").selectedIndex = 2;
-      </script>
-      <?php
-    }
-    ?>
+	} if(isset($sessionid)){ ?>
     <script>
     let id="<?php echo htmlspecialchars($sessionid);?>";
 	let route5="<?php echo htmlspecialchars($sessionroute);?>";
   if(id!=""){
     var box = document.getElementById("options");
-
     box.value=route5;
-
       }
     </script>
     <?php
