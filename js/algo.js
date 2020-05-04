@@ -25,7 +25,6 @@
     let queue=[];
     let ret=[];
     let index=0;
-    alert(1);
     for(var key in dict){
       parent[key]="";
       pair[key]=index;

@@ -22,7 +22,7 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
     $dpwd=$row['pwd'];
     $did=$row['userid'];
     $demail=$row['email'];
-    $droute=$row['route'];
+    $droute=$row['option1'];
   }
   if(!$arr) $message= "Username or Password incorrect";
   else {
@@ -30,8 +30,8 @@ if(isset($_POST['userid'])&&isset($_POST['pwd'])){
         $message=  "Username or Password incorrect";
     }
     else if(password_verify($pwd,$dpwd) && $did==$id){
-		$_SESSION['did']=$id;
-		$_SESSION['dpwd']=$pwd;
+		$_SESSION['did']=$did;
+		$_SESSION['dpwd']=$dpwd;
 		$_SESSION['demail']=$demail;
     $_SESSION['route']=$droute;
 		$_SESSION['login_time'] = time();

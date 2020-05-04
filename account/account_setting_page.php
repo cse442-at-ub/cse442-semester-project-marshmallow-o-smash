@@ -6,76 +6,22 @@
 <meta name="description" content="UB North Campus Navigation for shortest, outdoor, and tunnel routes">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../style.css">
 
 <style>
-body {
-  margin: 0;
-  height:100%;
-  background-color: #D2E2F8;
-}
 
-.header {
-  background-color: #176BE2;
-  padding: 8px;
-  text-align: center;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 
-top {
-  transform:translate(0px,95px);
-  list-style-type: none;
-  overflow: show;
-  background-color: #173660;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-}
-
-li {
-  float: right;
-  border-left:1px solid #bbb;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
 
 .buttons{
-  position:fixed;
-  top: 50%;
-  left: 50%;
-  width:30em;
-  height:20em;
-  margin-top: -9em;
-  margin-left: -15em;
+
+  width:300px;
+  height:300px;
+
   border: 1px solid #ccc;
   background-color: #f3f3f3;
 }
 
-/* .input-box{
-  boarder-radius: 25px;
-  boarder: 2px solid #609;
-  padding: 18px;
-  width: 200px;
-  height:7px;
-}
-.drop-box{
-  boarder-radius: 25px;
-  boarder: 2px solid #609;
-  padding: 18px;
-  width: 200px;
-  height:7px;
-} */
 
 .sbutton{
   background-color: color:#000;
@@ -85,7 +31,14 @@ li a {
   text-align: center;
 }
 
+table{
+  height:auto;
+  width: auto;
 
+}
+table,td,td{
+  border:none;
+}
 </style>
 </head>
 
@@ -94,10 +47,14 @@ li a {
   <div class="header">
     <h1 style="color: White;">UB North Campus Navigation</h1>
   </div>
-  <top id="top">
-    <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
-    <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
-  </top>
+  <div class="top" id="top">
+<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/" >Home</a>
+<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a>
+<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a>
+<a href="javascript:void(0);" class="icon" onclick="nav()">
+  <i class="fa fa-bars"></i>
+</a>
+</div>
 
   <?php
 
@@ -109,7 +66,11 @@ li a {
   if(checkLoginExpired()) {
    header("Location: logout.php?session_expired=1");
   }
- }
+}else{
+  echo "<script>alert('You\'re not logged-in!');
+  window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php';
+  </script>";
+}
   if(isset($_SESSION['did'])&&$_SESSION['dpwd']){
     $message=$_SESSION['message'];
     if($message!=""){
@@ -157,13 +118,20 @@ li a {
         </table>
       </form>
   </div>
+
 <script>
     let id="<?php echo htmlspecialchars($sessionid);?>"; let a = document.createElement("a");
     a.innerHTML="Welcome! "+id;
     a.href="account.php";
-    let ele=document.createElement("li");
-    ele.appendChild(a);
-    document.getElementById("top").appendChild(ele);
+    document.getElementById("top").appendChild(a);
+      function nav() {
+      var x = document.getElementById("top");
+      if (x.className === "top") {
+        x.className += " responsive";
+      } else {
+        x.className = "top";
+      }
+    }
 
 </script>
 

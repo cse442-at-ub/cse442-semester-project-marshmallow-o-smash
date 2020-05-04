@@ -16,6 +16,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="js/dist.js"></script>
 <script src="js/shortest.js"></script>
@@ -24,11 +26,7 @@
 <script src="js/tunnel.js"></script>
 <script src="js/GPS.js"></script>
 <style>
-body {
-  margin: 0;
-  height:100%;
-  background-color: #D2E2F8;
-}
+
 iframe{
   float:left;
   width: 100%;
@@ -37,37 +35,17 @@ iframe{
   position: fixed;
 }
 
-.header {
-  background-color: #176BE2;
-  padding: 7px;
-  text-align: center;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 ul {
   position: fixed;
   right: 0;
-  top:100px;
   list-style-type: none;
-  margin-top: 50px;
   padding: 0;
   min-width: 10%;
   background-color: transparent;
   overflow: auto;
   text-align: center;
 }
-top {
-  transform:translate(0px,95px);
-  list-style-type: none;
-  overflow: hidden;
-  background-color: #173660;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-}
+
 li {
   float: right;
   border-left:1px solid #bbb;
@@ -114,10 +92,9 @@ li a:hover {
 #mapid {
   /*display: flex;*/
   width: 100%;
-  top: 90px;
   height: 100%;
   position: fixed;
-  transform:translate(0px,45px);
+
 
 }
 .selectbar{
@@ -181,17 +158,28 @@ li a:hover {
   session_start();
   $sessionid=$_SESSION['did'];
   $sessionroute=$_SESSION['route'];
+
+  echo "<div class='header'>";
+  echo "<h1 style='color: White;'>UB North Campus Navigation</h1>";
+  echo "</div>";
+  echo "<div class='top' id='top'>";
+  echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/".">Home</a>";
+  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a>';
+  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a>';
+  echo	'<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Construction Report</a>';
+  if(isset($_SESSION['did'])){
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/logout.php".">Logout</a>";
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account_setting_page.php".">Settings</a>";
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php".">Welcome, ".$_SESSION['did']."!</a>";
+  }
+  else{
+    echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up</a>
+    <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">Log In</a>';
+  }
+  echo '<a href="javascript:void(0);" class="icon" onclick="nav()"><i class="fa fa-bars"></i></a>';
+  echo "</div>";
   ?>
-<div class="header">
-  <h1 style="color: White;">UB North Campus Navigation</h1>
-</div>
-<top id="top">
-  <li id="li3"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Construction Report</a></li>
-  <li id="li1"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up</a></li>
-  <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">Log In</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
-</top>
+
 <div id="mapid"></div>
 <ul>
 <div class="topnav">
@@ -390,7 +378,7 @@ if(isset($_POST['search'])){
     ?>
   <script>
     var str="Not valid string inputs. Please reenter."
-      alert(str);
+     alert(str);
   </script>
   <?php
   }
@@ -684,18 +672,12 @@ function checkTime(i) {
     ?>
     <script>
     let id="<?php echo htmlspecialchars($sessionid);?>";
+	let route5="<?php echo htmlspecialchars($sessionroute);?>";
   if(id!=""){
     var box = document.getElementById("options");
-      let a = document.createElement("a");
-      a.innerHTML="Welcome! "+id;
-      a.href="account/account.php";
-      let ele=document.createElement("li");
-      ele.appendChild(a);
-        document.getElementById("top").appendChild(ele);
-        let element = document.getElementById("li1");
-        element.parentNode.removeChild(element);
-        let element2 = document.getElementById("li2");
-        element2.parentNode.removeChild(element2);
+
+    box.value=route5;
+
       }
     </script>
     <?php
@@ -722,7 +704,16 @@ if(document.getElementById("s")!=null){
 }
 </script>
 
-
+<script type="text/javascript">
+   function nav() {
+   var x = document.getElementById("top");
+   if (x.className === "top") {
+     x.className += " responsive";
+   } else {
+     x.className = "top";
+   }
+ }
+ </script>
 
 </body>
 </html>
