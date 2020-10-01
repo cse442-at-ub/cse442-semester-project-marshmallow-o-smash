@@ -15,7 +15,7 @@ var tunnelDict={
   "Furnas Hall":["Bell Hall","Jarvis Hall"],
   "Hochstetter Hall":["Cooke Hall","Natural Sciences Complex"],
   "Jacobs Management Center":["Alfiero Center","Park Hall"],
-  "Jarvis Hall":["Furnas Hall","Davis Hall"],
+  "Jarvis Hall":["Furnas Hall"],
   "Knox Lecture Hall":["Norton Hall","Student Union"],
   "Lockwood Library":["Baldy Hall","Clemens Hall","Student Union"],
   "Mathematics Building":["Natural Sciences Complex"],
