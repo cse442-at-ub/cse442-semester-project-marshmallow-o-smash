@@ -123,7 +123,7 @@
 			border: #22dd22 1px solid;
 			background: #d3f8d3;
 			padding: 5px 20px;
-		}	
+		}
 		@media screen and (max-width: 600px) {
 		  .col-25, .col-75, input[type=submit] {
 			width: 100%;
@@ -144,9 +144,9 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
 			<div class="message"> <h2>Thank You for Your Submission!</h2> <?php echo $message; ?> </div>
 	<?php } ?>
 	<br/>
-	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Submit Another Report.<a/><br/><br/>
-	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php">Back to Your Account.<a/><br/><br/>
-	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Back to Map.<a/><br/><br/>
+	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/report_form.php">Submit Another Report.<a/><br/><br/>
+	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/account.php">Back to Your Account.<a/><br/><br/>
+	Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/">Back to Map.<a/><br/><br/>
 </div>
 <?php
 } else if(isset($_SESSION['did'])){
@@ -242,8 +242,8 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['subject'
     <input type="submit" value="Submit">
   </div>
   </form>
-  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php">Back to Your Account.<a/><br/>
-  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">Back to Map.<a/><br/><br/>
+  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/account.php">Back to Your Account.<a/><br/>
+  Click here to <a href="http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/">Back to Map.<a/><br/><br/>
 </div>
 <script>
 	function loc(){

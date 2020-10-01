@@ -160,18 +160,18 @@ li a:hover {
   echo "<h1 style='color: White;'>UB North Campus Navigation</h1>";
   echo "</div>";
   echo "<div class='top' id='top'>";
-  echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/".">Home</a>";
-  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a>';
-  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a>';
-  echo	'<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/report_form.php">Construction Report</a>';
+  echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/".">Home</a>";
+  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/Contact">Contact Us</a>';
+  echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/About_Us">About Us</a>';
+  echo	'<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/report_form.php">Construction Report</a>';
   if(isset($_SESSION['did'])){
-    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/logout.php".">Logout</a>";
-    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account_setting_page.php".">Settings</a>";
-    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php".">Welcome, ".$_SESSION['did']."!</a>";
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/logout.php".">Logout</a>";
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/account_setting_page.php".">Settings</a>";
+    echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/account.php".">Welcome, ".$_SESSION['did']."!</a>";
   }
   else{
-    echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up</a>
-    <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">Log In</a>';
+    echo '<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/signup.php">Sign Up</a>
+    <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/login.php">Log In</a>';
   }
   echo '<a href="javascript:void(0);" class="icon" onclick="nav()"><i class="fa fa-bars"></i></a>';
   echo "</div>";
@@ -208,6 +208,7 @@ li a:hover {
 			<option value="Cooke Hall">
 			<option value="Davis Hall">
 			<option value="Fronczak Hall">
+      <option value="Furnas Hall">
 			<option value="Hochstetter Hall">
 			<option value="Jacobs Management Center">
 			<option value="Jarvis Hall">
@@ -699,7 +700,7 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 	  }
 	}
   }
-			$print=$con_result;	
+			$print=$con_result;
   	foreach ($print as $z){
 
 		$message=$z[2];
@@ -707,8 +708,8 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 		 <script>
 		 var str= "<?php echo $message;?>";
 		 var ConIcon = L.icon({
-			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/pic/signs.png',
-			iconSize: [30, 30], 
+			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/pic/signs.png',
+			iconSize: [30, 30],
 			});
 		 L.marker([<?php echo $z[0]; ?>,<?php echo $z[1]; ?>],{icon:ConIcon}).addTo(map).bindPopup(str);
 		 </script>

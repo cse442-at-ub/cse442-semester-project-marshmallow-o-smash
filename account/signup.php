@@ -86,7 +86,7 @@ padding: 5px 20px;
     <div class="header">
     	<div class = "signup_form">
         <div class="returnToHome">
-          <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">
+          <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/">
           <ion-icon name="home"></ion-icon>
           </a>
         </div>
@@ -110,7 +110,7 @@ padding: 5px 20px;
             </tr>
           </table>
           <hr>
-          <p><p>Already have an account? Click <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php">here</a> to log in.</p></p>
+          <p><p>Already have an account? Click <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/login.php">here</a> to log in.</p></p>
         </form>
   	   </div>
      </div>

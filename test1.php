@@ -182,11 +182,11 @@ li a:hover {
   <h1 style="color: White;">UB North Campus Navigation</h1>
 </div>
 <top id="top">
-  <li id="li1"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/signup.php">Sign Up</a></li>
-  <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/login.php">Log In</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a></li>
-  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a></li>
-  <li id="li3"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/report_form.php">Construction Report</a></li>
+  <li id="li1"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/signup.php">Sign Up</a></li>
+  <li id="li2"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/login.php">Log In</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/Contact">Contact Us</a></li>
+  <li><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/About_Us">About Us</a></li>
+  <li id="li3"><a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/report_form.php">Construction Report</a></li>
 </top>
 <div id="mapid"></div>
 <ul>
@@ -366,7 +366,7 @@ function addTo(arr){
     return ret;
   }
 </script>
-  
+
 <?php
 $conn= mysqli_connect("tethys.cse.buffalo.edu:3306","yingyinl","50239602");
 if ($conn->connect_error) {
@@ -575,7 +575,7 @@ if(isset($_POST['array'])){
 
 		}
 	}
-  
+
 	  ?>
   <script>
    let option1=localStorage.getItem("OP");
@@ -680,7 +680,7 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 		 $db=mysqli_select_db($conn,"yingyinl_db");
 		 $q="SELECT * FROM locations where name='$loc_name'";
 		 $q_run=mysqli_query($conn,$q);
-		 
+
 		 while($row=mysqli_fetch_array($q_run)){
 			 $ck=0;
 			 foreach($con_result as &$value){
@@ -712,22 +712,22 @@ $db2=mysqli_select_db($conn,"cse442_542_2020_spring_teamt_db");
 	  }
 	}
   }
-			$print=$con_result;					 	
+			$print=$con_result;
   	foreach ($print as $z){
 		$message=$z[2];
 			?>
 		 <script>
 		 var str= "<?php echo $message;?>";
 		 var ConIcon = L.icon({
-			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/pic/signs.png',
-			iconSize: [30, 30], 
+			iconUrl: 'https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/pic/signs.png',
+			iconSize: [30, 30],
 			});
 		 L.marker([<?php echo $z[0]; ?>,<?php echo $z[1]; ?>],{icon:ConIcon}).addTo(map).bindPopup(str).openPopup();
 		 </script>
 		    <?php
 	}
 
-	
+
   if(isset($sessionid)){
 	  ?>
     <script>

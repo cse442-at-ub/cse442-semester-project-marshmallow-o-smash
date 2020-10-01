@@ -5,7 +5,7 @@
 	if(isset($_SESSION['did'])){
 		if($_SESSION['did']!='admin'){
 			echo "<script>alert('You\'re not authorized!');
-	    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php';
+	    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/login.php';
 	    </script>";
 		}
 
@@ -14,7 +14,7 @@
 		}
 	}else{
     echo "<script>alert('You\'re not logged-in!');
-    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php';
+    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/login.php';
     </script>";
   }
 ?>
@@ -33,10 +33,10 @@
 		echo "<h1 style='color: White;'>UB North Campus Navigation</h1>";
 		echo "</div>";
 		echo "<div class='top' id='top'>";
-		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/".">Home</a>";
-		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/logout.php".">Logout</a>";
-		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account_setting_page.php".">Settings</a>";
-		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/account.php".">Welcome, ".$_SESSION['did']."!</a>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/".">Home</a>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/logout.php".">Logout</a>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/account_setting_page.php".">Settings</a>";
+		echo "<a href="."https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/account.php".">Welcome, ".$_SESSION['did']."!</a>";
 		echo '<a href="javascript:void(0);" class="icon" onclick="nav()"><i class="fa fa-bars"></i></a>';
 		echo "</div>";
 

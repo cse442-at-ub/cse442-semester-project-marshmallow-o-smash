@@ -48,9 +48,9 @@ table,td,td{
     <h1 style="color: White;">UB North Campus Navigation</h1>
   </div>
   <div class="top" id="top">
-<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/" >Home</a>
-<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/Contact">Contact Us</a>
-<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/About_Us">About Us</a>
+<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/" >Home</a>
+<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/Contact">Contact Us</a>
+<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/About_Us">About Us</a>
 <a href="javascript:void(0);" class="icon" onclick="nav()">
   <i class="fa fa-bars"></i>
 </a>
@@ -68,7 +68,7 @@ table,td,td{
   }
 }else{
   echo "<script>alert('You\'re not logged-in!');
-  window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php';
+  window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/login.php';
   </script>";
 }
   if(isset($_SESSION['did'])&&$_SESSION['dpwd']){

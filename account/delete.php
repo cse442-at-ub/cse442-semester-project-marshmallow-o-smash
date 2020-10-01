@@ -5,7 +5,7 @@
 	if(isset($_SESSION['did'])){
 		if($_SESSION['did']!='admin'){
 			echo "<script>alert('You\'re not authorized!');
-	    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php';
+	    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/login.php';
 	    </script>";
 		}
 
@@ -14,7 +14,7 @@
 		}
 	}else{
     echo "<script>alert('You\'re not logged-in!');
-    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/login.php';
+    window.location.href='https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/login.php';
     </script>";
   }
 

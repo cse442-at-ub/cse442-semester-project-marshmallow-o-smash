@@ -113,7 +113,7 @@ if(isset($_SESSION['did'])){
     <div class="box">
       <div class ="header">
         <div class="returnToHome">
-          <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/">
+          <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/">
           <ion-icon name="home"></ion-icon>
         </a>
         </div>
@@ -138,7 +138,7 @@ if(isset($_SESSION['did'])){
 			?>
 		</div>
 		<p> Don't have an account yet?</p>
-		<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442t/account/signup.php">Sign Up Here</a>
+		<a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442t/account/signup.php">Sign Up Here</a>
         </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
